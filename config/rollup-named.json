@@ -1,0 +1,76 @@
+{
+  "node_modules/chai/index.js": [
+    "expect",
+    "use"
+  ],
+  "node_modules/deep-diff/index.js": [
+    "applyDiff",
+    "diff"
+  ],
+  "node_modules/lodash/lodash.js": [
+    "cloneDeep",
+    "defaultTo",
+    "flatten",
+    "intersection",
+    "isBoolean",
+    "isFunction",
+    "isMap",
+    "isNil",
+    "isObject",
+    "isString",
+    "kebabCase",
+    "merge",
+    "remove"
+  ],
+  "node_modules/minimatch/minimatch.js": [
+    "Minimatch"
+  ],
+  "node_modules/noicejs/out/main-bundle.js": [
+    "BaseError",
+    "ConsoleLogger",
+    "NullLogger",
+    "logWithLevel"
+  ],
+  "node_modules/js-yaml/index.js": [
+    "DEFAULT_SAFE_SCHEMA",
+    "SAFE_SCHEMA",
+    "safeDump",
+    "safeLoad",
+    "safeLoadAll",
+    "Schema",
+    "Type"
+  ],
+  "node_modules/yargs/index.js": [
+    "showCompletionScript",
+    "usage"
+  ],
+  "node_modules/phaser/src/phaser.js": [
+    "AUTO",
+    "WEBGL",
+    "Cameras",
+    "Game",
+    "Input",
+    "Math",
+    "Renderer",
+    "Scene"
+  ],
+  "node_modules/react/index.js": [
+    "useState",
+    "useRef",
+    "useMemo",
+    "useEffect",
+    "useCallback",
+    "useDebugValue",
+    "memo",
+    "forwardRef",
+    "Component",
+    "PureComponent",
+    "createElement"
+  ],
+  "node_modules/react-dom/index.js": [
+    "unstable_batchedUpdates"
+  ],
+  "node_modules/seedrandom/index.js": [
+    "alea"
+  ]
+}

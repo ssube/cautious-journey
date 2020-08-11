@@ -1,0 +1,81 @@
+include:
+  - local: /config/gitlab/ci-tools.yml
+  - local: /config/gitlab/ci-rules.yml
+
+stages:
+  - status-pre
+  - build
+  - image
+  - publish
+  - status-post
+
+# build jobs
+build-node:
+  stage: build
+  extends:
+    - .build-node
+
+  script:
+    - make ci
+
+  artifacts:
+    when: always
+    expire_in: 1 day
+    paths:
+      - out/
+
+  cache:
+    key: "${CI_COMMIT_REF_SLUG}"
+    policy: pull-push
+    paths:
+      - node_modules/
+      - out/api
+      - out/cache
+      - out/tmp
+
+# deploy jobs
+deploy-test:
+  stage: publish
+  extends:
+    - .build-aws
+  except:
+    - master
+  script:
+    - make deploy
+  variables:
+    DEPLOY_BUCKET: "game-mtmb-test"
+
+deploy-prod:
+  stage: publish
+  extends:
+    - .build-aws
+  only:
+    - master
+  script:
+    - make deploy
+  variables:
+    DEPLOY_BUCKET: "game-mtmb-test"
+
+# commit status
+github-pending:
+  stage: status-pre
+  extends:
+    - .build-curl
+  script:
+    - ./scripts/github-status.sh pending
+
+github-failure:
+  stage: status-post
+  extends:
+    - .build-curl
+  when: on_failure
+  script:
+    - ./scripts/github-status.sh failure
+
+github-success:
+  stage: status-post
+  extends:
+    - .build-curl
+  when: on_success
+  script:
+    - ./scripts/github-status.sh success
