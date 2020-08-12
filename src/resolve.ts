@@ -1,4 +1,4 @@
-import { ConfigData } from './config';
+import { FlagLabel, StateLabel } from './labels';
 
 /**
  * How a label changed.
@@ -22,9 +22,9 @@ export interface ChangeRecord {
  * Collected inputs for a resolver run.
  */
 export interface ResolveInput {
-  config: ConfigData;
-  issue: string;
+  flags: Array<FlagLabel>;
   labels: Array<string>;
+  states: Array<StateLabel>;
 }
 
 /**
@@ -39,7 +39,7 @@ export interface ResolveResult {
 export function resolveLabels(options: ResolveInput): ResolveResult {
   const activeLabels = new Set(options.labels);
 
-  const sortedFlags = options.config.flags.sort((a, b) => a.priority - b.priority);
+  const sortedFlags = options.flags.sort((a, b) => a.priority - b.priority);
   for (const flag of sortedFlags) {
     const { name } = flag;
     if (activeLabels.has(name)) {
@@ -48,7 +48,7 @@ export function resolveLabels(options: ResolveInput): ResolveResult {
     }
   }
 
-  const sortedStates = options.config.states.sort((a, b) => a.priority - b.priority);
+  const sortedStates = options.states.sort((a, b) => a.priority - b.priority);
   for (const state of sortedStates) {
     for (const value of state.values) {
       const name = `${state.name}/${value.name}`;

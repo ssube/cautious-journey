@@ -22,6 +22,11 @@ export interface LabelUpdate extends LabelQuery {
   desc: string;
 }
 
+export interface RemoteOptions {
+  data: Record<string, string>;
+  type: string;
+}
+
 /**
  * Basic functions which every remote API must provide.
  */
@@ -62,9 +67,14 @@ export interface Remote {
   listLabels(): Promise<Array<LabelUpdate>>;
 
   /**
-   * Set labels on an issue.
+   * Update an issue.
+   *
+   * Only labels will be modified.
    */
   updateIssue(options: IssueUpdate): Promise<IssueUpdate>;
 
+  /**
+   * Update a label.
+   */
   updateLabel(options: LabelUpdate): Promise<LabelUpdate>;
 }

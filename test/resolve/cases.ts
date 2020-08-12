@@ -8,18 +8,36 @@ export interface ResolveTestCase {
 
 export const TEST_CASES: Array<ResolveTestCase> = [{
   input: {
-    config: {
-      colors: [],
-      flags: [],
-      states: [],
-    },
-    issue: '',
+    flags: [],
     labels: [],
+    states: [],
   },
-  name: 'test-1',
+  name: 'empty',
   result: {
     changes: [],
     errors: [],
     labels: [],
+  },
+}, {
+  input: {
+    flags: [{
+      adds: [],
+      name: 'test',
+      priority: 1,
+      removes: [],
+      requires: [],
+    }],
+    labels: [
+      'test',
+    ],
+    states: [],
+  },
+  name: 'basic flags',
+  result: {
+    changes: [],
+    errors: [],
+    labels: [
+      'test',
+    ],
   },
 }];

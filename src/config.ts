@@ -1,4 +1,5 @@
 import { FlagLabel, StateLabel } from './labels';
+import { RemoteOptions } from './remote';
 
 /**
  * Config data for the app, loaded from CLI or DOM.
@@ -15,6 +16,11 @@ export interface ConfigData {
   flags: Array<FlagLabel>;
 
   /**
+   * Remote APIs.
+   */
+  remotes: Array<RemoteOptions>;
+
+  /**
    * Grouped state labels.
    */
   states: Array<StateLabel>;
@@ -29,6 +35,7 @@ export function initConfig(): ConfigData {
   return {
     colors: [],
     flags: [],
+    remotes: [],
     states: [],
   };
 }

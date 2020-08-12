@@ -4,9 +4,27 @@
 
 ## cautious-journey package
 
+## Classes
+
+|  Class | Description |
+|  --- | --- |
+|  [GithubRemote](./cautious-journey.githubremote.md) | Github/Octokit API implementation of the <code>Remote</code> contract. |
+|  [GitlabRemote](./cautious-journey.gitlabremote.md) | Gitlab API implementation of the <code>Remote</code> contract. |
+
 ## Functions
 
 |  Function | Description |
 |  --- | --- |
 |  [resolveLabels(options)](./cautious-journey.resolvelabels.md) |  |
+|  [syncIssues(options)](./cautious-journey.syncissues.md) |  |
+|  [syncLabels(options)](./cautious-journey.synclabels.md) |  |
+
+## Interfaces
+
+|  Interface | Description |
+|  --- | --- |
+|  [FlagLabel](./cautious-journey.flaglabel.md) | Individual labels: the equivalent of a checkbox. |
+|  [Remote](./cautious-journey.remote.md) | Basic functions which every remote API must provide. |
+|  [RemoteOptions](./cautious-journey.remoteoptions.md) |  |
+|  [StateLabel](./cautious-journey.statelabel.md) | Grouped labels: the equivalent of a radio group. |
 
