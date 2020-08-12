@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+	<head>
+		<title>Mummies Took My Brunch</title>
+    <link rel="icon" href="images/mummy.png" />
+		<link rel="stylesheet" type="text/css" href="styles/main.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="styles/themes.css" media="screen" />
+	</head>
+	<body class="theme-desert viewport">
+		<div id="app-container"></div>
+		<script type="module">
+			import { main } from './main.js';
+			main([
+				'--config-name', 'mtmb-config',
+				'--config-path', 'data',
+				'--game', 'phaser-game-controller',
+			]).then((status) => {
+				console.log('exited', status);
+			});
+		</script>
+		<script type="application/yaml" id="data-mtmb-config">
+game:
+  dimensions:
+    x: 1024
+    y: 768
+  parent: game-viewport
+  title: Mummies Took My Brunch
+logger:
+  level: info
+  name: mtmb
+resources:
+  resources:
+    - key: base
+      path: base.yml
+		</script>
+	</body>
+</html>

@@ -1,0 +1,1 @@
+export { resolveLabels } from './resolve';
