@@ -11,7 +11,9 @@ export interface SyncOptions {
 }
 
 export async function syncIssues(options: SyncOptions): Promise<unknown> {
-  const issues = await options.remote.listIssues();
+  const issues = await options.remote.listIssues({
+    project: options.project,
+  });
 
   for (const issue of issues) {
     console.log('issue:', issue.name, issue.labels);
@@ -21,7 +23,9 @@ export async function syncIssues(options: SyncOptions): Promise<unknown> {
 }
 
 export async function syncLabels(options: SyncOptions): Promise<unknown> {
-  const labels = await options.remote.listLabels();
+  const labels = await options.remote.listLabels({
+    project: options.project,
+  });
 
   for (const label of labels) {
     console.log('label:', label.name);

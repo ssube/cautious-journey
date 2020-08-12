@@ -17,3 +17,4 @@ main(process.argv).then((status) => process.exit(status)).catch((err: Error) => 
   console.error('uncaught error during main:', err);
   process.exit(STATUS_ERROR);
 });
+

@@ -19,17 +19,26 @@ export declare class GithubRemote implements Remote
 |  --- | --- | --- |
 |  [(constructor)(options)](./cautious-journey.githubremote._constructor_.md) |  | Constructs a new instance of the <code>GithubRemote</code> class |
 
+## Properties
+
+|  Property | Modifiers | Type | Description |
+|  --- | --- | --- | --- |
+|  [options](./cautious-journey.githubremote.options.md) |  | [RemoteOptions](./cautious-journey.remoteoptions.md) |  |
+|  [request](./cautious-journey.githubremote.request.md) |  | Octokit |  |
+
 ## Methods
 
 |  Method | Modifiers | Description |
 |  --- | --- | --- |
+|  [connect()](./cautious-journey.githubremote.connect.md) |  |  |
 |  [createComment()](./cautious-journey.githubremote.createcomment.md) |  |  |
 |  [createLabel()](./cautious-journey.githubremote.createlabel.md) |  |  |
 |  [deleteLabel()](./cautious-journey.githubremote.deletelabel.md) |  |  |
 |  [getIssue()](./cautious-journey.githubremote.getissue.md) |  |  |
 |  [getLabel()](./cautious-journey.githubremote.getlabel.md) |  |  |
-|  [listIssues()](./cautious-journey.githubremote.listissues.md) |  |  |
-|  [listLabels()](./cautious-journey.githubremote.listlabels.md) |  |  |
+|  [listIssues(options)](./cautious-journey.githubremote.listissues.md) |  |  |
+|  [listLabels(options)](./cautious-journey.githubremote.listlabels.md) |  |  |
+|  [splitProject(project)](./cautious-journey.githubremote.splitproject.md) |  |  |
 |  [updateIssue()](./cautious-journey.githubremote.updateissue.md) |  |  |
 |  [updateLabel()](./cautious-journey.githubremote.updatelabel.md) |  |  |
 

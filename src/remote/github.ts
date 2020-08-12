@@ -1,14 +1,64 @@
-import { NotImplementedError } from '@apextoaster/js-utils';
+import { NotImplementedError, mustExist } from '@apextoaster/js-utils';
+import { createAppAuth } from '@octokit/auth-app';
+import { Octokit } from '@octokit/rest';
 
-import { IssueUpdate, LabelUpdate, Remote, RemoteOptions } from '.';
+import { IssueUpdate, LabelUpdate, Remote, RemoteOptions, ProjectQuery } from '.';
 
 /**
  * Github/Octokit API implementation of the `Remote` contract.
  */
 export class GithubRemote implements Remote {
+  protected options: RemoteOptions;
+  protected request?: Octokit;
+
   /* eslint-disable-next-line no-useless-constructor */
   constructor(options: RemoteOptions) {
-    // TODO: set up octokit API
+    this.options = options;
+  }
+
+  public async connect() {
+    /* eslint-disable-next-line no-console */
+    console.log('connecting to github', {
+      auth: this.options.data,
+      authStrategy: createAppAuth,
+    });
+
+    /*
+    const auth = createAppAuth({
+      id: parseInt(mustExist(this.options.data.id), 10),
+      privateKey: mustExist(this.options.data.privateKey),
+    });
+
+    const install = await auth({
+      installationId: parseInt(mustExist(this.options.data.installationId), 10),
+      type: 'installation',
+    });
+
+    this.request = new Octokit({
+      auth: install,
+      authStrategy: createAppAuth,
+    });
+    */
+
+    this.request = new Octokit({
+      auth: {
+        id: parseInt(mustExist(this.options.data.id), 10),
+        installationId: parseInt(mustExist(this.options.data.installationId), 10),
+        privateKey: mustExist(this.options.data.privateKey),
+      },
+      authStrategy: createAppAuth,
+    });
+  }
+
+  public async splitProject(project: string): Promise<{
+    owner: string;
+    repo: string;
+  }> {
+    const [owner, repo] = project.split('/');
+    return {
+      owner,
+      repo,
+    };
   }
 
   public async createComment() {
@@ -31,11 +81,27 @@ export class GithubRemote implements Remote {
     throw new NotImplementedError();
   }
 
-  public async listIssues(): Promise<Array<IssueUpdate>> {
-    throw new NotImplementedError();
+  public async listIssues(options: ProjectQuery): Promise<Array<IssueUpdate>> {
+    const path = await this.splitProject(options.project);
+    const repo = await mustExist(this.request).issues.listForRepo(path);
+
+    const issues: Array<IssueUpdate> = [];
+    for (const issue of repo.data) {
+      issues.push({
+        issue: issue.id.toString(10),
+        labels: issue.labels.map((l) => l.name),
+        name: issue.title,
+        project: options.project,
+      });
+    }
+
+    /* eslint-disable-next-line no-console */
+    console.log('list issues:', path, issues);
+
+    return issues;
   }
 
-  public async listLabels(): Promise<Array<LabelUpdate>> {
+  public async listLabels(options: ProjectQuery): Promise<Array<LabelUpdate>> {
     throw new NotImplementedError();
   }
 
