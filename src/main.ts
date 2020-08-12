@@ -1,6 +1,9 @@
+import { InvalidArgumentError } from '@apextoaster/js-utils';
+
 import { Commands, createParser } from './config/args';
 import { GithubRemote } from './remote/github';
 import { syncIssues, syncLabels, SyncOptions } from './sync';
+import { VERSION_INFO } from './version';
 
 export { FlagLabel, StateLabel } from './labels';
 export { Remote, RemoteOptions } from './remote';
@@ -17,24 +20,31 @@ export async function main(argv: Array<string>): Promise<number> {
   const parser = createParser((argMode) => mode = argMode as Commands);
   const args = parser.parse(argv.slice(SLICE_ARGS));
 
-  /* eslint-disable no-console */
-  console.log('mode:', mode);
-  console.log('args:', args);
-
   // load config
+  const config = {
+    colors: [],
+    flags: [],
+    remotes: [],
+    states: [],
+  };
+
+  /* eslint-disable-next-line no-console */
+  console.log({
+    args,
+    config,
+    mode,
+    version: VERSION_INFO,
+  });
+
   // create logger
   // create remote
+  const remote = new GithubRemote();
 
   // mode switch
   const options: SyncOptions = {
-    config: {
-      colors: [],
-      flags: [],
-      remotes: [],
-      states: [],
-    },
+    config,
     project: '',
-    remote: new GithubRemote(),
+    remote,
   };
   switch (mode) {
     case Commands.ISSUES:
@@ -44,7 +54,7 @@ export async function main(argv: Array<string>): Promise<number> {
       await syncLabels(options);
       break;
     default:
-      console.log('unknown command');
+      throw new InvalidArgumentError('unknown mode');
   }
 
   return 0;
