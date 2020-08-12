@@ -1,5 +1,6 @@
 import { InvalidArgumentError } from '@apextoaster/js-utils';
 
+import { ConfigData } from './config';
 import { Commands, createParser } from './config/args';
 import { GithubRemote } from './remote/github';
 import { syncIssues, syncLabels, SyncOptions } from './sync';
@@ -21,11 +22,17 @@ export async function main(argv: Array<string>): Promise<number> {
   const args = parser.parse(argv.slice(SLICE_ARGS));
 
   // load config
-  const config = {
-    colors: [],
-    flags: [],
-    remotes: [],
-    states: [],
+  const config: ConfigData = {
+    projects: [{
+      colors: [],
+      flags: [],
+      name: '',
+      remote: {
+        data: {},
+        type: '',
+      },
+      states: [],
+    }],
   };
 
   /* eslint-disable-next-line no-console */

@@ -5,25 +5,32 @@ import { RemoteOptions } from '../remote';
  * Config data for the app, loaded from CLI or DOM.
  */
 export interface ConfigData {
-  /**
-   * Color palette for labels without their own.
-   */
-  colors: Array<string>;
+  projects: Array<{
+    /**
+     * Color palette for labels without their own.
+     */
+    colors: Array<string>;
 
-  /**
-   * Individual flag labels.
-   */
-  flags: Array<FlagLabel>;
+    /**
+     * Individual flag labels.
+     */
+    flags: Array<FlagLabel>;
 
-  /**
-   * Remote APIs.
-   */
-  remotes: Array<RemoteOptions>;
+    /**
+     * Project name or path.
+     */
+    name: string;
 
-  /**
-   * Grouped state labels.
-   */
-  states: Array<StateLabel>;
+    /**
+     * Remote APIs.
+     */
+    remote: RemoteOptions;
+
+    /**
+     * Grouped state labels.
+     */
+    states: Array<StateLabel>;
+  }>;
 }
 
 /**
@@ -33,9 +40,15 @@ export interface ConfigData {
  */
 export function initConfig(): ConfigData {
   return {
-    colors: [],
-    flags: [],
-    remotes: [],
-    states: [],
+    projects: [{
+      colors: [],
+      flags: [],
+      name: '',
+      remote: {
+        data: {},
+        type: '',
+      },
+      states: [],
+    }],
   };
 }

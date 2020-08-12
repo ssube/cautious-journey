@@ -13,6 +13,12 @@ export declare class GitlabRemote implements Remote
 ```
 <b>Implements:</b> [Remote](./cautious-journey.remote.md)
 
+## Constructors
+
+|  Constructor | Modifiers | Description |
+|  --- | --- | --- |
+|  [(constructor)(options)](./cautious-journey.gitlabremote._constructor_.md) |  | Constructs a new instance of the <code>GitlabRemote</code> class |
+
 ## Methods
 
 |  Method | Modifiers | Description |
