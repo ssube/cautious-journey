@@ -2,11 +2,17 @@ import { usage } from 'yargs';
 
 import { VERSION_INFO } from '../version';
 
+export enum Commands {
+  UNKNOWN = 'unknown',
+  ISSUES = 'sync-issues',
+  LABELS = 'sync-labels',
+}
+
 interface Parser<TData> {
   parse(args: Array<string>): TData;
 }
 
-interface ParsedArgs {
+export interface ParsedArgs {
   remote: string;
 }
 
@@ -16,14 +22,14 @@ export function createParser(modeset: Modeback): Parser<ParsedArgs> {
   /* eslint-disable-next-line sonarjs/prefer-immediate-return */
   const parser = usage(`Usage: ${VERSION_INFO.package.name} <mode> [options]`)
     .command({
-      command: 'sync-issues',
-      describe: '',
-      handler: () => modeset('sync-issues'),
+      command: Commands.ISSUES,
+      describe: 'sync issue labels',
+      handler: () => modeset(Commands.ISSUES),
     })
     .command({
-      command: 'sync-labels',
-      describe: '',
-      handler: () => modeset('sync-labels'),
+      command: Commands.LABELS,
+      describe: 'sync project labels',
+      handler: () => modeset(Commands.LABELS),
     })
     .options({
       remote: {
