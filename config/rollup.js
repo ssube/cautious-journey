@@ -10,7 +10,6 @@ import replace from 'rollup-plugin-replace';
 import serve from 'rollup-plugin-serve';
 import { terser } from 'rollup-plugin-terser';
 import typescript from 'rollup-plugin-typescript2';
-import virtual from 'rollup-plugin-virtual';
 import visualizer from 'rollup-plugin-visualizer';
 import yaml from 'rollup-plugin-yaml';
 
@@ -111,12 +110,6 @@ const bundle = {
 				PACKAGE_VERSION: metadata.version,
 			},
 		}),
-		/*
-		virtual({
-			'universal-user-agent':
-				'export function getUserAgent() {return `Node.js/${process.version.substr(1)} (${process.platform}); ${process.arch})`}',
-		}),
-		*/
 		alias({
 			resolve: ['.tsx', '.ts'],
 			entries: {

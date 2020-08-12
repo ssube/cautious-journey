@@ -11,35 +11,11 @@ export class GithubRemote implements Remote {
   protected options: RemoteOptions;
   protected request?: Octokit;
 
-  /* eslint-disable-next-line no-useless-constructor */
   constructor(options: RemoteOptions) {
     this.options = options;
   }
 
   public async connect() {
-    /* eslint-disable-next-line no-console */
-    console.log('connecting to github', {
-      auth: this.options.data,
-      authStrategy: createAppAuth,
-    });
-
-    /*
-    const auth = createAppAuth({
-      id: parseInt(mustExist(this.options.data.id), 10),
-      privateKey: mustExist(this.options.data.privateKey),
-    });
-
-    const install = await auth({
-      installationId: parseInt(mustExist(this.options.data.installationId), 10),
-      type: 'installation',
-    });
-
-    this.request = new Octokit({
-      auth: install,
-      authStrategy: createAppAuth,
-    });
-    */
-
     this.request = new Octokit({
       auth: {
         id: parseInt(mustExist(this.options.data.id), 10),
@@ -94,9 +70,6 @@ export class GithubRemote implements Remote {
         project: options.project,
       });
     }
-
-    /* eslint-disable-next-line no-console */
-    console.log('list issues:', path, issues);
 
     return issues;
   }

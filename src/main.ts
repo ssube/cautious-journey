@@ -1,4 +1,8 @@
-import { InvalidArgumentError } from '@apextoaster/js-utils';
+import { InvalidArgumentError, isNil } from '@apextoaster/js-utils';
+import { createSchema } from '@apextoaster/js-yaml-schema';
+import { existsSync, readFileSync, realpathSync } from 'fs';
+import { DEFAULT_SAFE_SCHEMA, safeLoad } from 'js-yaml';
+import { join } from 'path';
 
 import { ConfigData } from './config';
 import { Commands, createParser } from './config/args';
@@ -15,25 +19,34 @@ export { syncIssues, syncLabels } from './sync';
 
 const SLICE_ARGS = 2;
 
+async function loadConfig(path: string): Promise<ConfigData> {
+  const schema = createSchema({
+    include: {
+      exists: existsSync,
+      join,
+      read: readFileSync,
+      resolve: realpathSync,
+      schema: DEFAULT_SAFE_SCHEMA,
+    }
+  });
+  const rawConfig = readFileSync(path, {
+    encoding: 'utf-8',
+  });
+  const config = safeLoad(rawConfig, { schema });
+
+  if (isNil(config) || typeof config === 'string') {
+    throw new Error();
+  }
+
+  return config as ConfigData;
+}
+
 export async function main(argv: Array<string>): Promise<number> {
   // get arguments
   let mode = Commands.UNKNOWN as Commands;
   const parser = createParser((argMode) => mode = argMode as Commands);
   const args = parser.parse(argv.slice(SLICE_ARGS));
-
-  // load config
-  const config: ConfigData = {
-    projects: [{
-      colors: [],
-      flags: [],
-      name: '',
-      remote: {
-        data: {},
-        type: '',
-      },
-      states: [],
-    }],
-  };
+  const config = await loadConfig('/home/ssube/.cautious-journey.yml');
 
   /* eslint-disable-next-line no-console */
   console.log({
@@ -45,26 +58,27 @@ export async function main(argv: Array<string>): Promise<number> {
 
   // create logger
   // create remote
-  const remote = new GithubRemote({
-    data: {},
-    type: '',
-  });
 
-  // mode switch
-  const options: SyncOptions = {
-    config,
-    project: '',
-    remote,
-  };
-  switch (mode) {
-    case Commands.ISSUES:
-      await syncIssues(options);
-      break;
-    case Commands.LABELS:
-      await syncLabels(options);
-      break;
-    default:
-      throw new InvalidArgumentError('unknown mode');
+  for (const project of config.projects) {
+    const remote = new GithubRemote(project.remote);
+    await remote.connect();
+
+    // mode switch
+    const options: SyncOptions = {
+      config,
+      project: project.name,
+      remote,
+    };
+    switch (mode) {
+      case Commands.ISSUES:
+        await syncIssues(options);
+        break;
+      case Commands.LABELS:
+        await syncLabels(options);
+        break;
+      default:
+        throw new InvalidArgumentError('unknown mode');
+    }
   }
 
   return 0;
