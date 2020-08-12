@@ -1,5 +1,5 @@
-import { FlagLabel, StateLabel } from './labels';
-import { RemoteOptions } from './remote';
+import { FlagLabel, StateLabel } from '../labels';
+import { RemoteOptions } from '../remote';
 
 /**
  * Config data for the app, loaded from CLI or DOM.

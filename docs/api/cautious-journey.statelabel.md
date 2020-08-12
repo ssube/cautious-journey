@@ -17,5 +17,5 @@ export interface StateLabel extends BaseLabel, LabelSet
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [values](./cautious-journey.statelabel.values.md) | Array&lt;StateValue&gt; | Values for this state. |
+|  [values](./cautious-journey.statelabel.values.md) | Array&lt;[StateValue](./cautious-journey.statevalue.md)<!-- -->&gt; | Values for this state. |
 

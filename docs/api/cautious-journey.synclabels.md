@@ -14,7 +14,7 @@ export declare function syncLabels(options: SyncOptions): Promise<unknown>;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  options | SyncOptions |  |
+|  options | [SyncOptions](./cautious-journey.syncoptions.md) |  |
 
 <b>Returns:</b>
 

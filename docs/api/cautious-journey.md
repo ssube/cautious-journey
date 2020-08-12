@@ -26,5 +26,10 @@
 |  [FlagLabel](./cautious-journey.flaglabel.md) | Individual labels: the equivalent of a checkbox. |
 |  [Remote](./cautious-journey.remote.md) | Basic functions which every remote API must provide. |
 |  [RemoteOptions](./cautious-journey.remoteoptions.md) |  |
+|  [ResolveInput](./cautious-journey.resolveinput.md) | Collected inputs for a resolver run. |
+|  [ResolveResult](./cautious-journey.resolveresult.md) | Collected results from a resolver run. |
+|  [StateChange](./cautious-journey.statechange.md) | The transition between two state values. |
 |  [StateLabel](./cautious-journey.statelabel.md) | Grouped labels: the equivalent of a radio group. |
+|  [StateValue](./cautious-journey.statevalue.md) | One of many values for a particular state. |
+|  [SyncOptions](./cautious-journey.syncoptions.md) |  |
 

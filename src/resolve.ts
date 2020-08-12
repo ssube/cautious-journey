@@ -7,6 +7,7 @@ export enum ChangeEffect {
   EXISTING = 'existing',
   CREATED = 'created',
   REMOVED = 'removed',
+  REQUIRED = 'required',
 }
 
 /**
@@ -38,6 +39,8 @@ export interface ResolveResult {
 
 export function resolveLabels(options: ResolveInput): ResolveResult {
   const activeLabels = new Set(options.labels);
+  const changes: Array<ChangeRecord> = [];
+  const errors: Array<unknown> = [];
 
   const sortedFlags = options.flags.sort((a, b) => a.priority - b.priority);
   for (const flag of sortedFlags) {
@@ -61,8 +64,8 @@ export function resolveLabels(options: ResolveInput): ResolveResult {
   }
 
   return {
-    changes: [],
-    errors: [],
+    changes,
+    errors,
     labels: Array.from(activeLabels),
   };
 }

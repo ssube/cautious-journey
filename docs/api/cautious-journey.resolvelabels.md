@@ -14,9 +14,9 @@ export declare function resolveLabels(options: ResolveInput): ResolveResult;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  options | ResolveInput |  |
+|  options | [ResolveInput](./cautious-journey.resolveinput.md) |  |
 
 <b>Returns:</b>
 
-ResolveResult
+[ResolveResult](./cautious-journey.resolveresult.md)
 

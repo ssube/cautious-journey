@@ -116,9 +116,6 @@ const bundle = {
 		commonjs({
 			namedExports,
 		}),
-		polyfills({
-			buffer: false,
-		}),
 		eslint({
 			configFile: join('.', 'config', 'eslint.json'),
 			exclude: [
