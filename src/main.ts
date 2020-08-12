@@ -7,12 +7,15 @@ export { GitlabRemote } from './remote/gitlab';
 export { resolveLabels } from './resolve';
 export { syncIssues, syncLabels } from './sync';
 
+const SLICE_ARGS = 2;
 export async function main(argv: Array<string>): Promise<number> {
   // get arguments
-  const parser = createParser();
-  const args = parser.parse(argv.slice(0));
+  let mode = '';
+  const parser = createParser((argMode) => mode = argMode);
+  const args = parser.parse(argv.slice(SLICE_ARGS));
 
-  /* eslint-disable-next-line no-console */
+  /* eslint-disable no-console */
+  console.log('mode:', mode);
   console.log('args:', args);
 
   // load config
