@@ -71,7 +71,6 @@
     "rollup-plugin-tslint": "0.2.2",
     "rollup-plugin-typescript2": "0.27.2",
     "rollup-plugin-uglify": "^6.0.4",
-    "rollup-plugin-virtual": "^1.0.1",
     "rollup-plugin-visualizer": "^4.0.4",
     "rollup-plugin-yaml": "2.0.0",
     "sinon": "9.0.2",
