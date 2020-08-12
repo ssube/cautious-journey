@@ -1,11 +1,16 @@
 import { NotImplementedError } from '@apextoaster/js-utils';
 
-import { IssueUpdate, LabelUpdate, Remote } from '.';
+import { IssueUpdate, LabelUpdate, Remote, RemoteOptions } from '.';
 
 /**
  * Github/Octokit API implementation of the `Remote` contract.
  */
 export class GithubRemote implements Remote {
+  /* eslint-disable-next-line no-useless-constructor */
+  constructor(options: RemoteOptions) {
+    // TODO: set up octokit API
+  }
+
   public async createComment() {
     throw new NotImplementedError();
   }

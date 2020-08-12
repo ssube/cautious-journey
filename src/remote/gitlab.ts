@@ -1,11 +1,16 @@
 import { NotImplementedError } from '@apextoaster/js-utils';
 
-import { IssueUpdate, LabelUpdate, Remote } from '.';
+import { IssueUpdate, LabelUpdate, Remote, RemoteOptions } from '.';
 
 /**
  * Gitlab API implementation of the `Remote` contract.
  */
 export class GitlabRemote implements Remote {
+  /* eslint-disable-next-line no-useless-constructor */
+  constructor(options: RemoteOptions) {
+    // TODO: set up gitlab API
+  }
+
   public async createComment() {
     throw new NotImplementedError();
   }

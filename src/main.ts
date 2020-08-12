@@ -38,7 +38,10 @@ export async function main(argv: Array<string>): Promise<number> {
 
   // create logger
   // create remote
-  const remote = new GithubRemote();
+  const remote = new GithubRemote({
+    data: {},
+    type: '',
+  });
 
   // mode switch
   const options: SyncOptions = {
