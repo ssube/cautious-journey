@@ -1,5 +1,16 @@
 # Developer Guide
 
+## Contents
+
+- [Developer Guide](#developer-guide)
+  - [Contents](#contents)
+  - [Setup](#setup)
+    - [Linux](#linux)
+    - [Mac OS](#mac-os)
+  - [Building](#building)
+    - [Compiling Typescript](#compiling-typescript)
+    - [Running Mocha Tests](#running-mocha-tests)
+
 ## Setup
 
 ### Linux
