@@ -33,29 +33,6 @@ build-node:
       - out/cache
       - out/tmp
 
-# deploy jobs
-deploy-test:
-  stage: publish
-  extends:
-    - .build-aws
-  except:
-    - master
-  script:
-    - make deploy
-  variables:
-    DEPLOY_BUCKET: "game-mtmb-test"
-
-deploy-prod:
-  stage: publish
-  extends:
-    - .build-aws
-  only:
-    - master
-  script:
-    - make deploy
-  variables:
-    DEPLOY_BUCKET: "game-mtmb-test"
-
 # commit status
 github-pending:
   stage: status-pre
