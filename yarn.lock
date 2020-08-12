@@ -4474,11 +4474,6 @@ rollup-plugin-uglify@^6.0.4:
     serialize-javascript "^2.1.2"
     uglify-js "^3.4.9"
 
-rollup-plugin-virtual@^1.0.1:
-  version "1.0.1"
-  resolved "https://artifacts.apextoaster.com/repository/group-npm/rollup-plugin-virtual/-/rollup-plugin-virtual-1.0.1.tgz#8227c94c605b981adfe433ea74de3551e42ffeb4"
-  integrity sha512-HCTBpV8MwP5lNzZrHD2moVxHIToHU1EkzkKGVj6Z0DcgUfxrxrZmeQirQeLz2yhnkJqRjwiVywK9CS8jDYakrw==
-
 rollup-plugin-visualizer@^4.0.4:
   version "4.1.0"
   resolved "https://artifacts.apextoaster.com/repository/group-npm/rollup-plugin-visualizer/-/rollup-plugin-visualizer-4.1.0.tgz#92a1cebed30e7d39b3ab9db75426db06230edc5c"

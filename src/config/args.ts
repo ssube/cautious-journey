@@ -13,6 +13,7 @@ interface Parser<TData> {
 }
 
 export interface ParsedArgs {
+  config: string;
   remote: string;
 }
 
@@ -32,6 +33,11 @@ export function createParser(modeset: Modeback): Parser<ParsedArgs> {
       handler: () => modeset(Commands.LABELS),
     })
     .options({
+      config: {
+        alias: ['c'],
+        demand: true,
+        type: 'string',
+      },
       remote: {
         alias: ['r'],
         demand: true,

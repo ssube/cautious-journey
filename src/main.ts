@@ -42,11 +42,11 @@ async function loadConfig(path: string): Promise<ConfigData> {
 }
 
 export async function main(argv: Array<string>): Promise<number> {
-  // get arguments
   let mode = Commands.UNKNOWN as Commands;
   const parser = createParser((argMode) => mode = argMode as Commands);
   const args = parser.parse(argv.slice(SLICE_ARGS));
-  const config = await loadConfig('/home/ssube/.cautious-journey.yml');
+  const config = await loadConfig(args.config);
+  // TODO: create logger
 
   /* eslint-disable-next-line no-console */
   console.log({
@@ -55,9 +55,6 @@ export async function main(argv: Array<string>): Promise<number> {
     mode,
     version: VERSION_INFO,
   });
-
-  // create logger
-  // create remote
 
   for (const project of config.projects) {
     const remote = new GithubRemote(project.remote);
