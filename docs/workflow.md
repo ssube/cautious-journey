@@ -8,8 +8,9 @@ This guide covers the basic development workflow for projects based on https://g
   - [Contents](#contents)
   - [Common Tasks](#common-tasks)
     - [Branch Development](#branch-development)
-    - [Merging Changes](#merging-changes)
     - [Deploying Releases](#deploying-releases)
+    - [Merging Changes](#merging-changes)
+    - [Test Coverage](#test-coverage)
 
 ## Common Tasks
 
@@ -44,10 +45,14 @@ feat(labels): set flux capacitance per label
 fix(sync): stop erasing all labels by accident
 ```
 
+### Deploying Releases
+
+TODO
+
 ### Merging Changes
 
 TODO
 
-### Deploying Releases
+### Test Coverage
 
 TODO

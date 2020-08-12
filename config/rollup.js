@@ -1,4 +1,5 @@
 import { join, sep } from 'path';
+import alias from 'rollup-plugin-alias';
 import commonjs from 'rollup-plugin-commonjs';
 import { eslint } from 'rollup-plugin-eslint';
 import json from 'rollup-plugin-json';
@@ -9,6 +10,7 @@ import replace from 'rollup-plugin-replace';
 import serve from 'rollup-plugin-serve';
 import { terser } from 'rollup-plugin-terser';
 import typescript from 'rollup-plugin-typescript2';
+import virtual from 'rollup-plugin-virtual';
 import visualizer from 'rollup-plugin-visualizer';
 import yaml from 'rollup-plugin-yaml';
 
@@ -49,7 +51,7 @@ const bundle = {
 			return 'vendor';
 		}
 
-		if (id.match(/node-resolve:/)) {
+		if (id.match(/node-resolve:/) || id.match(/virtual:/)) {
 			return 'vendor';
 		}
 
@@ -58,7 +60,7 @@ const bundle = {
 			return 'test';
 		}
 
-		if (id.includes(`${sep}node_modules${sep}`)) {
+		if (id.includes(`node_modules${sep}`)) {
 			return 'vendor';
 		}
 
@@ -109,8 +111,21 @@ const bundle = {
 				PACKAGE_VERSION: metadata.version,
 			},
 		}),
+		/*
+		virtual({
+			'universal-user-agent':
+				'export function getUserAgent() {return `Node.js/${process.version.substr(1)} (${process.platform}); ${process.arch})`}',
+		}),
+		*/
+		alias({
+			resolve: ['.tsx', '.ts'],
+			entries: {
+				'universal-user-agent': join('.', 'node_modules', 'universal-user-agent', 'dist-node', 'index.js'),
+				'universal-github-app-jwt': join('.', 'node_modules', 'universal-github-app-jwt', 'dist-node', 'index.js'),
+			},
+		}),
 		resolve({
-			browser: true,
+			browser: false,
 			preferBuiltins: true,
 		}),
 		commonjs({

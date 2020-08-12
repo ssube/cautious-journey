@@ -1,10 +1,12 @@
-export interface LabelQuery {
+export interface ProjectQuery {
   project: string;
+}
+
+export interface LabelQuery extends ProjectQuery {
   name: string;
 }
 
-export interface IssueQuery {
-  project: string;
+export interface IssueQuery extends ProjectQuery {
   issue: string;
 }
 
@@ -59,12 +61,12 @@ export interface Remote {
   /**
    * List all issues.
    */
-  listIssues(): Promise<Array<IssueUpdate>>;
+  listIssues(options: ProjectQuery): Promise<Array<IssueUpdate>>;
 
   /**
    * List all labels.
    */
-  listLabels(): Promise<Array<LabelUpdate>>;
+  listLabels(options: ProjectQuery): Promise<Array<LabelUpdate>>;
 
   /**
    * Update an issue.

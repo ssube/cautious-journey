@@ -9,8 +9,15 @@ List all labels.
 <b>Signature:</b>
 
 ```typescript
-listLabels(): Promise<Array<LabelUpdate>>;
+listLabels(options: ProjectQuery): Promise<Array<LabelUpdate>>;
 ```
+
+## Parameters
+
+|  Parameter | Type | Description |
+|  --- | --- | --- |
+|  options | ProjectQuery |  |
+
 <b>Returns:</b>
 
 Promise&lt;Array&lt;LabelUpdate&gt;&gt;
