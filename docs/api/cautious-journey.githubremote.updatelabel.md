@@ -7,8 +7,15 @@
 <b>Signature:</b>
 
 ```typescript
-updateLabel(): Promise<LabelUpdate>;
+updateLabel(options: LabelUpdate): Promise<LabelUpdate>;
 ```
+
+## Parameters
+
+|  Parameter | Type | Description |
+|  --- | --- | --- |
+|  options | LabelUpdate |  |
+
 <b>Returns:</b>
 
 Promise&lt;LabelUpdate&gt;
