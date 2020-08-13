@@ -1,7 +1,7 @@
-import { doesExist, mustExist, NotFoundError } from '@apextoaster/js-utils';
+import { doesExist, mustExist, Optional } from '@apextoaster/js-utils';
 
-import { FlagLabel, getLabelNames, StateLabel, StateValue } from './labels';
-import { Remote, LabelUpdate } from './remote';
+import { FlagLabel, getLabelNames, StateLabel } from './labels';
+import { LabelUpdate, Remote } from './remote';
 
 // TODO: turn this back on/remove the disable pragma
 /* eslint-disable no-console */
@@ -25,43 +25,24 @@ export async function syncIssues(options: SyncOptions): Promise<unknown> {
   return undefined;
 }
 
-function findSyncLabel(name: string, flags: Array<FlagLabel>, states: Array<StateLabel>): FlagLabel | StateValue {
-  const flagIndex = flags.find((it) => it.name === name);
-  if (doesExist(flagIndex)) {
-    return flagIndex;
-  }
-
-  const stateIndex = states.find((it) => name.startsWith(it.name));
-  if (doesExist(stateIndex)) {
-    const valueIndex = stateIndex.values.find((it) => `${stateIndex.name}/${it.name}` === name);
-    if (doesExist(valueIndex)) {
-      return valueIndex;
-    }
-  }
-
-  throw new NotFoundError('label not found');
-}
-
 export async function syncLabels(options: SyncOptions): Promise<unknown> {
   const labels = await options.remote.listLabels({
     project: options.project,
   });
 
-  const existingLabels = new Set(labels.map((l) => l.name));
-  const expectedLabels = getLabelNames(options.flags, options.states);
-  const allLabels = new Set([...expectedLabels, ...existingLabels]);
+  const present = new Set(labels.map((l) => l.name));
+  const desired = getLabelNames(options.flags, options.states);
+  const combined = new Set([...desired, ...present]);
 
-  for (const label of allLabels) {
-    const exists = existingLabels.has(label);
-    const expected = expectedLabels.has(label);
+  for (const label of combined) {
+    const exists = present.has(label);
+    const expected = desired.has(label);
     console.log('label:', label, exists, expected);
 
     if (exists) {
       if (expected) {
-        const existingData = mustExist(labels.find((l) => l.name === label));
-        const expectedData = findSyncLabel(label, options.flags, options.states);
-
-        await updateLabel(existingData, expectedData);
+        const data = mustExist(labels.find((l) => l.name === label));
+        await syncSingleLabel(options, data);
       } else {
         console.log('remove label:', label);
       }
@@ -77,12 +58,60 @@ export async function syncLabels(options: SyncOptions): Promise<unknown> {
   return undefined;
 }
 
-export async function updateLabel(existingData: LabelUpdate, expectedData: FlagLabel | StateValue): Promise<void> {
+function defaultTo<T>(a: Optional<T>, b: T): T {
+  if (doesExist(a)) {
+    return a;
+  } else {
+    return b;
+  }
+}
+
+export async function syncLabelDiff(options: SyncOptions, current: LabelUpdate, expected: LabelUpdate) {
   const dirty =
-    existingData.color !== expectedData.color ||
-    existingData.desc !== expectedData.desc;
+    current.color !== expected.color ||
+    current.desc !== expected.desc;
 
   if (dirty) {
-    console.log('update label:', existingData, expectedData);
+    const body = {
+      color: defaultTo(expected.color, current.color),
+      desc: defaultTo(expected.desc, current.desc),
+      name: current.name,
+      project: options.project,
+    };
+
+    console.log('update label:', current, expected, body);
+
+    const resp = await options.remote.updateLabel(body);
+
+    console.log('update resp:', resp);
+  }
+}
+
+export async function syncSingleLabel(options: SyncOptions, label: LabelUpdate): Promise<void> {
+  const flag = options.flags.find((it) => label.name === it.name);
+  if (doesExist(flag)) {
+    await syncLabelDiff(options, label, {
+      color: defaultTo(flag.color, label.color),
+      desc: defaultTo(flag.desc, label.desc),
+      name: flag.name,
+      project: options.project,
+    });
+
+    return;
+  }
+
+  const state = options.states.find((it) => label.name.startsWith(it.name));
+  if (doesExist(state)) {
+    const value = state.values.find((it) => `${state.name}/${it.name}` === label.name);
+    if (doesExist(value)) {
+      await syncLabelDiff(options, label, {
+        color: defaultTo(value.color, label.color),
+        desc: defaultTo(value.desc, label.desc),
+        name: `${state.name}/${value.name}`,
+        project: options.project,
+      });
+
+      return;
+    }
   }
 }
