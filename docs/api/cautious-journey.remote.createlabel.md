@@ -9,14 +9,14 @@ Create a new label.
 <b>Signature:</b>
 
 ```typescript
-createLabel(options: LabelQuery): Promise<LabelUpdate>;
+createLabel(options: LabelUpdate): Promise<LabelUpdate>;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  options | LabelQuery |  |
+|  options | LabelUpdate |  |
 
 <b>Returns:</b>
 

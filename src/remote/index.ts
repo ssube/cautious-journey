@@ -41,12 +41,12 @@ export interface Remote {
   /**
    * Create a new label.
    */
-  createLabel(options: LabelQuery): Promise<LabelUpdate>;
+  createLabel(options: LabelUpdate): Promise<LabelUpdate>;
 
   /**
    * Delete an existing label.
    */
-  deleteLabel(options: LabelQuery): Promise<LabelUpdate>;
+  deleteLabel(options: LabelQuery): Promise<LabelQuery>;
 
   /**
    * Get details of a single issue.
