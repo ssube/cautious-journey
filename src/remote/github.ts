@@ -2,7 +2,7 @@ import { mustExist, NotImplementedError } from '@apextoaster/js-utils';
 import { createAppAuth } from '@octokit/auth-app';
 import { Octokit } from '@octokit/rest';
 
-import { IssueUpdate, LabelUpdate, ProjectQuery, Remote, RemoteOptions } from '.';
+import { IssueUpdate, LabelQuery, LabelUpdate, ProjectQuery, Remote, RemoteOptions } from '.';
 
 /**
  * Github/Octokit API implementation of the `Remote` contract.
@@ -41,12 +41,34 @@ export class GithubRemote implements Remote {
     throw new NotImplementedError();
   }
 
-  public async createLabel(): Promise<LabelUpdate> {
-    throw new NotImplementedError();
+  public async createLabel(options: LabelUpdate): Promise<LabelUpdate> {
+    const path = await this.splitProject(options.project);
+
+    // TODO: check if the label already exists
+
+    await mustExist(this.request).issues.createLabel({
+      color: options.color,
+      description: options.desc,
+      name: options.name,
+      owner: path.owner,
+      repo: path.repo,
+    });
+
+    return options;
   }
 
-  public async deleteLabel(): Promise<LabelUpdate> {
-    throw new NotImplementedError();
+  public async deleteLabel(options: LabelQuery): Promise<LabelQuery> {
+    const path = await this.splitProject(options.project);
+
+    // TODO: check if the label is in use
+
+    await mustExist(this.request).issues.deleteLabel({
+      name: options.name,
+      owner: path.owner,
+      repo: path.repo,
+    });
+
+    return options;
   }
 
   public async getIssue(): Promise<Array<IssueUpdate>> {

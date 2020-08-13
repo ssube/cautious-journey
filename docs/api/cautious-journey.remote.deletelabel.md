@@ -9,7 +9,7 @@ Delete an existing label.
 <b>Signature:</b>
 
 ```typescript
-deleteLabel(options: LabelQuery): Promise<LabelUpdate>;
+deleteLabel(options: LabelQuery): Promise<LabelQuery>;
 ```
 
 ## Parameters
@@ -20,5 +20,5 @@ deleteLabel(options: LabelQuery): Promise<LabelUpdate>;
 
 <b>Returns:</b>
 
-Promise&lt;LabelUpdate&gt;
+Promise&lt;LabelQuery&gt;
 

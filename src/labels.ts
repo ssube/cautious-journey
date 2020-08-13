@@ -87,3 +87,11 @@ export function getLabelNames(flags: Array<FlagLabel>, states: Array<StateLabel>
 
   return new Set(labels);
 }
+
+export function splitName(name: string): Array<string> {
+  return name.split('/');
+}
+
+export function valueName(state: StateLabel, value: StateValue): string {
+  return `${state.name}/${value.name}`;
+}

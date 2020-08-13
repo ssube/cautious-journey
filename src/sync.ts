@@ -1,7 +1,8 @@
-import { doesExist, mustExist, Optional } from '@apextoaster/js-utils';
+import { doesExist, mustExist } from '@apextoaster/js-utils';
 
-import { FlagLabel, getLabelNames, StateLabel } from './labels';
+import { FlagLabel, getLabelNames, StateLabel, valueName } from './labels';
 import { LabelUpdate, Remote } from './remote';
+import { defaultTo } from './utils';
 
 // TODO: turn this back on/remove the disable pragma
 /* eslint-disable no-console */
@@ -45,10 +46,15 @@ export async function syncLabels(options: SyncOptions): Promise<unknown> {
         await syncSingleLabel(options, data);
       } else {
         console.log('remove label:', label);
+        await options.remote.deleteLabel({
+          name: label,
+          project: options.project,
+        });
       }
     } else {
       if (expected) {
         console.log('create label:', label);
+        await createLabel(options, label);
       } else {
         // skip
       }
@@ -58,11 +64,32 @@ export async function syncLabels(options: SyncOptions): Promise<unknown> {
   return undefined;
 }
 
-function defaultTo<T>(a: Optional<T>, b: T): T {
-  if (doesExist(a)) {
-    return a;
-  } else {
-    return b;
+export async function createLabel(options: SyncOptions, name: string) {
+  const flag = options.flags.find((it) => name === it.name);
+  if (doesExist(flag)) {
+    await options.remote.createLabel({
+      color: mustExist(flag.color),
+      desc: mustExist(flag.desc),
+      name,
+      project: options.project,
+    });
+
+    return;
+  }
+
+  const state = options.states.find((it) => name.startsWith(it.name));
+  if (doesExist(state)) {
+    const value = state.values.find((it) => valueName(state, it) === name);
+    if (doesExist(value)) {
+      await options.remote.createLabel({
+        color: defaultTo(defaultTo(value.color, state.color), ''),
+        desc: defaultTo(defaultTo(value.desc, state.desc), ''),
+        name: valueName(state, value),
+        project: options.project,
+      });
+
+      return;
+    }
   }
 }
 
@@ -102,12 +129,12 @@ export async function syncSingleLabel(options: SyncOptions, label: LabelUpdate):
 
   const state = options.states.find((it) => label.name.startsWith(it.name));
   if (doesExist(state)) {
-    const value = state.values.find((it) => `${state.name}/${it.name}` === label.name);
+    const value = state.values.find((it) => valueName(state, it) === label.name);
     if (doesExist(value)) {
       await syncLabelDiff(options, label, {
         color: defaultTo(value.color, label.color),
         desc: defaultTo(value.desc, label.desc),
-        name: `${state.name}/${value.name}`,
+        name: valueName(state, value),
         project: options.project,
       });
 

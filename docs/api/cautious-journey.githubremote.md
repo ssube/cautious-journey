@@ -32,8 +32,8 @@ export declare class GithubRemote implements Remote
 |  --- | --- | --- |
 |  [connect()](./cautious-journey.githubremote.connect.md) |  |  |
 |  [createComment()](./cautious-journey.githubremote.createcomment.md) |  |  |
-|  [createLabel()](./cautious-journey.githubremote.createlabel.md) |  |  |
-|  [deleteLabel()](./cautious-journey.githubremote.deletelabel.md) |  |  |
+|  [createLabel(options)](./cautious-journey.githubremote.createlabel.md) |  |  |
+|  [deleteLabel(options)](./cautious-journey.githubremote.deletelabel.md) |  |  |
 |  [getIssue()](./cautious-journey.githubremote.getissue.md) |  |  |
 |  [getLabel()](./cautious-journey.githubremote.getlabel.md) |  |  |
 |  [listIssues(options)](./cautious-journey.githubremote.listissues.md) |  |  |
