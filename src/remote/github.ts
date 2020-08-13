@@ -75,7 +75,20 @@ export class GithubRemote implements Remote {
   }
 
   public async listLabels(options: ProjectQuery): Promise<Array<LabelUpdate>> {
-    throw new NotImplementedError();
+    const path = await this.splitProject(options.project);
+    const repo = await mustExist(this.request).issues.listLabelsForRepo(path);
+
+    const labels: Array<LabelUpdate> = [];
+    for (const label of repo.data) {
+      labels.push({
+        color: label.color,
+        desc: label.description,
+        name: label.name,
+        project: options.project,
+      });
+    }
+
+    return labels;
   }
 
   public async updateIssue(): Promise<IssueUpdate> {
