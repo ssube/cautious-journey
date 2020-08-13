@@ -7,6 +7,7 @@
   - [Setup](#setup)
     - [Linux](#linux)
     - [Mac OS](#mac-os)
+  - [Checking Out the Project](#checking-out-the-project)
   - [Building](#building)
     - [Compiling Typescript](#compiling-typescript)
     - [Running Mocha Tests](#running-mocha-tests)
@@ -47,13 +48,31 @@ Install `brew`:
 Install `make`, `node`, and `yarn`:
 
 ```shell
-> brew install --with-default-names make
+> brew install make
 > brew install node yarn
 ```
 
 - https://www.gnu.org/software/make/
 - https://formulae.brew.sh/formula/node
 - https://classic.yarnpkg.com/en/docs/install/#mac-stable
+
+## Checking Out the Project
+
+Clone the repository:
+
+```shell
+> git clone git@github.com:ssube/cautious-journey.git
+```
+
+You can also clone the repository through Github Desktop:
+
+* [x-github-client://openRepo/https://github.com/ssube/cautious-journey](x-github-client://openRepo/https://github.com/ssube/cautious-journey)
+
+Change the directory:
+
+```shell
+> cd ~/Documents/GitHub/cautious-journey/
+```
 
 ## Building
 
