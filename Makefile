@@ -124,7 +124,7 @@ deploy:
 		$(TARGET_PATH) s3://$(DEPLOY_BUCKET)
 
 test: ## run mocha unit tests
-test: test-cover
+test: test-check
 
 test-check: ## run mocha unit tests with coverage reports
 	$(NODE_BIN)/nyc $(COVER_OPTS) \
