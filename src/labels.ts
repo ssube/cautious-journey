@@ -68,6 +68,10 @@ export interface StateLabel extends BaseLabel, LabelSet {
   values: Array<StateValue>;
 }
 
+/**
+ * Calculate the set of unique names for a list of flags and a list of states, with all state values
+ * qualified and included.
+ */
 export function getLabelNames(flags: Array<FlagLabel>, states: Array<StateLabel>): Set<string> {
   const labels = [];
 

@@ -14,7 +14,8 @@ export interface SyncOptions
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [config](./cautious-journey.syncoptions.config.md) | ConfigData |  |
+|  [flags](./cautious-journey.syncoptions.flags.md) | Array&lt;[FlagLabel](./cautious-journey.flaglabel.md)<!-- -->&gt; |  |
 |  [project](./cautious-journey.syncoptions.project.md) | string |  |
 |  [remote](./cautious-journey.syncoptions.remote.md) | [Remote](./cautious-journey.remote.md) |  |
+|  [states](./cautious-journey.syncoptions.states.md) | Array&lt;[StateLabel](./cautious-journey.statelabel.md)<!-- -->&gt; |  |
 

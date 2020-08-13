@@ -62,9 +62,10 @@ export async function main(argv: Array<string>): Promise<number> {
 
     // mode switch
     const options: SyncOptions = {
-      config,
+      flags: project.flags,
       project: project.name,
       remote,
+      states: project.states,
     };
     switch (mode) {
       case Commands.ISSUES:

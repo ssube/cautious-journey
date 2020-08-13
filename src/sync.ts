@@ -1,14 +1,14 @@
-import { ConfigData } from './config';
-import { getLabelNames } from './labels';
+import { FlagLabel, getLabelNames, StateLabel } from './labels';
 import { Remote } from './remote';
 
 // TODO: turn this back on/remove the disable pragma
 /* eslint-disable no-console */
 
 export interface SyncOptions {
-  config: ConfigData;
+  flags: Array<FlagLabel>;
   project: string;
   remote: Remote;
+  states: Array<StateLabel>;
 }
 
 export async function syncIssues(options: SyncOptions): Promise<unknown> {
@@ -29,7 +29,7 @@ export async function syncLabels(options: SyncOptions): Promise<unknown> {
   });
 
   const existingLabels = new Set(labels.map((l) => l.name));
-  const expectedLabels = getLabelNames(options.config.projects[0].flags, options.config.projects[0].states);
+  const expectedLabels = getLabelNames(options.flags, options.states);
 
   for (const label of labels) {
     const exists = existingLabels.has(label.name);
