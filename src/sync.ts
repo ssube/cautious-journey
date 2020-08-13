@@ -1,4 +1,5 @@
 import { ConfigData } from './config';
+import { getLabelNames } from './labels';
 import { Remote } from './remote';
 
 // TODO: turn this back on/remove the disable pragma
@@ -16,7 +17,7 @@ export async function syncIssues(options: SyncOptions): Promise<unknown> {
   });
 
   for (const issue of issues) {
-    console.log('issue:', issue.name, issue.labels);
+    console.log('issue:', issue);
   }
 
   return undefined;
@@ -27,8 +28,26 @@ export async function syncLabels(options: SyncOptions): Promise<unknown> {
     project: options.project,
   });
 
+  const existingLabels = new Set(labels.map((l) => l.name));
+  const expectedLabels = getLabelNames(options.config.projects[0].flags, options.config.projects[0].states);
+
   for (const label of labels) {
-    console.log('label:', label.name);
+    const exists = existingLabels.has(label.name);
+    const expected = expectedLabels.has(label.name);
+
+    if (exists) {
+      if (expected) {
+        console.log('update label:', label);
+      } else {
+        console.log('remove label:', label);
+      }
+    } else {
+      if (expected) {
+        console.log('create label:', label);
+      } else {
+        // skip
+      }
+    }
   }
 
   return undefined;

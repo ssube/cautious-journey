@@ -26,10 +26,6 @@ export interface BaseLabel {
    * Display color.
    */
   color?: string;
-
-  /**
-   * 
-   */
   desc?: string;
   priority: number;
   requires: Array<unknown>;
@@ -70,4 +66,20 @@ export interface StateLabel extends BaseLabel, LabelSet {
    * Values for this state.
    */
   values: Array<StateValue>;
+}
+
+export function getLabelNames(flags: Array<FlagLabel>, states: Array<StateLabel>): Set<string> {
+  const labels = [];
+
+  for (const flag of flags) {
+    labels.push(flag.name);
+  }
+
+  for (const state of states) {
+    for (const value of state.values) {
+      labels.push(`${state.name}/${value.name}`);
+    }
+  }
+
+  return new Set(labels);
 }
