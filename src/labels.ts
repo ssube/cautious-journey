@@ -81,7 +81,7 @@ export function getLabelNames(flags: Array<FlagLabel>, states: Array<StateLabel>
 
   for (const state of states) {
     for (const value of state.values) {
-      labels.push(`${state.name}/${value.name}`);
+      labels.push(valueName(state, value));
     }
   }
 
