@@ -1478,6 +1478,7 @@ __metadata:
     chai: 4.2.0
     chai-as-promised: 7.1.1
     eslint: ^7.6.0
+    eslint-import-resolver-node: ^0.3.4
     eslint-plugin-chai: 0.0.1
     eslint-plugin-chai-expect: 2.2.0
     eslint-plugin-chai-expect-keywords: 2.0.1
@@ -2482,7 +2483,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-import-resolver-node@npm:*":
+"eslint-import-resolver-node@npm:*, eslint-import-resolver-node@npm:^0.3.4":
   version: 0.3.4
   resolution: "eslint-import-resolver-node@npm:0.3.4"
   dependencies:

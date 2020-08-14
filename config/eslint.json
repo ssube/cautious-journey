@@ -11,6 +11,7 @@
         "eslint-plugin-chai",
         "eslint-plugin-chai-expect",
         "eslint-plugin-chai-expect-keywords",
+        "eslint-plugin-import",
         "eslint-plugin-mocha",
         "eslint-plugin-no-null",
         "eslint-plugin-sonarjs",
@@ -155,6 +156,27 @@
             "Undefined"
         ],
         "id-match": "error",
+        "import/no-default-export": "error",
+        "import/no-deprecated": "error",
+        "import/no-extraneous-dependencies": "off",
+        "import/no-internal-modules": "off",
+        "import/order": [
+            "error",
+            {
+                "groups": [
+                    [
+                        "builtin",
+                        "external"
+                    ],
+                    [
+                        "index",
+                        "parent",
+                        "sibling",
+                        "unknown"
+                    ]
+                ]
+            }
+        ],
         "max-classes-per-file": [
             "off",
             1
