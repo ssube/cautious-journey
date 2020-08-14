@@ -24,21 +24,28 @@ export class GithubRemote implements Remote {
   public async connect() {
     this.options.logger.info('connecting to github');
 
-    if (doesExist(this.options.data.installationId)) {
-      this.options.logger.info('using app auth');
-      this.request = new Octokit({
-        auth: {
-          id: parseInt(mustExist(this.options.data.id), 10),
-          installationId: parseInt(mustExist(this.options.data.installationId), 10),
-          privateKey: mustExist(this.options.data.privateKey),
-        },
-        authStrategy: createAppAuth,
-      });
-    } else {
-      this.options.logger.info('using token auth');
-      this.request = new Octokit({
-        auth: mustExist(this.options.data.token),
-      });
+    const type = mustExist(this.options.data.type);
+
+    switch (type) {
+      case 'app':
+        this.options.logger.info('using app auth');
+        this.request = new Octokit({
+          auth: {
+            id: parseInt(mustExist(this.options.data.id), 10),
+            installationId: parseInt(mustExist(this.options.data.installationId), 10),
+            privateKey: mustExist(this.options.data.privateKey),
+          },
+          authStrategy: createAppAuth,
+        });
+        break;
+      case 'token':
+        this.options.logger.info('using token auth');
+        this.request = new Octokit({
+          auth: mustExist(this.options.data.token),
+        });
+        break;
+      default:
+        throw new InvalidArgumentError('unknown authentication type');
     }
   }
 

@@ -74,7 +74,7 @@ For app authentication:
 - `id`: application ID
 - `installationId`: installation ID
 - `privateKey`: application key material
-- `type`: `installation`
+- `type`: `app`
 
 #### Gitlab Remote
 
