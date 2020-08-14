@@ -30,10 +30,10 @@ String.
 
 String enum.
 
-- debug
-- info
-- warn
-- error
+- `debug`
+- `info`
+- `warn`
+- `error`
 
 ## Projects
 
@@ -64,8 +64,10 @@ Project path on the remote, including username, group, etc. Slash-delimited.
 
 #### Github Remote
 
-For token authentication, provide a `token` key in the remote `data`. This should be a Github user token with
-project scope.
+For token authentication:
+
+- `token`: Github user token with project scope
+- `type`: `token`
 
 For app authentication:
 
@@ -76,8 +78,10 @@ For app authentication:
 
 #### Gitlab Remote
 
-For token authentication, provide a `token` key in the remote `data`. This should be a Gitlab personal access token
-with API scope.
+For token authentication:
+
+- `token`: Gitlab personal access token with API scope
+- `type`: `token`
 
 ### Project States
 
