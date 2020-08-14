@@ -2,6 +2,7 @@ import { doesExist, mustExist } from '@apextoaster/js-utils';
 
 import { FlagLabel, getLabelNames, StateLabel, valueName } from './labels';
 import { LabelUpdate, Remote } from './remote';
+import { resolveLabels } from './resolve';
 import { defaultTo } from './utils';
 
 // TODO: turn this back on/remove the disable pragma
@@ -21,6 +22,21 @@ export async function syncIssues(options: SyncOptions): Promise<unknown> {
 
   for (const issue of issues) {
     console.log('issue:', issue);
+
+    const resolution = resolveLabels({
+      flags: options.flags,
+      labels: issue.labels,
+      states: options.states,
+    });
+
+    // TODO: prompt user to update this particular issue
+    if (resolution.changes.length > 0) {
+      console.log('updating issue:', issue, resolution);
+      await options.remote.updateIssue({
+        ...issue,
+        labels: resolution.labels,
+      });
+    }
   }
 
   return undefined;

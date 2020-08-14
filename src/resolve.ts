@@ -1,4 +1,4 @@
-import { FlagLabel, StateLabel } from './labels';
+import { FlagLabel, StateLabel, valueName } from './labels';
 
 /**
  * How a label changed.
@@ -54,7 +54,7 @@ export function resolveLabels(options: ResolveInput): ResolveResult {
   const sortedStates = options.states.sort((a, b) => a.priority - b.priority);
   for (const state of sortedStates) {
     for (const value of state.values) {
-      const name = `${state.name}/${value.name}`;
+      const name = valueName(state, value);
       if (activeLabels.has(name)) {
         // TODO: check removes
         // TODO: check requires
