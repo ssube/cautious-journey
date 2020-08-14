@@ -9,6 +9,10 @@ import { IssueUpdate, LabelQuery, LabelUpdate, ProjectQuery, Remote, RemoteOptio
  */
 export class GithubRemote implements Remote {
   protected options: RemoteOptions;
+
+  /**
+   * Github API client. Will not be set for a dry run.
+   */
   protected request?: Octokit;
 
   constructor(options: RemoteOptions) {
@@ -19,14 +23,16 @@ export class GithubRemote implements Remote {
   }
 
   public async connect() {
-    this.request = new Octokit({
-      auth: {
-        id: parseInt(mustExist(this.options.data.id), 10),
-        installationId: parseInt(mustExist(this.options.data.installationId), 10),
-        privateKey: mustExist(this.options.data.privateKey),
-      },
-      authStrategy: createAppAuth,
-    });
+    if (this.options.dryrun === false) {
+      this.request = new Octokit({
+        auth: {
+          id: parseInt(mustExist(this.options.data.id), 10),
+          installationId: parseInt(mustExist(this.options.data.installationId), 10),
+          privateKey: mustExist(this.options.data.privateKey),
+        },
+        authStrategy: createAppAuth,
+      });
+    }
   }
 
   public async splitProject(project: string): Promise<{
@@ -48,9 +54,8 @@ export class GithubRemote implements Remote {
     const path = await this.splitProject(options.project);
 
     // TODO: check if the label already exists
-
-    if (this.forReal) {
-      await mustExist(this.request).issues.createLabel({
+    if (this.request) {
+      await this.request.issues.createLabel({
         color: options.color,
         description: options.desc,
         name: options.name,
@@ -66,9 +71,8 @@ export class GithubRemote implements Remote {
     const path = await this.splitProject(options.project);
 
     // TODO: check if the label is in use
-
-    if (this.forReal) {
-      await mustExist(this.request).issues.deleteLabel({
+    if (this.request) {
+      await this.request.issues.deleteLabel({
         name: options.name,
         owner: path.owner,
         repo: path.repo,
@@ -91,8 +95,8 @@ export class GithubRemote implements Remote {
 
     const issues: Array<IssueUpdate> = [];
 
-    if (this.forReal) {
-      const repo = await mustExist(this.request).issues.listForRepo(path);
+    if (this.request) {
+      const repo = await this.request.issues.listForRepo(path);
       for (const issue of repo.data) {
         issues.push({
           issue: issue.id.toString(10),
@@ -111,8 +115,8 @@ export class GithubRemote implements Remote {
 
     const labels: Array<LabelUpdate> = [];
 
-    if (this.forReal) {
-      const repo = await mustExist(this.request).issues.listLabelsForRepo(path);
+    if (this.request) {
+      const repo = await this.request.issues.listLabelsForRepo(path);
       for (const label of repo.data) {
         labels.push({
           color: label.color,
@@ -133,8 +137,8 @@ export class GithubRemote implements Remote {
   public async updateLabel(options: LabelUpdate): Promise<LabelUpdate> {
     const path = await this.splitProject(options.project);
 
-    if (this.forReal) {
-      const data = await mustExist(this.request).issues.updateLabel({
+    if (this.request) {
+      const data = await this.request.issues.updateLabel({
         color: options.color,
         description: options.desc,
         name: options.name,
@@ -151,9 +155,5 @@ export class GithubRemote implements Remote {
     } else {
       return options;
     }
-  }
-
-  protected get forReal(): boolean {
-    return !this.options.dryrun;
   }
 }
