@@ -4,6 +4,8 @@
 
 ## GithubRemote.request property
 
+Github API client. Will not be set for a dry run.
+
 <b>Signature:</b>
 
 ```typescript
