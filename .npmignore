@@ -1,6 +1,8 @@
 .awcache/
 .github/
 .nyc_output/
+.pnp/
+.yarn/
 
 config/
 deploy/

@@ -1,6 +1,8 @@
 .awcache/
 .licenses/
 .nyc_output/
+.pnp/
+.yarn/
 node_modules/
 out/
 temp/
@@ -10,5 +12,6 @@ temp/
 *.swp
 *.tmp
 
+.pnp.js
 package-lock.json
 yarn-error.log

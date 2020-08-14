@@ -4,11 +4,9 @@ import commonjs from 'rollup-plugin-commonjs';
 import { eslint } from 'rollup-plugin-eslint';
 import json from 'rollup-plugin-json';
 import multiEntry from 'rollup-plugin-multi-entry';
-import polyfills from 'rollup-plugin-node-polyfills';
 import resolve from 'rollup-plugin-node-resolve';
 import replace from 'rollup-plugin-replace';
 import serve from 'rollup-plugin-serve';
-import { terser } from 'rollup-plugin-terser';
 import typescript from 'rollup-plugin-typescript2';
 import visualizer from 'rollup-plugin-visualizer';
 import yaml from 'rollup-plugin-yaml';
@@ -19,7 +17,7 @@ const flag_serve = process.env['SERVE'] === 'TRUE';
 const metadata = require('../package.json');
 
 const external = require('./rollup-external.json').names;
-const namedExports = require('./rollup-named.json');
+const namedExports = require('./rollup-named.js').default;
 
 const rootPath = process.env['ROOT_PATH'];
 const targetPath = process.env['TARGET_PATH'];
@@ -113,8 +111,8 @@ const bundle = {
 		alias({
 			resolve: ['.tsx', '.ts'],
 			entries: {
-				'universal-user-agent': join('.', 'node_modules', 'universal-user-agent', 'dist-node', 'index.js'),
-				'universal-github-app-jwt': join('.', 'node_modules', 'universal-github-app-jwt', 'dist-node', 'index.js'),
+				'universal-user-agent': require.resolve(join('universal-user-agent', 'dist-node', 'index.js')),
+				'universal-github-app-jwt': require.resolve(join('universal-github-app-jwt', 'dist-node', 'index.js')),
 			},
 		}),
 		resolve({
