@@ -1,15 +1,14 @@
 import { doesExist, mustExist } from '@apextoaster/js-utils';
+import { Logger } from 'noicejs';
 
 import { FlagLabel, getLabelNames, StateLabel, valueName } from './labels';
 import { LabelUpdate, Remote } from './remote';
 import { resolveLabels } from './resolve';
 import { defaultTo } from './utils';
 
-// TODO: turn this back on/remove the disable pragma
-/* eslint-disable no-console */
-
 export interface SyncOptions {
   flags: Array<FlagLabel>;
+  logger: Logger;
   project: string;
   remote: Remote;
   states: Array<StateLabel>;
@@ -21,7 +20,7 @@ export async function syncIssues(options: SyncOptions): Promise<unknown> {
   });
 
   for (const issue of issues) {
-    console.log('issue:', issue);
+    options.logger.info({ issue }, 'issue');
 
     const resolution = resolveLabels({
       flags: options.flags,
@@ -31,7 +30,7 @@ export async function syncIssues(options: SyncOptions): Promise<unknown> {
 
     // TODO: prompt user to update this particular issue
     if (resolution.changes.length > 0) {
-      console.log('updating issue:', issue, resolution);
+      options.logger.info({ issue, resolution }, 'updating issue');
       await options.remote.updateIssue({
         ...issue,
         labels: resolution.labels,
@@ -54,14 +53,19 @@ export async function syncLabels(options: SyncOptions): Promise<unknown> {
   for (const label of combined) {
     const exists = present.has(label);
     const expected = desired.has(label);
-    console.log('label:', label, exists, expected);
+
+    options.logger.info({
+      exists,
+      expected,
+      label,
+    }, 'label');
 
     if (exists) {
       if (expected) {
         const data = mustExist(labels.find((l) => l.name === label));
         await syncSingleLabel(options, data);
       } else {
-        console.log('remove label:', label);
+        options.logger.warn({ label }, 'remove label');
         await options.remote.deleteLabel({
           name: label,
           project: options.project,
@@ -69,7 +73,7 @@ export async function syncLabels(options: SyncOptions): Promise<unknown> {
       }
     } else {
       if (expected) {
-        console.log('create label:', label);
+        options.logger.info({ label }, 'create label');
         await createLabel(options, label);
       } else {
         // skip
@@ -122,11 +126,11 @@ export async function syncLabelDiff(options: SyncOptions, current: LabelUpdate, 
       project: options.project,
     };
 
-    console.log('update label:', current, expected, body);
+    options.logger.debug({ body, current, expected }, 'update label');
 
     const resp = await options.remote.updateLabel(body);
 
-    console.log('update resp:', resp);
+    options.logger.debug({ resp }, 'update resp');
   }
 }
 

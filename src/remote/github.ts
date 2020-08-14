@@ -18,11 +18,11 @@ export class GithubRemote implements Remote {
   constructor(options: RemoteOptions) {
     this.options = options;
 
-    /* eslint-disable-next-line */
-    console.log('options:', options);
+    options.logger.debug({ options }, 'github remote');
   }
 
   public async connect() {
+    this.options.logger.info('connecting to github');
     this.request = new Octokit({
       auth: {
         id: parseInt(mustExist(this.options.data.id), 10),

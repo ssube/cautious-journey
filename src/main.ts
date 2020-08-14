@@ -6,6 +6,7 @@ import { join } from 'path';
 
 import { ConfigData } from './config';
 import { Commands, createParser } from './config/args';
+import { BunyanLogger } from './logger/BunyanLogger';
 import { GithubRemote } from './remote/github';
 import { syncIssues, syncLabels, SyncOptions } from './sync';
 import { VERSION_INFO } from './version';
@@ -46,26 +47,27 @@ export async function main(argv: Array<string>): Promise<number> {
   const parser = createParser((argMode) => mode = argMode as Commands);
   const args = parser.parse(argv.slice(SLICE_ARGS));
   const config = await loadConfig(args.config);
-  // TODO: create logger
+  const logger = BunyanLogger.create(config.logger);
 
-  /* eslint-disable-next-line no-console */
-  console.log({
+  logger.info({
     args,
     config,
     mode,
     version: VERSION_INFO,
-  });
+  }, 'startup environment');
 
   for (const project of config.projects) {
     const remote = new GithubRemote({
       ...project.remote,
       dryrun: args.dryrun,
+      logger,
     });
     await remote.connect();
 
     // mode switch
     const options: SyncOptions = {
       flags: project.flags,
+      logger,
       project: project.name,
       remote,
       states: project.states,

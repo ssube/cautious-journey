@@ -1,3 +1,5 @@
+import { Logger } from 'noicejs';
+
 export interface ProjectQuery {
   project: string;
 }
@@ -34,6 +36,8 @@ export interface RemoteOptions {
    * If set, do not make any real changes.
    */
   dryrun: boolean;
+
+  logger: Logger;
 
   /**
    * Remote class/type name.

@@ -1,3 +1,5 @@
+import { LogLevel } from 'noicejs';
+
 import { FlagLabel, StateLabel } from '../labels';
 import { RemoteOptions } from '../remote';
 
@@ -5,6 +7,10 @@ import { RemoteOptions } from '../remote';
  * Config data for the app, loaded from CLI or DOM.
  */
 export interface ConfigData {
+  logger: {
+    level: LogLevel;
+    name: string;
+  };
   projects: Array<{
     /**
      * Color palette for labels without their own.
