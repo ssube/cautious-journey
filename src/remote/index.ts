@@ -25,7 +25,19 @@ export interface LabelUpdate extends LabelQuery {
 }
 
 export interface RemoteOptions {
+  /**
+   * Arbitrary key-value data for this remote, usually credentials and base URLs.
+   */
   data: Record<string, string>;
+
+  /**
+   * If set, do not make any real changes.
+   */
+  dryrun: boolean;
+
+  /**
+   * Remote class/type name.
+   */
   type: string;
 }
 

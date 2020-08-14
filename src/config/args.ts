@@ -14,6 +14,7 @@ interface Parser<TData> {
 
 export interface ParsedArgs {
   config: string;
+  dryrun: boolean;
   remote: string;
 }
 
@@ -37,6 +38,12 @@ export function createParser(modeset: Modeback): Parser<ParsedArgs> {
         alias: ['c'],
         demand: true,
         type: 'string',
+      },
+      dryrun: {
+        alias: ['d'],
+        default: true,
+        demand: false,
+        type: 'boolean',
       },
       remote: {
         alias: ['r'],

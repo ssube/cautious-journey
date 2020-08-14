@@ -23,6 +23,7 @@ export declare class GithubRemote implements Remote
 
 |  Property | Modifiers | Type | Description |
 |  --- | --- | --- | --- |
+|  [forReal](./cautious-journey.githubremote.forreal.md) |  | boolean |  |
 |  [options](./cautious-journey.githubremote.options.md) |  | [RemoteOptions](./cautious-journey.remoteoptions.md) |  |
 |  [request](./cautious-journey.githubremote.request.md) |  | Octokit |  |
 

@@ -57,7 +57,10 @@ export async function main(argv: Array<string>): Promise<number> {
   });
 
   for (const project of config.projects) {
-    const remote = new GithubRemote(project.remote);
+    const remote = new GithubRemote({
+      ...project.remote,
+      dryrun: args.dryrun,
+    });
     await remote.connect();
 
     // mode switch

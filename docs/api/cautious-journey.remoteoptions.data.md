@@ -4,6 +4,8 @@
 
 ## RemoteOptions.data property
 
+Arbitrary key-value data for this remote, usually credentials and base URLs.
+
 <b>Signature:</b>
 
 ```typescript
