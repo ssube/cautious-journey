@@ -25,6 +25,8 @@ export declare class GithubRemote implements Remote
 |  --- | --- | --- | --- |
 |  [options](./cautious-journey.githubremote.options.md) |  | [RemoteOptions](./cautious-journey.remoteoptions.md) |  |
 |  [request](./cautious-journey.githubremote.request.md) |  | Octokit | Github API client. Will not be set for a dry run. |
+|  [writeCapable](./cautious-journey.githubremote.writecapable.md) |  | boolean |  |
+|  [writeRequest](./cautious-journey.githubremote.writerequest.md) |  | Octokit |  |
 
 ## Methods
 
