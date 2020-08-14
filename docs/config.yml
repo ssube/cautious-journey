@@ -1,0 +1,91 @@
+logger:
+  name: cautious-journey
+  level: debug
+projects:
+  - colors: []
+    flags: []
+    name: 'ssube/cautious-journey'
+    remote:
+      data:
+        id: ''
+        installationId: ''
+        privateKey: |
+          KEY MATERIAL HERE
+        type: 'installation'
+      type: ''
+    states:
+      - name: scope
+        values:
+          - name: build
+            color: e56f40
+            desc: ''
+          - name: cli
+            color: a323ce
+            desc: 'command line interface'
+          - name: config
+            color: ff82f2
+            desc: 'config loading & arg parsing'
+          - name: deploy
+            color: b60205
+            desc: 'releasing & running the app'
+          - name: docs
+            color: bfd4f2
+            desc: ''
+          - name: labels
+            color: ed9674
+            desc: ''
+          - name: logger
+            color: 8E24AA
+            desc: ''
+          - name: remote
+            color: edd78e
+            desc: ''
+          - name: resolve
+            color: a87ef7
+            desc: ''
+          - name: sync
+            color: fcebc2
+            desc: ''
+      - name: status
+        values:
+          - name: new
+            color: f97587
+            desc: ''
+          - name: confirmed
+            color: 90A4AE
+            desc: 'issues that have been discussed but not planned'
+          - name: declined
+            color: D9534F
+            desc: 'issues that have been declined after discussion'
+          - name: planned
+            color: 9575CD
+            desc: 'issues that have been planned but not started'
+          - name: progress
+            color: 1f78af
+            desc: 'issues that are in progress'
+          - name: blocked
+            color: FFC107
+            desc: 'in-progress issues that are blocked by a dependency'
+          - name: fixed
+            color: 4CAF50
+            desc: 'issues that have been fixed and confirmed'
+      - name: type
+        values:
+          - name: bug
+            color: F44336
+            desc: ''
+          - name: deps
+            color: 5CB85c
+            desc: ''
+          - name: feature
+            color: 3F51B5
+            desc: ''
+          - name: lint
+            color: 3ea6d6
+            desc: ''
+          - name: research
+            color: 0f0f0f
+            desc: ''
+          - name: usecase
+            color: 07bc92
+            desc: ''
