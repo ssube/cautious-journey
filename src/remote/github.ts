@@ -1,4 +1,4 @@
-import { mustExist, NotImplementedError } from '@apextoaster/js-utils';
+import { doesExist, InvalidArgumentError, mustExist, NotImplementedError } from '@apextoaster/js-utils';
 import { createAppAuth } from '@octokit/auth-app';
 import { Octokit } from '@octokit/rest';
 
@@ -23,16 +23,14 @@ export class GithubRemote implements Remote {
   }
 
   public async connect() {
-    if (this.options.dryrun === false) {
-      this.request = new Octokit({
-        auth: {
-          id: parseInt(mustExist(this.options.data.id), 10),
-          installationId: parseInt(mustExist(this.options.data.installationId), 10),
-          privateKey: mustExist(this.options.data.privateKey),
-        },
-        authStrategy: createAppAuth,
-      });
-    }
+    this.request = new Octokit({
+      auth: {
+        id: parseInt(mustExist(this.options.data.id), 10),
+        installationId: parseInt(mustExist(this.options.data.installationId), 10),
+        privateKey: mustExist(this.options.data.privateKey),
+      },
+      authStrategy: createAppAuth,
+    });
   }
 
   public async splitProject(project: string): Promise<{
@@ -54,8 +52,8 @@ export class GithubRemote implements Remote {
     const path = await this.splitProject(options.project);
 
     // TODO: check if the label already exists
-    if (this.request) {
-      await this.request.issues.createLabel({
+    if (this.writeCapable) {
+      await this.writeRequest.issues.createLabel({
         color: options.color,
         description: options.desc,
         name: options.name,
@@ -71,8 +69,8 @@ export class GithubRemote implements Remote {
     const path = await this.splitProject(options.project);
 
     // TODO: check if the label is in use
-    if (this.request) {
-      await this.request.issues.deleteLabel({
+    if (this.writeCapable) {
+      await this.writeRequest.issues.deleteLabel({
         name: options.name,
         owner: path.owner,
         repo: path.repo,
@@ -95,16 +93,14 @@ export class GithubRemote implements Remote {
 
     const issues: Array<IssueUpdate> = [];
 
-    if (this.request) {
-      const repo = await this.request.issues.listForRepo(path);
-      for (const issue of repo.data) {
-        issues.push({
-          issue: issue.id.toString(10),
-          labels: issue.labels.map((l) => l.name),
-          name: issue.title,
-          project: options.project,
-        });
-      }
+    const repo = await mustExist(this.request).issues.listForRepo(path);
+    for (const issue of repo.data) {
+      issues.push({
+        issue: issue.id.toString(10),
+        labels: issue.labels.map((l) => l.name),
+        name: issue.title,
+        project: options.project,
+      });
     }
 
     return issues;
@@ -115,16 +111,14 @@ export class GithubRemote implements Remote {
 
     const labels: Array<LabelUpdate> = [];
 
-    if (this.request) {
-      const repo = await this.request.issues.listLabelsForRepo(path);
-      for (const label of repo.data) {
-        labels.push({
-          color: label.color,
-          desc: label.description,
-          name: label.name,
-          project: options.project,
-        });
-      }
+    const repo = await mustExist(this.request).issues.listLabelsForRepo(path);
+    for (const label of repo.data) {
+      labels.push({
+        color: label.color,
+        desc: label.description,
+        name: label.name,
+        project: options.project,
+      });
     }
 
     return labels;
@@ -137,8 +131,8 @@ export class GithubRemote implements Remote {
   public async updateLabel(options: LabelUpdate): Promise<LabelUpdate> {
     const path = await this.splitProject(options.project);
 
-    if (this.request) {
-      const data = await this.request.issues.updateLabel({
+    if (this.writeCapable) {
+      const data = await this.writeRequest.issues.updateLabel({
         color: options.color,
         description: options.desc,
         name: options.name,
@@ -154,6 +148,18 @@ export class GithubRemote implements Remote {
       };
     } else {
       return options;
+    }
+  }
+
+  protected get writeCapable(): boolean {
+    return this.options.dryrun === false;
+  }
+
+  protected get writeRequest(): Octokit {
+    if (doesExist(this.request)) {
+      return this.request;
+    } else {
+      throw new InvalidArgumentError();
     }
   }
 }
