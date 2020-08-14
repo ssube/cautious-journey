@@ -13,6 +13,9 @@ export class GithubRemote implements Remote {
 
   constructor(options: RemoteOptions) {
     this.options = options;
+
+    /* eslint-disable-next-line */
+    console.log('options:', options);
   }
 
   public async connect() {
@@ -46,13 +49,15 @@ export class GithubRemote implements Remote {
 
     // TODO: check if the label already exists
 
-    await mustExist(this.request).issues.createLabel({
-      color: options.color,
-      description: options.desc,
-      name: options.name,
-      owner: path.owner,
-      repo: path.repo,
-    });
+    if (this.forReal) {
+      await mustExist(this.request).issues.createLabel({
+        color: options.color,
+        description: options.desc,
+        name: options.name,
+        owner: path.owner,
+        repo: path.repo,
+      });
+    }
 
     return options;
   }
@@ -62,11 +67,13 @@ export class GithubRemote implements Remote {
 
     // TODO: check if the label is in use
 
-    await mustExist(this.request).issues.deleteLabel({
-      name: options.name,
-      owner: path.owner,
-      repo: path.repo,
-    });
+    if (this.forReal) {
+      await mustExist(this.request).issues.deleteLabel({
+        name: options.name,
+        owner: path.owner,
+        repo: path.repo,
+      });
+    }
 
     return options;
   }
@@ -81,16 +88,19 @@ export class GithubRemote implements Remote {
 
   public async listIssues(options: ProjectQuery): Promise<Array<IssueUpdate>> {
     const path = await this.splitProject(options.project);
-    const repo = await mustExist(this.request).issues.listForRepo(path);
 
     const issues: Array<IssueUpdate> = [];
-    for (const issue of repo.data) {
-      issues.push({
-        issue: issue.id.toString(10),
-        labels: issue.labels.map((l) => l.name),
-        name: issue.title,
-        project: options.project,
-      });
+
+    if (this.forReal) {
+      const repo = await mustExist(this.request).issues.listForRepo(path);
+      for (const issue of repo.data) {
+        issues.push({
+          issue: issue.id.toString(10),
+          labels: issue.labels.map((l) => l.name),
+          name: issue.title,
+          project: options.project,
+        });
+      }
     }
 
     return issues;
@@ -98,16 +108,19 @@ export class GithubRemote implements Remote {
 
   public async listLabels(options: ProjectQuery): Promise<Array<LabelUpdate>> {
     const path = await this.splitProject(options.project);
-    const repo = await mustExist(this.request).issues.listLabelsForRepo(path);
 
     const labels: Array<LabelUpdate> = [];
-    for (const label of repo.data) {
-      labels.push({
-        color: label.color,
-        desc: label.description,
-        name: label.name,
-        project: options.project,
-      });
+
+    if (this.forReal) {
+      const repo = await mustExist(this.request).issues.listLabelsForRepo(path);
+      for (const label of repo.data) {
+        labels.push({
+          color: label.color,
+          desc: label.description,
+          name: label.name,
+          project: options.project,
+        });
+      }
     }
 
     return labels;
@@ -119,19 +132,28 @@ export class GithubRemote implements Remote {
 
   public async updateLabel(options: LabelUpdate): Promise<LabelUpdate> {
     const path = await this.splitProject(options.project);
-    const data = await mustExist(this.request).issues.updateLabel({
-      color: options.color,
-      description: options.desc,
-      name: options.name,
-      owner: path.owner,
-      repo: path.repo,
-    });
 
-    return {
-      color: data.data.color,
-      desc: data.data.description,
-      name: data.data.name,
-      project: options.project,
-    };
+    if (this.forReal) {
+      const data = await mustExist(this.request).issues.updateLabel({
+        color: options.color,
+        description: options.desc,
+        name: options.name,
+        owner: path.owner,
+        repo: path.repo,
+      });
+
+      return {
+        color: data.data.color,
+        desc: data.data.description,
+        name: data.data.name,
+        project: options.project,
+      };
+    } else {
+      return options;
+    }
+  }
+
+  protected get forReal(): boolean {
+    return !this.options.dryrun;
   }
 }

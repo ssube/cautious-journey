@@ -14,6 +14,7 @@ export interface RemoteOptions
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [data](./cautious-journey.remoteoptions.data.md) | Record&lt;string, string&gt; |  |
-|  [type](./cautious-journey.remoteoptions.type.md) | string |  |
+|  [data](./cautious-journey.remoteoptions.data.md) | Record&lt;string, string&gt; | Arbitrary key-value data for this remote, usually credentials and base URLs. |
+|  [dryrun](./cautious-journey.remoteoptions.dryrun.md) | boolean | If set, do not make any real changes. |
+|  [type](./cautious-journey.remoteoptions.type.md) | string | Remote class/type name. |
 

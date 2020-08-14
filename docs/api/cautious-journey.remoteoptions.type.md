@@ -4,6 +4,8 @@
 
 ## RemoteOptions.type property
 
+Remote class/type name.
+
 <b>Signature:</b>
 
 ```typescript
