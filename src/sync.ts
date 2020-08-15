@@ -58,7 +58,7 @@ export async function syncIssueLabels(options: SyncOptions): Promise<unknown> {
   return undefined;
 }
 
-export async function syncLabels(options: SyncOptions): Promise<unknown> {
+export async function syncProjectLabels(options: SyncOptions): Promise<unknown> {
   const labels = await options.remote.listLabels({
     project: options.project,
   });

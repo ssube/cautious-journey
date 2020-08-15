@@ -9,7 +9,7 @@ import { ConfigData } from './config';
 import { Commands, createParser } from './config/args';
 import { BunyanLogger } from './logger/bunyan';
 import { GithubRemote } from './remote/github';
-import { syncIssueLabels, syncLabels, SyncOptions } from './sync';
+import { syncIssueLabels, SyncOptions, syncProjectLabels } from './sync';
 import { VERSION_INFO } from './version';
 
 export { FlagLabel, StateLabel } from './labels';
@@ -17,7 +17,7 @@ export { Remote, RemoteOptions } from './remote';
 export { GithubRemote } from './remote/github';
 export { GitlabRemote } from './remote/gitlab';
 export { resolveLabels } from './resolve';
-export { syncIssueLabels as syncIssues, syncLabels } from './sync';
+export { syncIssueLabels, syncProjectLabels } from './sync';
 
 const SLICE_ARGS = 2;
 
@@ -89,7 +89,7 @@ export async function main(argv: Array<string>): Promise<number> {
         await syncIssueLabels(options);
         break;
       case Commands.LABELS:
-        await syncLabels(options);
+        await syncProjectLabels(options);
         break;
       default:
         throw new InvalidArgumentError('unknown command');
