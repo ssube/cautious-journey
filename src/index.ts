@@ -1,6 +1,6 @@
 import { main } from './main';
 
-export { FlagLabel, StateChange, StateLabel, StateValue } from './labels';
+export { ChangeSet, FlagLabel, StateLabel, StateValue } from './labels';
 export { Remote, RemoteOptions } from './remote';
 export { GithubRemote } from './remote/github';
 export { GitlabRemote } from './remote/gitlab';

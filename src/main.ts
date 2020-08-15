@@ -5,7 +5,7 @@ import { DEFAULT_SAFE_SCHEMA, safeLoad } from 'js-yaml';
 import { join } from 'path';
 import { alea } from 'seedrandom';
 
-import { ConfigData } from './config';
+import { ConfigData, validateConfig } from './config';
 import { Commands, createParser } from './config/args';
 import { BunyanLogger } from './logger/bunyan';
 import { GithubRemote } from './remote/github';
@@ -36,7 +36,7 @@ async function loadConfig(path: string): Promise<ConfigData> {
   });
   const config = safeLoad(rawConfig, { schema });
 
-  if (isNil(config) || typeof config === 'string') {
+  if (!validateConfig(config)) {
     throw new Error();
   }
 

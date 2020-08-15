@@ -11,11 +11,11 @@ One of many values for a particular state.
 ```typescript
 export interface StateValue extends BaseLabel, ChangeSet 
 ```
-<b>Extends:</b> BaseLabel, ChangeSet
+<b>Extends:</b> BaseLabel, [ChangeSet](./cautious-journey.changeset.md)
 
 ## Properties
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [becomes](./cautious-journey.statevalue.becomes.md) | Array&lt;[StateChange](./cautious-journey.statechange.md)<!-- -->&gt; | State changes that could occur to this value. |
+|  [becomes](./cautious-journey.statevalue.becomes.md) | Array&lt;[ChangeSet](./cautious-journey.changeset.md)<!-- -->&gt; | State changes that could occur to this value. |
 

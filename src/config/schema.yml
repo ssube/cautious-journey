@@ -1,0 +1,102 @@
+$schema: "http://json-schema.org/schema#"
+$id: cautious-journey
+definitions:
+  label-ref:
+    type: object
+    properties:
+      name:
+        type: string
+
+  change-set:
+    type: object
+    properties:
+      adds:
+        type: array
+        items:
+          $ref: "#/definitions/label-ref"
+        default: []
+      removes:
+        type: array
+        items:
+          $ref: "#/definitions/label-ref"
+        default: []
+
+  base-label:
+    type: object
+    properties:
+      color:
+        type: string
+      desc:
+        type: string
+        default: ''
+      name:
+        type: string
+      requires:
+        type: array
+        items:
+          $ref: "#/definitions/label-ref"
+        default: []
+
+  flag-label:
+    allOf:
+      - $ref: "#/definitions/change-set"
+      - $ref: "#/definitions/base-label"
+
+  state-label:
+    allOf:
+      - $ref: "#/definitions/change-set"
+      - $ref: "#/definitions/base-label"
+      - type: object
+        properties:
+          values:
+            type: array
+            items:
+              $ref: "#/definitions/state-value"
+            default: []
+
+  state-value:
+    allOf:
+      - $ref: "#/definitions/change-set"
+      - $ref: "#/definitions/base-label"
+      - type: object
+        properties:
+          becomes:
+            type: array
+            default: []
+
+  config:
+    type: object
+    properties:
+      logger:
+        type: object
+        properties:
+          level:
+            type: string
+          name:
+            type: string
+
+      projects:
+        type: array
+        items:
+          type: object
+          properties:
+            colors:
+              type: array
+              items:
+                type: string
+            flags:
+              type: array
+              items:
+                $ref: "#/definitions/flag-label"
+              default: []
+            name:
+              type: string
+            remote:
+              type: object
+            states:
+              type: array
+              items:
+                $ref: "#/definitions/state-label"
+              default: []
+
+type: object

@@ -5,7 +5,7 @@ import { prng } from 'seedrandom';
 import { FlagLabel, getLabelColor, getLabelNames, getValueName, StateLabel } from './labels';
 import { LabelUpdate, Remote } from './remote';
 import { resolveLabels } from './resolve';
-import { defaultTo, defaultUntil } from './utils';
+import { defaultTo, defaultUntil, compareItems } from './utils';
 
 export interface SyncOptions {
   /**
@@ -45,8 +45,11 @@ export async function syncIssueLabels(options: SyncOptions): Promise<unknown> {
       states: options.states,
     });
 
+    options.logger.debug({ changes, errors, issue, labels }, 'resolved labels');
+
     // TODO: prompt user to update this particular issue
-    if (changes.length > 0 && errors.length === 0) {
+    const sameLabels = !compareItems(issue.labels, labels) || changes.length > 0;
+    if (sameLabels && errors.length === 0) {
       options.logger.info({ issue, labels }, 'updating issue');
       await options.remote.updateIssue({
         ...issue,
@@ -143,7 +146,7 @@ export async function syncLabelDiff(options: SyncOptions, oldLabel: LabelUpdate,
       project: options.project,
     };
 
-    options.logger.debug({ body, newLabel, oldLabel, options }, 'update label');
+    options.logger.debug({ body, newLabel, oldLabel }, 'update label');
 
     const resp = await options.remote.updateLabel(body);
 

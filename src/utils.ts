@@ -18,3 +18,20 @@ export function randomItem<T>(items: Array<T>, source: prng): T {
   const idx = Math.abs(source.int32()) % items.length;
   return items[idx];
 }
+
+export function compareItems<T>(a: Array<T>, b: Array<T>): boolean {
+  if (a.length !== b.length) {
+    return false;
+  }
+
+  const aSorted = a.sort();
+  const bSorted = b.sort();
+
+  for (let i = 0; i < aSorted.length; ++i) {
+    if (aSorted[i] !== bSorted[i]) {
+      return false;
+    }
+  }
+
+  return true;
+}

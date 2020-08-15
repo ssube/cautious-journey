@@ -112,7 +112,7 @@ export class GithubRemote implements Remote {
     const repo = await mustExist(this.request).issues.listForRepo(path);
     for (const issue of repo.data) {
       issues.push({
-        issue: issue.id.toString(10),
+        issue: issue.number.toString(),
         labels: issue.labels.map((l) => l.name),
         name: issue.title,
         project: options.project,

@@ -1,7 +1,9 @@
+import Ajv from 'ajv';
 import { LogLevel, NullLogger } from 'noicejs';
 
 import { FlagLabel, StateLabel } from '../labels';
 import { RemoteOptions } from '../remote';
+import * as SCHEMA_DATA from './schema.yml';
 
 /**
  * Config data for the app, loaded from CLI or DOM.
@@ -63,4 +65,22 @@ export function initConfig(): ConfigData {
       states: [],
     }],
   };
+}
+
+export const SCHEMA_OPTIONS: Ajv.Options = {
+  allErrors: true,
+  coerceTypes: 'array',
+  missingRefs: 'fail',
+  removeAdditional: 'failing',
+  schemaId: 'auto',
+  useDefaults: true,
+  verbose: true,
+};
+
+
+export function validateConfig(it: unknown): it is ConfigData {
+  const ajv = new Ajv(SCHEMA_OPTIONS);
+  ajv.addSchema(SCHEMA_DATA, 'cautious-journey');
+
+  return ajv.validate('cautious-journey#/definitions/config', it) === true;
 }
