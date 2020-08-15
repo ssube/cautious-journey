@@ -68,7 +68,6 @@ export function resolveLabels(options: ResolveInput): ResolveResult {
     const { name } = flag;
 
     if (activeLabels.has(name)) {
-      // TODO: check requires rule
       let removed = false;
       for (const requiredLabel of flag.requires) {
         if (!activeLabels.has(requiredLabel.name)) {
@@ -81,12 +80,10 @@ export function resolveLabels(options: ResolveInput): ResolveResult {
         break;
       }
 
-      // TODO: check adds rule
       for (const addedLabel of flag.adds) {
         activeLabels.add(addedLabel.name);
       }
 
-      // TODO: check removes rule
       for (const removedLabel of flag.removes) {
         activeLabels.delete(removedLabel.name);
       }
