@@ -39,13 +39,17 @@ describe('label helpers', () => {
         requires: [],
       }];
       const states = [{
+        adds: [],
         name: 'foo',
         priority: 1,
+        removes: [],
         requires: [],
         values,
       }, {
+        adds: [],
         name: 'bar',
         priority: 1,
+        removes: [],
         requires: [],
         values,
       }];
@@ -61,13 +65,17 @@ describe('label helpers', () => {
   describe('prioritize labels helper', () => {
     it('should sort by priority', () => {
       const HIGH_LABEL = {
+        adds: [],
         name: 'high',
         priority: 5,
+        removes: [],
         requires: [],
       };
       const LOW_LABEL = {
+        adds: [],
         name: 'low',
         priority: 1,
+        removes: [],
         requires: [],
       };
 
@@ -77,13 +85,17 @@ describe('label helpers', () => {
 
     it('should sort by name when priority is equal', () => {
       const FIRST_LABEL = {
+        adds: [],
         name: 'label-a',
         priority: 1,
+        removes: [],
         requires: [],
       };
       const SECOND_LABEL = {
+        adds: [],
         name: 'label-b',
         priority: 1,
+        removes: [],
         requires: [],
       };
 
@@ -95,9 +107,12 @@ describe('label helpers', () => {
   describe('label color helper', () => {
     it('should return the value color', () => {
       expect(getLabelColor(['test'], alea(), {
+        adds: [],
         color: 'beans',
         name: '',
         priority: 1,
+        removes: [],
+        requires: [],
         values: [],
       }, {
         adds: [],
@@ -106,14 +121,18 @@ describe('label helpers', () => {
         name: '',
         priority: 1,
         removes: [],
+        requires: [],
       })).to.equal('not');
     });
 
     it('should return the state color when value color is unset', () => {
       expect(getLabelColor(['test'], alea(), {
+        adds: [],
         color: 'beans',
         name: '',
         priority: 1,
+        removes: [],
+        requires: [],
         values: [],
       }, {
         adds: [],
@@ -122,6 +141,7 @@ describe('label helpers', () => {
         name: '',
         priority: 1,
         removes: [],
+        requires: [],
       })).to.equal('beans');
     });
 
