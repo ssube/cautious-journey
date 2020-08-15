@@ -16,7 +16,7 @@
 |  Function | Description |
 |  --- | --- |
 |  [resolveLabels(options)](./cautious-journey.resolvelabels.md) | Resolve the desired set of labels, given a starting set and the flags/states to be applied. |
-|  [syncIssues(options)](./cautious-journey.syncissues.md) | goes through each issue in the project resolves labels if there are changes and no errors, then update the issue |
+|  [syncIssues(options)](./cautious-journey.syncissues.md) | goes through and resolves each issue in the project. if there are changes and no errors, then updates the issue. |
 |  [syncLabels(options)](./cautious-journey.synclabels.md) |  |
 
 ## Interfaces
