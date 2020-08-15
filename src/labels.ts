@@ -21,7 +21,7 @@ export interface ChangeSet {
 /**
  * Common fields for all labels.
  */
-export interface BaseLabel {
+export interface BaseLabel extends ChangeSet {
   /**
    * Label name.
    */
@@ -46,9 +46,7 @@ export interface BaseLabel {
 /**
  * Individual labels: the equivalent of a checkbox.
  */
-export interface FlagLabel extends BaseLabel, ChangeSet {
-  requires: Array<LabelRef>;
-}
+export type FlagLabel = BaseLabel;
 
 /**
  * The transition between two state values.

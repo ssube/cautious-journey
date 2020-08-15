@@ -1,4 +1,4 @@
-import { FlagLabel, getValueName, prioritySort, StateLabel } from './labels';
+import { FlagLabel, getValueName, prioritySort, StateLabel, BaseLabel } from './labels';
 
 /**
  * How a label changed.
@@ -63,43 +63,50 @@ export function resolveLabels(options: ResolveInput): ResolveResult {
   const changes: Array<ChangeRecord> = [];
   const errors: Array<ErrorRecord> = [];
 
-  const sortedFlags = prioritySort(options.flags);
-  for (const flag of sortedFlags) {
-    const { name } = flag;
-
-    if (activeLabels.has(name)) {
-      let removed = false;
-      for (const requiredLabel of flag.requires) {
+  function checkLabelRules(label: BaseLabel) {
+    let isRemoved = false;
+    if (activeLabels.has(label.name)) {
+      for (const requiredLabel of label.requires) {
         if (!activeLabels.has(requiredLabel.name)) {
-          activeLabels.delete(name);
-          removed = true;
+          activeLabels.delete(label.name);
+          isRemoved = true;
         }
       }
-
-      if (removed) {
-        break;
-      }
-
-      for (const addedLabel of flag.adds) {
-        activeLabels.add(addedLabel.name);
-      }
-
-      for (const removedLabel of flag.removes) {
-        activeLabels.delete(removedLabel.name);
-      }
     }
+    if (isRemoved) {
+      return;
+    }
+
+    for (const addedLabel of label.adds) {
+      activeLabels.add(addedLabel.name);
+    }
+
+    for (const removedLabel of label.removes) {
+      activeLabels.delete(removedLabel.name);
+    }
+  }
+
+  const sortedFlags = prioritySort(options.flags);
+  for (const flag of sortedFlags) {
+    checkLabelRules(flag);
   }
 
   const sortedStates = prioritySort(options.states);
   for (const state of sortedStates) {
+    let firstActive = true;
     const sortedValues = prioritySort(state.values);
     for (const value of sortedValues) {
       const name = getValueName(state, value);
       if (activeLabels.has(name)) {
-        // TODO: check higher-priority values
-        // TODO: check removes
-        // TODO: check requires
-        // TODO: check becomes
+        if (firstActive) {
+          // TODO: check requires
+          // TODO: check adds
+          // TODO: check removes
+          // TODO: check becomes
+          firstActive = false;
+        } else {
+          // removes all other values for this state and breaks?
+        }
       }
     }
   }
