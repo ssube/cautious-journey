@@ -15,6 +15,6 @@ export function defaultUntil<T>(...items: Array<Optional<T>>): T {
 }
 
 export function randomItem<T>(items: Array<T>, source: prng): T {
-  const idx = source.int32() % items.length;
+  const idx = Math.abs(source.int32()) % items.length;
   return items[idx];
 }

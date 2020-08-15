@@ -130,20 +130,20 @@ export async function createLabel(options: SyncOptions, name: string) {
   }
 }
 
-export async function syncLabelDiff(options: SyncOptions, current: LabelUpdate, expected: LabelUpdate) {
+export async function syncLabelDiff(options: SyncOptions, oldLabel: LabelUpdate, newLabel: LabelUpdate) {
   const dirty =
-    current.color !== expected.color ||
-    current.desc !== expected.desc;
+    oldLabel.color !== mustExist(newLabel.color) ||
+    oldLabel.desc !== mustExist(newLabel.desc);
 
   if (dirty) {
     const body = {
-      color: defaultTo(expected.color, current.color),
-      desc: defaultTo(expected.desc, current.desc),
-      name: current.name,
+      color: defaultTo(newLabel.color, oldLabel.color),
+      desc: defaultTo(newLabel.desc, oldLabel.desc),
+      name: oldLabel.name,
       project: options.project,
     };
 
-    options.logger.debug({ body, current, expected }, 'update label');
+    options.logger.debug({ body, newLabel, oldLabel, options }, 'update label');
 
     const resp = await options.remote.updateLabel(body);
 
@@ -154,8 +154,9 @@ export async function syncLabelDiff(options: SyncOptions, current: LabelUpdate, 
 export async function syncSingleLabel(options: SyncOptions, label: LabelUpdate): Promise<void> {
   const flag = options.flags.find((it) => label.name === it.name);
   if (doesExist(flag)) {
+    const color = getLabelColor(options.colors, options.random, flag);
     await syncLabelDiff(options, label, {
-      color: getLabelColor(options.colors, options.random, flag),
+      color,
       desc: defaultTo(flag.desc, label.desc),
       name: flag.name,
       project: options.project,
@@ -168,8 +169,9 @@ export async function syncSingleLabel(options: SyncOptions, label: LabelUpdate):
   if (doesExist(state)) {
     const value = state.values.find((it) => getValueName(state, it) === label.name);
     if (doesExist(value)) {
+      const color = mustExist(getLabelColor(options.colors, options.random, state, value));
       await syncLabelDiff(options, label, {
-        color: getLabelColor(options.colors, options.random, state, value),
+        color,
         desc: defaultTo(value.desc, label.desc),
         name: getValueName(state, value),
         project: options.project,
