@@ -6,7 +6,7 @@ import { join } from 'path';
 
 import { ConfigData } from './config';
 import { Commands, createParser } from './config/args';
-import { BunyanLogger } from './logger/BunyanLogger';
+import { BunyanLogger } from './logger/bunyan';
 import { GithubRemote } from './remote/github';
 import { syncIssues, syncLabels, SyncOptions } from './sync';
 import { VERSION_INFO } from './version';

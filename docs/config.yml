@@ -11,8 +11,9 @@ projects:
         installationId: ''
         privateKey: |
           KEY MATERIAL HERE
+        token: ''
         type: 'installation'
-      type: ''
+      type: 'github'
     states:
       - name: scope
         values:

@@ -39,7 +39,6 @@ export NODE_VERSION		:= $(shell node -v || echo "none")
 export RUNNER_VERSION  := $(CI_RUNNER_VERSION)
 
 # Node options
-NODE_BIN := $(ROOT_PATH)/node_modules/.bin
 NODE_CMD ?= $(shell env node)
 NODE_DEBUG ?= --inspect-brk=$(DEBUG_BIND):$(DEBUG_PORT) --nolazy
 NODE_INFO := $(shell node -v)
@@ -95,11 +94,11 @@ build: ## builds, bundles, and tests the application
 build: build-page build-bundle build-docs
 
 build-bundle: node_modules
-	$(NODE_BIN)/rollup --config $(CONFIG_PATH)/rollup.js
+	yarn rollup --config $(CONFIG_PATH)/rollup.js
 
 build-docs: ## generate html docs
-	$(NODE_BIN)/api-extractor run --config $(CONFIG_PATH)/api-extractor.json --local -v
-	$(NODE_BIN)/api-documenter markdown -i $(TARGET_PATH)/api -o $(DOCS_PATH)/api
+	yarn api-extractor run --config $(CONFIG_PATH)/api-extractor.json --local -v
+	yarn api-documenter markdown -i $(TARGET_PATH)/api -o $(DOCS_PATH)/api
 
 build-image: ## build a docker image
 	$(SCRIPT_PATH)/docker-build.sh --push
@@ -127,8 +126,8 @@ test: ## run mocha unit tests
 test: test-check
 
 test-check: ## run mocha unit tests with coverage reports
-	$(NODE_BIN)/nyc $(COVER_OPTS) \
-		$(NODE_BIN)/mocha $(MOCHA_OPTS) \
+	yarn nyc $(COVER_OPTS) \
+		yarn node $(shell yarn bin mocha) $(MOCHA_OPTS) \
 		--require esm \
 		$(SCRIPT_PATH)/mocha-module.js
 
@@ -168,11 +167,11 @@ license-check: ## check license status
 	licensed status
 
 release: ## create a release
-	$(NODE_BIN)/standard-version --sign $(RELEASE_OPTS)
+	yarn standard-version --sign $(RELEASE_OPTS)
 	GIT_OPTIONS=--tags $(MAKE) git-push
 
 release-dry: ## test creating a release
-	$(NODE_BIN)/standard-version --sign $(RELEASE_OPTS) --dry-run
+	yarn standard-version --sign $(RELEASE_OPTS) --dry-run
 
 upload-climate:
 	cc-test-reporter format-coverage -t lcov -o $(TARGET_PATH)/coverage/codeclimate.json -p $(ROOT_PATH) $(TARGET_PATH)/coverage/lcov.info
