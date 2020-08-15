@@ -41,6 +41,8 @@ export interface BaseLabel extends ChangeSet {
    * Label priority.
    */
   priority: number;
+
+  requires: Array<LabelRef>;
 }
 
 /**

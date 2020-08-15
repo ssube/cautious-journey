@@ -2,20 +2,12 @@
 
 [Home](./index.md) &gt; [cautious-journey](./cautious-journey.md) &gt; [FlagLabel](./cautious-journey.flaglabel.md)
 
-## FlagLabel interface
+## FlagLabel type
 
 Individual labels: the equivalent of a checkbox.
 
 <b>Signature:</b>
 
 ```typescript
-export interface FlagLabel extends BaseLabel, ChangeSet 
+export declare type FlagLabel = BaseLabel;
 ```
-<b>Extends:</b> BaseLabel, ChangeSet
-
-## Properties
-
-|  Property | Type | Description |
-|  --- | --- | --- |
-|  [requires](./cautious-journey.flaglabel.requires.md) | Array&lt;LabelRef&gt; |  |
-
