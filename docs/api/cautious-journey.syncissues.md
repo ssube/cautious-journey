@@ -4,7 +4,7 @@
 
 ## syncIssues() function
 
-goes through each issue in the project resolves labels if there are changes and no errors, then update the issue
+goes through and resolves each issue in the project. if there are changes and no errors, then updates the issue.
 
 <b>Signature:</b>
 
