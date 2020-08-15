@@ -1,4 +1,5 @@
 import { doesExist, InvalidArgumentError } from '@apextoaster/js-utils';
+
 import { randomItem } from './utils';
 
 /**
@@ -84,18 +85,18 @@ export function getLabelNames(flags: Array<FlagLabel>, states: Array<StateLabel>
 
   for (const state of states) {
     for (const value of state.values) {
-      labels.push(valueName(state, value));
+      labels.push(getValueName(state, value));
     }
   }
 
   return new Set(labels);
 }
 
-export function splitName(name: string): Array<string> {
+export function splitValueName(name: string): Array<string> {
   return name.split('/');
 }
 
-export function valueName(state: StateLabel, value: StateValue): string {
+export function getValueName(state: StateLabel, value: StateValue): string {
   return `${state.name}/${value.name}`;
 }
 
@@ -104,7 +105,7 @@ export function valueName(state: StateLabel, value: StateValue): string {
  *
  * TODO: add some sort options: high-first or low-first, case-sensitivity
  */
-export function prioritizeLabels<TLabel extends BaseLabel>(labels: Array<TLabel>): Array<TLabel> {
+export function prioritySort<TLabel extends BaseLabel>(labels: Array<TLabel>): Array<TLabel> {
   return labels.sort((a, b) => {
     if (a.priority === b.priority) {
       const aName = a.name.toLocaleLowerCase();
@@ -122,9 +123,9 @@ export function prioritizeLabels<TLabel extends BaseLabel>(labels: Array<TLabel>
  *
  * TODO: this is a terrible overload
  */
-export function colorizeLabel(flag: FlagLabel, colors: Array<string>): string;
-export function colorizeLabel(state: StateLabel, value: StateValue, colors: Array<string>): string;
-export function colorizeLabel(label: BaseLabel, colorsOrValue: Array<string> | StateValue, maybeColors?: Array<string>): string {
+export function getLabelColor(flag: FlagLabel, colors: Array<string>): string;
+export function getLabelColor(state: StateLabel, value: StateValue, colors: Array<string>): string;
+export function getLabelColor(label: BaseLabel, colorsOrValue: Array<string> | StateValue, maybeColors?: Array<string>): string {
   if (Array.isArray(colorsOrValue)) {
     const { color } = label;
     if (doesExist(color)) {

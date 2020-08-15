@@ -1,4 +1,4 @@
-import { FlagLabel, prioritizeLabels, StateLabel, valueName } from './labels';
+import { FlagLabel, getValueName, prioritySort, StateLabel } from './labels';
 
 /**
  * How a label changed.
@@ -62,7 +62,7 @@ export function resolveLabels(options: ResolveInput): ResolveResult {
   const changes: Array<ChangeRecord> = [];
   const errors: Array<ErrorRecord> = [];
 
-  const sortedFlags = prioritizeLabels(options.flags);
+  const sortedFlags = prioritySort(options.flags);
   for (const flag of sortedFlags) {
     const { name } = flag;
     if (activeLabels.has(name)) {
@@ -71,11 +71,11 @@ export function resolveLabels(options: ResolveInput): ResolveResult {
     }
   }
 
-  const sortedStates = prioritizeLabels(options.states);
+  const sortedStates = prioritySort(options.states);
   for (const state of sortedStates) {
-    const sortedValues = prioritizeLabels(state.values);
+    const sortedValues = prioritySort(state.values);
     for (const value of sortedValues) {
-      const name = valueName(state, value);
+      const name = getValueName(state, value);
       if (activeLabels.has(name)) {
         // TODO: check higher-priority values
         // TODO: check removes

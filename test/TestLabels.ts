@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import { getLabelNames, prioritizeLabels } from '../src/labels';
+import { getLabelNames, prioritySort } from '../src/labels';
 
 describe('label helpers', () => {
   describe('label name helper', () => {
@@ -72,7 +72,7 @@ describe('label helpers', () => {
         requires: [],
       };
 
-      const sorted = prioritizeLabels([LOW_LABEL, HIGH_LABEL]);
+      const sorted = prioritySort([LOW_LABEL, HIGH_LABEL]);
       expect(sorted[0]).to.deep.equal(HIGH_LABEL);
     });
 
@@ -88,7 +88,7 @@ describe('label helpers', () => {
         requires: [],
       };
 
-      const sorted = prioritizeLabels([SECOND_LABEL, FIRST_LABEL]);
+      const sorted = prioritySort([SECOND_LABEL, FIRST_LABEL]);
       expect(sorted[0]).to.deep.equal(FIRST_LABEL);
     });
   });

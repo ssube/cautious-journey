@@ -1,7 +1,7 @@
 import { doesExist, mustExist } from '@apextoaster/js-utils';
 import { Logger } from 'noicejs';
 
-import { colorizeLabel, FlagLabel, getLabelNames, StateLabel, valueName } from './labels';
+import { FlagLabel, getLabelColor, getLabelNames, getValueName, StateLabel } from './labels';
 import { LabelUpdate, Remote } from './remote';
 import { resolveLabels } from './resolve';
 import { defaultTo, defaultUntil } from './utils';
@@ -89,7 +89,7 @@ export async function createLabel(options: SyncOptions, name: string) {
   const flag = options.flags.find((it) => name === it.name);
   if (doesExist(flag)) {
     await options.remote.createLabel({
-      color: colorizeLabel(flag, options.colors),
+      color: getLabelColor(flag, options.colors),
       desc: mustExist(flag.desc),
       name,
       project: options.project,
@@ -100,12 +100,12 @@ export async function createLabel(options: SyncOptions, name: string) {
 
   const state = options.states.find((it) => name.startsWith(it.name));
   if (doesExist(state)) {
-    const value = state.values.find((it) => valueName(state, it) === name);
+    const value = state.values.find((it) => getValueName(state, it) === name);
     if (doesExist(value)) {
       await options.remote.createLabel({
-        color: colorizeLabel(state, value, options.colors),
+        color: getLabelColor(state, value, options.colors),
         desc: defaultUntil(value.desc, state.desc, ''),
-        name: valueName(state, value),
+        name: getValueName(state, value),
         project: options.project,
       });
 
@@ -139,7 +139,7 @@ export async function syncSingleLabel(options: SyncOptions, label: LabelUpdate):
   const flag = options.flags.find((it) => label.name === it.name);
   if (doesExist(flag)) {
     await syncLabelDiff(options, label, {
-      color: colorizeLabel(flag, options.colors),
+      color: getLabelColor(flag, options.colors),
       desc: defaultTo(flag.desc, label.desc),
       name: flag.name,
       project: options.project,
@@ -150,12 +150,12 @@ export async function syncSingleLabel(options: SyncOptions, label: LabelUpdate):
 
   const state = options.states.find((it) => label.name.startsWith(it.name));
   if (doesExist(state)) {
-    const value = state.values.find((it) => valueName(state, it) === label.name);
+    const value = state.values.find((it) => getValueName(state, it) === label.name);
     if (doesExist(value)) {
       await syncLabelDiff(options, label, {
-        color: colorizeLabel(state, value, options.colors),
+        color: getLabelColor(state, value, options.colors),
         desc: defaultTo(value.desc, label.desc),
-        name: valueName(state, value),
+        name: getValueName(state, value),
         project: options.project,
       });
 
