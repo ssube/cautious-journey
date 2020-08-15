@@ -1,4 +1,4 @@
-import { LogLevel } from 'noicejs';
+import { LogLevel, NullLogger } from 'noicejs';
 
 import { FlagLabel, StateLabel } from '../labels';
 import { RemoteOptions } from '../remote';
@@ -46,12 +46,18 @@ export interface ConfigData {
  */
 export function initConfig(): ConfigData {
   return {
+    logger: {
+      level: LogLevel.Info,
+      name: '',
+    },
     projects: [{
       colors: [],
       flags: [],
       name: '',
       remote: {
         data: {},
+        dryrun: true,
+        logger: NullLogger.global,
         type: '',
       },
       states: [],
