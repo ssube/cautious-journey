@@ -9,7 +9,7 @@ Individual labels: the equivalent of a checkbox.
 <b>Signature:</b>
 
 ```typescript
-export interface FlagLabel extends BaseLabel, LabelSet 
+export interface FlagLabel extends BaseLabel, ChangeSet 
 ```
-<b>Extends:</b> BaseLabel, LabelSet
+<b>Extends:</b> BaseLabel, ChangeSet
 

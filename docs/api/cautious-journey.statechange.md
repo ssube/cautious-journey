@@ -9,9 +9,9 @@ The transition between two state values.
 <b>Signature:</b>
 
 ```typescript
-export interface StateChange extends LabelSet 
+export interface StateChange extends ChangeSet 
 ```
-<b>Extends:</b> LabelSet
+<b>Extends:</b> ChangeSet
 
 ## Properties
 

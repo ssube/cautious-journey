@@ -21,9 +21,9 @@ This guide explains how to start using `cautious-journey` to manage project and 
   - [Commands](#commands)
     - [Sync Labels](#sync-labels)
     - [Sync Issues](#sync-issues)
-  - [Transitions](#transitions)
-    - [Flag Transitions](#flag-transitions)
-    - [State Transitions](#state-transitions)
+  - [Changes](#changes)
+    - [Flag Changes](#flag-changes)
+    - [State Changes](#state-changes)
 
 ## Setup
 
@@ -83,12 +83,12 @@ TODO: what happens when you sync the project labels?
 
 TODO: what happens when you sync the issue labels?
 
-## Transitions
+## Changes
 
-### Flag Transitions
+### Flag Changes
 
 TODO: how are flag labels added and removed?
 
-### State Transitions
+### State Changes
 
 TODO: how are state labels added and removed?

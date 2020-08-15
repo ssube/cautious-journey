@@ -9,9 +9,9 @@ Grouped labels: the equivalent of a radio group.
 <b>Signature:</b>
 
 ```typescript
-export interface StateLabel extends BaseLabel, LabelSet 
+export interface StateLabel extends BaseLabel, ChangeSet 
 ```
-<b>Extends:</b> BaseLabel, LabelSet
+<b>Extends:</b> BaseLabel, ChangeSet
 
 ## Properties
 

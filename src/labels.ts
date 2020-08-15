@@ -8,7 +8,7 @@ export interface LabelRef {
 /**
  * A set of labels to add and/or remove.
  */
-export interface LabelSet {
+export interface ChangeSet {
   adds: Array<LabelRef>;
   removes: Array<LabelRef>;
 }
@@ -34,14 +34,14 @@ export interface BaseLabel {
 /**
  * Individual labels: the equivalent of a checkbox.
  */
-export interface FlagLabel extends BaseLabel, LabelSet {
+export interface FlagLabel extends BaseLabel, ChangeSet {
   /* empty */
 }
 
 /**
  * The transition between two state values.
  */
-export interface StateChange extends LabelSet {
+export interface StateChange extends ChangeSet {
   /**
    * Required labels for this state change to occur.
    */
@@ -61,7 +61,7 @@ export interface StateValue extends BaseLabel {
 /**
  * Grouped labels: the equivalent of a radio group.
  */
-export interface StateLabel extends BaseLabel, LabelSet {
+export interface StateLabel extends BaseLabel, ChangeSet {
   /**
    * Values for this state.
    */

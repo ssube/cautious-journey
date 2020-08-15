@@ -1,4 +1,4 @@
-import { InvalidArgumentError, isNil } from '@apextoaster/js-utils';
+import { InvalidArgumentError, isNil, doesExist } from '@apextoaster/js-utils';
 import { createSchema } from '@apextoaster/js-yaml-schema';
 import { existsSync, readFileSync, realpathSync } from 'fs';
 import { DEFAULT_SAFE_SCHEMA, safeLoad } from 'js-yaml';
@@ -57,6 +57,11 @@ export async function main(argv: Array<string>): Promise<number> {
   }, 'startup environment');
 
   for (const project of config.projects) {
+    if (doesExist(args.project) && !args.project.includes(project.name)) {
+      logger.info({ project: project.name }, 'skipping project');
+      continue;
+    }
+
     const remote = new GithubRemote({
       ...project.remote,
       dryrun: args.dryrun,

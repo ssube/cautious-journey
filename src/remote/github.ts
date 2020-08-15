@@ -18,7 +18,7 @@ export class GithubRemote implements Remote {
   constructor(options: RemoteOptions) {
     this.options = options;
 
-    options.logger.debug({ options }, 'github remote');
+    options.logger.debug(options, 'github remote');
   }
 
   public async connect() {
