@@ -1,5 +1,6 @@
 import { doesExist, mustExist } from '@apextoaster/js-utils';
 import { Logger } from 'noicejs';
+import { prng } from 'seedrandom';
 
 import { FlagLabel, getLabelColor, getLabelNames, getValueName, StateLabel } from './labels';
 import { LabelUpdate, Remote } from './remote';
@@ -17,6 +18,7 @@ export interface SyncOptions {
 
   logger: Logger;
   project: string;
+  random: prng;
   remote: Remote;
 
   /**
@@ -103,7 +105,7 @@ export async function createLabel(options: SyncOptions, name: string) {
   const flag = options.flags.find((it) => name === it.name);
   if (doesExist(flag)) {
     await options.remote.createLabel({
-      color: getLabelColor(flag, options.colors),
+      color: getLabelColor(options.colors, options.random, flag),
       desc: mustExist(flag.desc),
       name,
       project: options.project,
@@ -117,7 +119,7 @@ export async function createLabel(options: SyncOptions, name: string) {
     const value = state.values.find((it) => getValueName(state, it) === name);
     if (doesExist(value)) {
       await options.remote.createLabel({
-        color: getLabelColor(state, value, options.colors),
+        color: getLabelColor(options.colors, options.random, state, value),
         desc: defaultUntil(value.desc, state.desc, ''),
         name: getValueName(state, value),
         project: options.project,
@@ -153,7 +155,7 @@ export async function syncSingleLabel(options: SyncOptions, label: LabelUpdate):
   const flag = options.flags.find((it) => label.name === it.name);
   if (doesExist(flag)) {
     await syncLabelDiff(options, label, {
-      color: getLabelColor(flag, options.colors),
+      color: getLabelColor(options.colors, options.random, flag),
       desc: defaultTo(flag.desc, label.desc),
       name: flag.name,
       project: options.project,
@@ -167,7 +169,7 @@ export async function syncSingleLabel(options: SyncOptions, label: LabelUpdate):
     const value = state.values.find((it) => getValueName(state, it) === label.name);
     if (doesExist(value)) {
       await syncLabelDiff(options, label, {
-        color: getLabelColor(state, value, options.colors),
+        color: getLabelColor(options.colors, options.random, state, value),
         desc: defaultTo(value.desc, label.desc),
         name: getValueName(state, value),
         project: options.project,

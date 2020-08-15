@@ -3,6 +3,7 @@ import { createSchema } from '@apextoaster/js-yaml-schema';
 import { existsSync, readFileSync, realpathSync } from 'fs';
 import { DEFAULT_SAFE_SCHEMA, safeLoad } from 'js-yaml';
 import { join } from 'path';
+import { alea } from 'seedrandom';
 
 import { ConfigData } from './config';
 import { Commands, createParser } from './config/args';
@@ -64,9 +65,10 @@ export async function main(argv: Array<string>): Promise<number> {
       continue;
     }
 
+    const random = alea(name);
     const remote = new GithubRemote({
       data: project.remote.data,
-      dryrun: args.dryrun || project.remote.dryrun,
+      dryrun: args.dryrun || project.remote.dryrun || false,
       logger,
       type: project.remote.type,
     });
@@ -78,6 +80,7 @@ export async function main(argv: Array<string>): Promise<number> {
       flags,
       logger,
       project: name,
+      random,
       remote,
       states,
     };
