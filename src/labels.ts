@@ -31,16 +31,23 @@ export interface BaseLabel {
    * Display color.
    */
   color?: string;
+
+  /**
+   * Long-form description.
+   */
   desc?: string;
+
+  /**
+   * Label priority.
+   */
   priority: number;
-  requires: Array<LabelRef>;
 }
 
 /**
  * Individual labels: the equivalent of a checkbox.
  */
 export interface FlagLabel extends BaseLabel, ChangeSet {
-  /* empty */
+  requires: Array<LabelRef>;
 }
 
 /**
@@ -56,7 +63,7 @@ export interface StateChange extends ChangeSet {
 /**
  * One of many values for a particular state.
  */
-export interface StateValue extends BaseLabel {
+export interface StateValue extends BaseLabel, ChangeSet {
   /**
    * State changes that could occur to this value.
    */
@@ -66,7 +73,7 @@ export interface StateValue extends BaseLabel {
 /**
  * Grouped labels: the equivalent of a radio group.
  */
-export interface StateLabel extends BaseLabel, ChangeSet {
+export interface StateLabel extends BaseLabel {
   /**
    * Values for this state.
    */
@@ -121,17 +128,15 @@ export function prioritySort<TLabel extends BaseLabel>(labels: Array<TLabel>): A
 
 /**
  * Pick a label color, preferring the label data if set, falling back to a randomly selected color.
- *
- * TODO: this is a terrible overload
  */
 export function getLabelColor(colors: Array<string>, random: prng, flag: FlagLabel): string;
 export function getLabelColor(colors: Array<string>, random: prng, state: StateLabel, value: StateValue): string;
 export function getLabelColor(colors: Array<string>, random: prng, label: BaseLabel, value?: StateValue): string {
-  if (doesExist(value) && doesExist(value.color)) {
+  if (doesExist(value) && doesExist(value.color) && value.color !== '') {
     return value.color;
   }
 
-  if (doesExist(label.color)) {
+  if (doesExist(label.color) && label.color !== '') {
     return label.color;
   }
 

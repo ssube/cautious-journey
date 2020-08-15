@@ -13,3 +13,9 @@ export interface FlagLabel extends BaseLabel, ChangeSet
 ```
 <b>Extends:</b> BaseLabel, ChangeSet
 
+## Properties
+
+|  Property | Type | Description |
+|  --- | --- | --- |
+|  [requires](./cautious-journey.flaglabel.requires.md) | Array&lt;unknown&gt; |  |
+

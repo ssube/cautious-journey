@@ -1,6 +1,7 @@
 import { expect } from 'chai';
+import { alea } from 'seedrandom';
 
-import { getLabelNames, prioritySort } from '../src/labels';
+import { getLabelColor, getLabelNames, prioritySort } from '../src/labels';
 
 describe('label helpers', () => {
   describe('label name helper', () => {
@@ -30,23 +31,21 @@ describe('label helpers', () => {
 
     it('should return all states', () => {
       const values = [{
+        adds: [],
         becomes: [],
         name: 'bin',
         priority: 1,
+        removes: [],
         requires: [],
       }];
       const states = [{
-        adds: [],
         name: 'foo',
         priority: 1,
-        removes: [],
         requires: [],
         values,
       }, {
-        adds: [],
         name: 'bar',
         priority: 1,
-        removes: [],
         requires: [],
         values,
       }];
@@ -90,6 +89,61 @@ describe('label helpers', () => {
 
       const sorted = prioritySort([SECOND_LABEL, FIRST_LABEL]);
       expect(sorted[0]).to.deep.equal(FIRST_LABEL);
+    });
+  });
+
+  describe('label color helper', () => {
+    it('should return the value color', () => {
+      expect(getLabelColor(['test'], alea(), {
+        color: 'beans',
+        name: '',
+        priority: 1,
+        values: [],
+      }, {
+        adds: [],
+        becomes: [],
+        color: 'not',
+        name: '',
+        priority: 1,
+        removes: [],
+      })).to.equal('not');
+    });
+
+    it('should return the state color when value color is unset', () => {
+      expect(getLabelColor(['test'], alea(), {
+        color: 'beans',
+        name: '',
+        priority: 1,
+        values: [],
+      }, {
+        adds: [],
+        becomes: [],
+        color: '',
+        name: '',
+        priority: 1,
+        removes: [],
+      })).to.equal('beans');
+    });
+
+    it('should return the flag color', () => {
+      expect(getLabelColor(['test'], alea(), {
+        adds: [],
+        color: 'not',
+        name: '',
+        priority: 1,
+        removes: [],
+        requires: [],
+      })).to.equal('not');
+    });
+
+    it('should return a random color when the flag color is unset', () => {
+      expect(getLabelColor(['test'], alea(), {
+        adds: [],
+        name: '',
+        priority: 1,
+        removes: [],
+        requires: [],
+      })).to.equal('test');
     });
   });
 });

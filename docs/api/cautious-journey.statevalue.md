@@ -9,9 +9,9 @@ One of many values for a particular state.
 <b>Signature:</b>
 
 ```typescript
-export interface StateValue extends BaseLabel 
+export interface StateValue extends BaseLabel, ChangeSet 
 ```
-<b>Extends:</b> BaseLabel
+<b>Extends:</b> BaseLabel, ChangeSet
 
 ## Properties
 
