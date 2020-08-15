@@ -74,7 +74,7 @@ export function resolveLabels(options: ResolveInput): ResolveResult {
       }
     }
     if (isRemoved) {
-      return;
+      return true;
     }
 
     for (const addedLabel of label.adds) {
@@ -84,6 +84,8 @@ export function resolveLabels(options: ResolveInput): ResolveResult {
     for (const removedLabel of label.removes) {
       activeLabels.delete(removedLabel.name);
     }
+
+    return false;
   }
 
   const sortedFlags = prioritySort(options.flags);
@@ -99,13 +101,16 @@ export function resolveLabels(options: ResolveInput): ResolveResult {
       const name = getValueName(state, value);
       if (activeLabels.has(name)) {
         if (firstActive) {
-          // TODO: check requires
-          // TODO: check adds
-          // TODO: check removes
+          if (!checkLabelRules(state)) {
+            break;
+          }
+          if (!checkLabelRules(value)) {
+            break;
+          }
           // TODO: check becomes
           firstActive = false;
         } else {
-          // removes all other values for this state and breaks?
+          activeLabels.delete(name);
         }
       }
     }
