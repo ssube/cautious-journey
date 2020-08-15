@@ -7,34 +7,49 @@ import { resolveLabels } from './resolve';
 import { defaultTo, defaultUntil } from './utils';
 
 export interface SyncOptions {
+  /**
+   */
   colors: Array<string>;
+
+  /**
+   */
   flags: Array<FlagLabel>;
+
   logger: Logger;
   project: string;
   remote: Remote;
+
+  /**
+   * States from project config.
+   */
   states: Array<StateLabel>;
 }
 
-export async function syncIssues(options: SyncOptions): Promise<unknown> {
+/**
+ * goes through each issue in the project
+ * resolves labels
+ * if there are changes and no errors, then update the issue
+ */
+export async function syncIssueLabels(options: SyncOptions): Promise<unknown> {
   const issues = await options.remote.listIssues({
     project: options.project,
   });
 
   for (const issue of issues) {
-    options.logger.info({ issue }, 'issue');
+    options.logger.info({ issue }, 'project issue');
 
-    const resolution = resolveLabels({
+    const { changes, errors, labels } = resolveLabels({
       flags: options.flags,
       labels: issue.labels,
       states: options.states,
     });
 
     // TODO: prompt user to update this particular issue
-    if (resolution.changes.length > 0 && resolution.errors.length === 0) {
-      options.logger.info({ issue, resolution }, 'updating issue');
+    if (changes.length > 0 && errors.length === 0) {
+      options.logger.info({ issue, labels }, 'updating issue');
       await options.remote.updateIssue({
         ...issue,
-        labels: resolution.labels,
+        labels,
       });
     }
   }

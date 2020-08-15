@@ -57,6 +57,7 @@ export interface ResolveResult {
  * Resolve the desired set of labels, given a starting set and the flags/states to be
  * applied.
  */
+/* eslint-disable-next-line sonarjs/cognitive-complexity */
 export function resolveLabels(options: ResolveInput): ResolveResult {
   const activeLabels = new Set(options.labels);
   const changes: Array<ChangeRecord> = [];
@@ -65,9 +66,30 @@ export function resolveLabels(options: ResolveInput): ResolveResult {
   const sortedFlags = prioritySort(options.flags);
   for (const flag of sortedFlags) {
     const { name } = flag;
+
     if (activeLabels.has(name)) {
-      // TODO: check removes
-      // TODO: check requires
+      // TODO: check requires rule
+      let removed = false;
+      for (const requiredLabel of flag.requires) {
+        if (!activeLabels.has(requiredLabel.name)) {
+          activeLabels.delete(name);
+          removed = true;
+        }
+      }
+
+      if (removed) {
+        break;
+      }
+
+      // TODO: check adds rule
+      for (const addedLabel of flag.adds) {
+        activeLabels.add(addedLabel.name);
+      }
+
+      // TODO: check removes rule
+      for (const removedLabel of flag.removes) {
+        activeLabels.delete(removedLabel.name);
+      }
     }
   }
 
