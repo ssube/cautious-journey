@@ -29,7 +29,7 @@ export async function syncIssues(options: SyncOptions): Promise<unknown> {
     });
 
     // TODO: prompt user to update this particular issue
-    if (resolution.changes.length > 0) {
+    if (resolution.changes.length > 0 && resolution.errors.length === 0) {
       options.logger.info({ issue, resolution }, 'updating issue');
       await options.remote.updateIssue({
         ...issue,

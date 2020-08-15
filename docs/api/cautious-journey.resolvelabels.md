@@ -4,6 +4,8 @@
 
 ## resolveLabels() function
 
+Resolve the desired set of labels, given a starting set and the flags/states to be applied.
+
 <b>Signature:</b>
 
 ```typescript

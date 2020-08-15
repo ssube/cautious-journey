@@ -15,7 +15,7 @@
 
 |  Function | Description |
 |  --- | --- |
-|  [resolveLabels(options)](./cautious-journey.resolvelabels.md) |  |
+|  [resolveLabels(options)](./cautious-journey.resolvelabels.md) | Resolve the desired set of labels, given a starting set and the flags/states to be applied. |
 |  [syncIssues(options)](./cautious-journey.syncissues.md) |  |
 |  [syncLabels(options)](./cautious-journey.synclabels.md) |  |
 

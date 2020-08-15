@@ -42,7 +42,6 @@ const bundle = {
 	},
 	manualChunks(id) {
 		if (id.includes(`${sep}test${sep}`)) {
-			console.log(id, 'belongs to test chunk');
 			return 'test';
 		}
 
@@ -55,7 +54,6 @@ const bundle = {
 		}
 
 		if (testModules.some(mod => id.includes(`${sep}${mod}${sep}`))) {
-			console.log(id, 'belongs to test chunk');
 			return 'test';
 		}
 

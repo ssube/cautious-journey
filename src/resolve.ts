@@ -1,9 +1,9 @@
-import { FlagLabel, StateLabel, valueName } from './labels';
+import { FlagLabel, prioritizeLabels, StateLabel, valueName } from './labels';
 
 /**
  * How a label changed.
  */
-export enum ChangeEffect {
+export enum ChangeVerb {
   EXISTING = 'existing',
   CREATED = 'created',
   REMOVED = 'removed',
@@ -14,8 +14,24 @@ export enum ChangeEffect {
  * Details of a label change.
  */
 export interface ChangeRecord {
+  /**
+   * The label which caused this change.
+   */
   cause: string;
-  effect: ChangeEffect;
+
+  /**
+   * How the label was changed.
+   */
+  effect: ChangeVerb;
+
+  /**
+   * The label being changed.
+   */
+  label: string;
+}
+
+export interface ErrorRecord {
+  error: Error;
   label: string;
 }
 
@@ -33,16 +49,20 @@ export interface ResolveInput {
  */
 export interface ResolveResult {
   changes: Array<ChangeRecord>;
-  errors: Array<unknown>;
+  errors: Array<ErrorRecord>;
   labels: Array<string>;
 }
 
+/**
+ * Resolve the desired set of labels, given a starting set and the flags/states to be
+ * applied.
+ */
 export function resolveLabels(options: ResolveInput): ResolveResult {
   const activeLabels = new Set(options.labels);
   const changes: Array<ChangeRecord> = [];
-  const errors: Array<unknown> = [];
+  const errors: Array<ErrorRecord> = [];
 
-  const sortedFlags = options.flags.sort((a, b) => a.priority - b.priority);
+  const sortedFlags = prioritizeLabels(options.flags);
   for (const flag of sortedFlags) {
     const { name } = flag;
     if (activeLabels.has(name)) {
@@ -51,11 +71,13 @@ export function resolveLabels(options: ResolveInput): ResolveResult {
     }
   }
 
-  const sortedStates = options.states.sort((a, b) => a.priority - b.priority);
+  const sortedStates = prioritizeLabels(options.states);
   for (const state of sortedStates) {
-    for (const value of state.values) {
+    const sortedValues = prioritizeLabels(state.values);
+    for (const value of sortedValues) {
       const name = valueName(state, value);
       if (activeLabels.has(name)) {
+        // TODO: check higher-priority values
         // TODO: check removes
         // TODO: check requires
         // TODO: check becomes

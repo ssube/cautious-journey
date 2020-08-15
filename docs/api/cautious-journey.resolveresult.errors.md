@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-errors: Array<unknown>;
+errors: Array<ErrorRecord>;
 ```

@@ -12,7 +12,7 @@ projects:
         privateKey: |
           KEY MATERIAL HERE
         token: ''
-        type: 'installation'
+        type: 'app'
       type: 'github'
     states:
       - name: scope

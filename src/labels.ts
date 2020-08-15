@@ -95,3 +95,21 @@ export function splitName(name: string): Array<string> {
 export function valueName(state: StateLabel, value: StateValue): string {
   return `${state.name}/${value.name}`;
 }
+
+/**
+ * Sort labels by their priority field, highest first.
+ *
+ * TODO: add some sort options: high-first or low-first, case-sensitivity
+ */
+export function prioritizeLabels<TLabel extends BaseLabel>(labels: Array<TLabel>): Array<TLabel> {
+  return labels.sort((a, b) => {
+    if (a.priority === b.priority) {
+      const aName = a.name.toLocaleLowerCase();
+      const bName = b.name.toLocaleLowerCase();
+      return aName.localeCompare(bName);
+    } else {
+      // B first for high-to-low
+      return b.priority - a.priority;
+    }
+  });
+}

@@ -17,6 +17,6 @@ export interface ResolveResult
 |  Property | Type | Description |
 |  --- | --- | --- |
 |  [changes](./cautious-journey.resolveresult.changes.md) | Array&lt;ChangeRecord&gt; |  |
-|  [errors](./cautious-journey.resolveresult.errors.md) | Array&lt;unknown&gt; |  |
+|  [errors](./cautious-journey.resolveresult.errors.md) | Array&lt;ErrorRecord&gt; |  |
 |  [labels](./cautious-journey.resolveresult.labels.md) | Array&lt;string&gt; |  |
 

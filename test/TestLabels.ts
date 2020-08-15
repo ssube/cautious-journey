@@ -1,8 +1,8 @@
 import { expect } from 'chai';
 
-import { getLabelNames } from '../src/labels';
+import { getLabelNames, prioritizeLabels } from '../src/labels';
 
-describe('labels', () => {
+describe('label helpers', () => {
   describe('label name helper', () => {
     it('should return an empty set', () => {
       expect(getLabelNames([], []).size).to.equal(0);
@@ -56,6 +56,40 @@ describe('labels', () => {
         'foo/bin',
         'bar/bin',
       ]);
+    });
+  });
+
+  describe('prioritize labels helper', () => {
+    it('should sort by priority', () => {
+      const HIGH_LABEL = {
+        name: 'high',
+        priority: 5,
+        requires: [],
+      };
+      const LOW_LABEL = {
+        name: 'low',
+        priority: 1,
+        requires: [],
+      };
+
+      const sorted = prioritizeLabels([LOW_LABEL, HIGH_LABEL]);
+      expect(sorted[0]).to.deep.equal(HIGH_LABEL);
+    });
+
+    it('should sort by name when priority is equal', () => {
+      const FIRST_LABEL = {
+        name: 'label-a',
+        priority: 1,
+        requires: [],
+      };
+      const SECOND_LABEL = {
+        name: 'label-b',
+        priority: 1,
+        requires: [],
+      };
+
+      const sorted = prioritizeLabels([SECOND_LABEL, FIRST_LABEL]);
+      expect(sorted[0]).to.deep.equal(FIRST_LABEL);
     });
   });
 });
