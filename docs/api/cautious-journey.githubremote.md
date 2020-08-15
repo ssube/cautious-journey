@@ -41,6 +41,6 @@ export declare class GithubRemote implements Remote
 |  [listIssues(options)](./cautious-journey.githubremote.listissues.md) |  |  |
 |  [listLabels(options)](./cautious-journey.githubremote.listlabels.md) |  |  |
 |  [splitProject(project)](./cautious-journey.githubremote.splitproject.md) |  |  |
-|  [updateIssue()](./cautious-journey.githubremote.updateissue.md) |  |  |
+|  [updateIssue(options)](./cautious-journey.githubremote.updateissue.md) |  |  |
 |  [updateLabel(options)](./cautious-journey.githubremote.updatelabel.md) |  |  |
 

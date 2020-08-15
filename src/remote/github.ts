@@ -140,8 +140,22 @@ export class GithubRemote implements Remote {
     return labels;
   }
 
-  public async updateIssue(): Promise<IssueUpdate> {
-    throw new NotImplementedError();
+  public async updateIssue(options: IssueUpdate): Promise<IssueUpdate> {
+    const path = await this.splitProject(options.project);
+
+    if (this.writeCapable) {
+      const data = await this.writeRequest.issues.setLabels({
+        /* eslint-disable-next-line camelcase */
+        issue_number: parseInt(options.issue, 10),
+        labels: options.labels,
+        owner: path.owner,
+        repo: path.repo,
+      });
+
+      this.options.logger.info({ data }, 'updated issue');
+    }
+
+    return options;
   }
 
   public async updateLabel(options: LabelUpdate): Promise<LabelUpdate> {
