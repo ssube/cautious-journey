@@ -4,10 +4,12 @@
 
 ## syncIssues() function
 
+goes through each issue in the project resolves labels if there are changes and no errors, then update the issue
+
 <b>Signature:</b>
 
 ```typescript
-export declare function syncIssues(options: SyncOptions): Promise<unknown>;
+export declare function syncIssueLabels(options: SyncOptions): Promise<unknown>;
 ```
 
 ## Parameters

@@ -19,5 +19,5 @@ export interface SyncOptions
 |  [logger](./cautious-journey.syncoptions.logger.md) | Logger |  |
 |  [project](./cautious-journey.syncoptions.project.md) | string |  |
 |  [remote](./cautious-journey.syncoptions.remote.md) | [Remote](./cautious-journey.remote.md) |  |
-|  [states](./cautious-journey.syncoptions.states.md) | Array&lt;[StateLabel](./cautious-journey.statelabel.md)<!-- -->&gt; |  |
+|  [states](./cautious-journey.syncoptions.states.md) | Array&lt;[StateLabel](./cautious-journey.statelabel.md)<!-- -->&gt; | States from project config. |
 

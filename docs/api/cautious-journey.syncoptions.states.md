@@ -4,6 +4,8 @@
 
 ## SyncOptions.states property
 
+States from project config.
+
 <b>Signature:</b>
 
 ```typescript

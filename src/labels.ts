@@ -32,7 +32,7 @@ export interface BaseLabel {
   color?: string;
   desc?: string;
   priority: number;
-  requires: Array<unknown>;
+  requires: Array<LabelRef>;
 }
 
 /**
