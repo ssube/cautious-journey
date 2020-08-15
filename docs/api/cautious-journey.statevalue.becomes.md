@@ -9,5 +9,5 @@ State changes that could occur to this value.
 <b>Signature:</b>
 
 ```typescript
-becomes: Array<ChangeSet>;
+becomes: Array<StateChange>;
 ```

@@ -42,6 +42,18 @@ definitions:
       - $ref: "#/definitions/change-set"
       - $ref: "#/definitions/base-label"
 
+  state-change:
+    allOf:
+      - $ref: "#/definitions/change-set"
+      - type: object
+        required:
+          - matches
+        properties:
+          matches:
+            items:
+              $ref: "#/definitions/label-ref"
+
+
   state-label:
     allOf:
       - $ref: "#/definitions/change-set"
@@ -62,6 +74,8 @@ definitions:
         properties:
           becomes:
             type: array
+            items:
+              $ref: "#/definitions/state-change"
             default: []
 
   config:
@@ -74,7 +88,6 @@ definitions:
             type: string
           name:
             type: string
-
       projects:
         type: array
         items:

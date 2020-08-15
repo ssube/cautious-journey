@@ -18,5 +18,4 @@ export interface ChangeSet
 |  --- | --- | --- |
 |  [adds](./cautious-journey.changeset.adds.md) | Array&lt;LabelRef&gt; |  |
 |  [removes](./cautious-journey.changeset.removes.md) | Array&lt;LabelRef&gt; |  |
-|  [requires](./cautious-journey.changeset.requires.md) | Array&lt;LabelRef&gt; | Required labels for this state change to occur. |
 

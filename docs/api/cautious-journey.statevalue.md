@@ -9,13 +9,13 @@ One of many values for a particular state.
 <b>Signature:</b>
 
 ```typescript
-export interface StateValue extends BaseLabel, ChangeSet 
+export interface StateValue extends BaseLabel 
 ```
-<b>Extends:</b> BaseLabel, [ChangeSet](./cautious-journey.changeset.md)
+<b>Extends:</b> BaseLabel
 
 ## Properties
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [becomes](./cautious-journey.statevalue.becomes.md) | Array&lt;[ChangeSet](./cautious-journey.changeset.md)<!-- -->&gt; | State changes that could occur to this value. |
+|  [becomes](./cautious-journey.statevalue.becomes.md) | Array&lt;StateChange&gt; | State changes that could occur to this value. |
 

@@ -16,11 +16,6 @@ export interface LabelRef {
 export interface ChangeSet {
   adds: Array<LabelRef>;
   removes: Array<LabelRef>;
-
-  /**
-   * Required labels for this state change to occur.
-   */
-  requires: Array<LabelRef>;
 }
 
 /**
@@ -46,6 +41,11 @@ export interface BaseLabel extends ChangeSet {
    * Label priority.
    */
   priority: number;
+
+  /**
+   * Required labels for this state change to occur.
+   */
+  requires: Array<LabelRef>;
 }
 
 /**
@@ -53,14 +53,18 @@ export interface BaseLabel extends ChangeSet {
  */
 export type FlagLabel = BaseLabel;
 
+export interface StateChange extends ChangeSet {
+  matches: Array<LabelRef>;
+}
+
 /**
  * One of many values for a particular state.
  */
-export interface StateValue extends BaseLabel, ChangeSet {
+export interface StateValue extends BaseLabel {
   /**
    * State changes that could occur to this value.
    */
-  becomes: Array<ChangeSet>;
+  becomes: Array<StateChange>;
 }
 
 /**
