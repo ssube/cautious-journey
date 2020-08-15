@@ -14,6 +14,7 @@ export interface SyncOptions
 
 |  Property | Type | Description |
 |  --- | --- | --- |
+|  [colors](./cautious-journey.syncoptions.colors.md) | Array&lt;string&gt; |  |
 |  [flags](./cautious-journey.syncoptions.flags.md) | Array&lt;[FlagLabel](./cautious-journey.flaglabel.md)<!-- -->&gt; |  |
 |  [logger](./cautious-journey.syncoptions.logger.md) | Logger |  |
 |  [project](./cautious-journey.syncoptions.project.md) | string |  |

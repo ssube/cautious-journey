@@ -1,3 +1,6 @@
+import { doesExist, InvalidArgumentError } from '@apextoaster/js-utils';
+import { randomItem } from './utils';
+
 /**
  * A reference to another label.
  */
@@ -112,4 +115,33 @@ export function prioritizeLabels<TLabel extends BaseLabel>(labels: Array<TLabel>
       return b.priority - a.priority;
     }
   });
+}
+
+/**
+ * Pick a label color, preferring the label data if set, falling back to a randomly selected color.
+ *
+ * TODO: this is a terrible overload
+ */
+export function colorizeLabel(flag: FlagLabel, colors: Array<string>): string;
+export function colorizeLabel(state: StateLabel, value: StateValue, colors: Array<string>): string;
+export function colorizeLabel(label: BaseLabel, colorsOrValue: Array<string> | StateValue, maybeColors?: Array<string>): string {
+  if (Array.isArray(colorsOrValue)) {
+    const { color } = label;
+    if (doesExist(color)) {
+      return color;
+    } else {
+      return randomItem(colorsOrValue);
+    }
+  } else {
+    if (!Array.isArray(maybeColors)) {
+      throw new InvalidArgumentError();
+    }
+
+    const { color = colorsOrValue.color } = label;
+    if (doesExist(color)) {
+      return color;
+    } else {
+      return randomItem(maybeColors);
+    }
+  }
 }

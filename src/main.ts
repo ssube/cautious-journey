@@ -1,4 +1,4 @@
-import { InvalidArgumentError, isNil, doesExist } from '@apextoaster/js-utils';
+import { doesExist, InvalidArgumentError, isNil } from '@apextoaster/js-utils';
 import { createSchema } from '@apextoaster/js-yaml-schema';
 import { existsSync, readFileSync, realpathSync } from 'fs';
 import { DEFAULT_SAFE_SCHEMA, safeLoad } from 'js-yaml';
@@ -57,25 +57,29 @@ export async function main(argv: Array<string>): Promise<number> {
   }, 'startup environment');
 
   for (const project of config.projects) {
-    if (doesExist(args.project) && !args.project.includes(project.name)) {
-      logger.info({ project: project.name }, 'skipping project');
+    const { colors, flags, name, states } = project;
+
+    if (doesExist(args.project) && !args.project.includes(name)) {
+      logger.info({ project: name }, 'skipping project');
       continue;
     }
 
     const remote = new GithubRemote({
-      ...project.remote,
-      dryrun: args.dryrun,
+      data: project.remote.data,
+      dryrun: args.dryrun || project.remote.dryrun,
       logger,
+      type: project.remote.type,
     });
     await remote.connect();
 
     // mode switch
     const options: SyncOptions = {
-      flags: project.flags,
+      colors,
+      flags,
       logger,
-      project: project.name,
+      project: name,
       remote,
-      states: project.states,
+      states,
     };
     switch (mode) {
       case Commands.ISSUES:
@@ -85,7 +89,7 @@ export async function main(argv: Array<string>): Promise<number> {
         await syncLabels(options);
         break;
       default:
-        throw new InvalidArgumentError('unknown mode');
+        throw new InvalidArgumentError('unknown command');
     }
   }
 
