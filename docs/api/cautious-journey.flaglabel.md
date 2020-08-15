@@ -17,5 +17,5 @@ export interface FlagLabel extends BaseLabel, ChangeSet
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [requires](./cautious-journey.flaglabel.requires.md) | Array&lt;unknown&gt; |  |
+|  [requires](./cautious-journey.flaglabel.requires.md) | Array&lt;LabelRef&gt; |  |
 

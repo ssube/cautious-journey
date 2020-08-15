@@ -5,7 +5,7 @@ export { Remote, RemoteOptions } from './remote';
 export { GithubRemote } from './remote/github';
 export { GitlabRemote } from './remote/gitlab';
 export { ResolveInput, ResolveResult, resolveLabels } from './resolve';
-export { syncIssueLabels as syncIssues, syncLabels, SyncOptions } from './sync';
+export { syncIssueLabels, SyncOptions, syncProjectLabels } from './sync';
 
 const STATUS_ERROR = 1;
 

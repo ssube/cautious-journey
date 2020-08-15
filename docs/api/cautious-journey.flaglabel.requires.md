@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-requires: Array<unknown>;
+requires: Array<LabelRef>;
 ```
