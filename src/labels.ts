@@ -1,4 +1,5 @@
-import { doesExist, InvalidArgumentError } from '@apextoaster/js-utils';
+import { doesExist } from '@apextoaster/js-utils';
+import { prng } from 'seedrandom';
 
 import { randomItem } from './utils';
 
@@ -123,26 +124,16 @@ export function prioritySort<TLabel extends BaseLabel>(labels: Array<TLabel>): A
  *
  * TODO: this is a terrible overload
  */
-export function getLabelColor(flag: FlagLabel, colors: Array<string>): string;
-export function getLabelColor(state: StateLabel, value: StateValue, colors: Array<string>): string;
-export function getLabelColor(label: BaseLabel, colorsOrValue: Array<string> | StateValue, maybeColors?: Array<string>): string {
-  if (Array.isArray(colorsOrValue)) {
-    const { color } = label;
-    if (doesExist(color)) {
-      return color;
-    } else {
-      return randomItem(colorsOrValue);
-    }
-  } else {
-    if (!Array.isArray(maybeColors)) {
-      throw new InvalidArgumentError();
-    }
-
-    const { color = colorsOrValue.color } = label;
-    if (doesExist(color)) {
-      return color;
-    } else {
-      return randomItem(maybeColors);
-    }
+export function getLabelColor(colors: Array<string>, random: prng, flag: FlagLabel): string;
+export function getLabelColor(colors: Array<string>, random: prng, state: StateLabel, value: StateValue): string;
+export function getLabelColor(colors: Array<string>, random: prng, label: BaseLabel, value?: StateValue): string {
+  if (doesExist(value) && doesExist(value.color)) {
+    return value.color;
   }
+
+  if (doesExist(label.color)) {
+    return label.color;
+  }
+
+  return randomItem(colors, random);
 }
