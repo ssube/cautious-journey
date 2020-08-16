@@ -1,7 +1,12 @@
+import { NotImplementedError } from '@apextoaster/js-utils';
 import { createSchema as realSchema } from '@apextoaster/js-yaml-schema';
 import { existsSync, readFileSync, realpathSync } from 'fs';
 import { DEFAULT_SAFE_SCHEMA, Schema } from 'js-yaml';
 import { join } from 'path';
+
+export function createMarkup(): void {
+  throw new NotImplementedError('not implemented for the CLI');
+}
 
 export function createSchema(): Schema {
   return realSchema({

@@ -5,10 +5,12 @@
 		<title>Cautious Journey</title>
 	</head>
 	<body class="viewport">
+		<div id="app-container"></div>
 		<script type="module">
 			import { main, resolveLabels, syncIssueLabels, syncProjectLabels } from './main.js';
 
 			console.log('main loaded', main);
+			main(['html']);
 		</script>
 		<script type="application/yaml" id="data-cautious-journey-config">
 logger:
