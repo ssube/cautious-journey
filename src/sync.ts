@@ -48,12 +48,17 @@ export async function syncIssueLabels(options: SyncOptions): Promise<unknown> {
     options.logger.debug({ changes, errors, issue, labels }, 'resolved labels');
 
     // TODO: prompt user to update this particular issue
-    const sameLabels = !compareItems(issue.labels, labels) || changes.length > 0;
-    if (sameLabels && errors.length === 0) {
+    const sameLabels = compareItems(issue.labels, labels) || changes.length === 0;
+    if (sameLabels === false && errors.length === 0) {
       options.logger.info({ issue, labels }, 'updating issue');
       await options.remote.updateIssue({
         ...issue,
         labels,
+      });
+      await options.remote.createComment({
+        ...issue,
+        changes,
+        errors,
       });
     }
   }
