@@ -7,7 +7,7 @@ import { Commands, createParser, ParsedArgs } from './config/args';
 import { dotGraph, graphProject } from './graph';
 import { BunyanLogger } from './logger/bunyan';
 import { RemoteModule } from './module/RemoteModule';
-import { createMarkup } from './platform';
+import { createMarkup, createSchema } from './platform';
 import { Remote, RemoteOptions } from './remote';
 import { syncIssueLabels, SyncOptions, syncProjectLabels } from './sync';
 import { defaultUntil } from './utils';
@@ -27,8 +27,10 @@ export const STATUS_FAILURE = 1;
 export const STATUS_SUCCESS = 0;
 
 export async function main(argv: Array<string>): Promise<number> {
+  const schema = createSchema();
+
   if (argv[0] === 'html') {
-    createMarkup();
+    createMarkup(schema);
     return 0;
   }
 
