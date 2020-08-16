@@ -1,11 +1,14 @@
-import { FlagLabel, getValueName, prioritySort, StateLabel, BaseLabel } from './labels';
+import { doesExist } from '@apextoaster/js-utils';
+
+import { BaseLabel, FlagLabel, getValueName, prioritySort, StateLabel } from './labels';
 
 /**
  * How a label changed.
  */
 export enum ChangeVerb {
-  EXISTING = 'existing',
+  CONFLICTED = 'conflicted',
   CREATED = 'created',
+  EXISTING = 'existing',
   REMOVED = 'removed',
   REQUIRED = 'required',
 }
@@ -68,21 +71,43 @@ export function resolveLabels(options: ResolveInput): ResolveResult {
     if (activeLabels.has(label.name)) {
       for (const requiredLabel of label.requires) {
         if (!activeLabels.has(requiredLabel.name)) {
-          activeLabels.delete(label.name);
+          if (activeLabels.delete(label.name)) {
+            changes.push({
+              cause: requiredLabel.name,
+              effect: ChangeVerb.REQUIRED,
+              label: label.name,
+            });
+          }
+
           isRemoved = true;
         }
       }
     }
+
     if (isRemoved) {
       return true;
     }
 
     for (const addedLabel of label.adds) {
-      activeLabels.add(addedLabel.name);
+      // Set.add does not return a boolean, unlike the other methods
+      if (!activeLabels.has(addedLabel.name)) {
+        activeLabels.add(addedLabel.name);
+        changes.push({
+          cause: label.name,
+          effect: ChangeVerb.CREATED,
+          label: addedLabel.name,
+        });
+      }
     }
 
     for (const removedLabel of label.removes) {
-      activeLabels.delete(removedLabel.name);
+      if (activeLabels.delete(removedLabel.name)) {
+        changes.push({
+          cause: label.name,
+          effect: ChangeVerb.REMOVED,
+          label: removedLabel.name,
+        });
+      }
     }
 
     return false;
@@ -95,22 +120,31 @@ export function resolveLabels(options: ResolveInput): ResolveResult {
 
   const sortedStates = prioritySort(options.states);
   for (const state of sortedStates) {
-    let firstActive = true;
+    let activeValue;
+
     const sortedValues = prioritySort(state.values);
     for (const value of sortedValues) {
       const name = getValueName(state, value);
       if (activeLabels.has(name)) {
-        if (firstActive) {
+        if (doesExist(activeValue)) {
+          if (activeLabels.delete(name)) {
+            changes.push({
+              cause: name,
+              effect: ChangeVerb.CONFLICTED,
+              label: name,
+            });
+          }
+        } else {
+          // TODO: combine rules, but use state/value name
           if (!checkLabelRules(state)) {
             break;
           }
           if (!checkLabelRules(value)) {
             break;
           }
-          // TODO: check becomes
-          firstActive = false;
-        } else {
-          activeLabels.delete(name);
+
+          // TODO: check becomes rules
+          activeValue = name;
         }
       }
     }
