@@ -8,9 +8,10 @@
     - [Linux](#linux)
     - [Mac OS](#mac-os)
   - [Checking Out the Project](#checking-out-the-project)
-  - [Building](#building)
+  - [Build](#build)
     - [Compiling Typescript](#compiling-typescript)
     - [Running Mocha Tests](#running-mocha-tests)
+    - [Running Bundled Code](#running-bundled-code)
 
 ## Setup
 
@@ -66,7 +67,7 @@ Clone the repository:
 
 You can also clone the repository through Github Desktop:
 
-* [x-github-client://openRepo/https://github.com/ssube/cautious-journey](x-github-client://openRepo/https://github.com/ssube/cautious-journey)
+- [x-github-client://openRepo/https://github.com/ssube/cautious-journey](x-github-client://openRepo/https://github.com/ssube/cautious-journey)
 
 Change the directory:
 
@@ -74,7 +75,7 @@ Change the directory:
 > cd ~/Documents/GitHub/cautious-journey/
 ```
 
-## Building
+## Build
 
 Building the app is done through `make` and its targets. To see a list of available targets:
 
@@ -104,3 +105,13 @@ This will compile the code and run tests.
 ### Running Mocha Tests
 
 Tests use Mocha: https://mochajs.org/#getting-started
+
+```shell
+> make test
+```
+
+### Running Bundled Code
+
+```shell
+> node ./out/index.js --help
+```
