@@ -1,4 +1,5 @@
 import { Logger } from 'noicejs';
+import { ChangeRecord, ErrorRecord } from '../resolve';
 
 export interface ProjectQuery {
   project: string;
@@ -12,8 +13,13 @@ export interface IssueQuery extends ProjectQuery {
   issue: string;
 }
 
+/**
+ * Changes to be recorded in a project comment. This takes an abstract set of change/error
+ * records and allows the remote implementation to handle formatting and localization.
+ */
 export interface CommentUpdate extends IssueQuery {
-  comment: string;
+  changes: Array<ChangeRecord>;
+  errors: Array<ErrorRecord>;
 }
 
 export interface IssueUpdate extends IssueQuery {

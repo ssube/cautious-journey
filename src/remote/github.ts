@@ -2,7 +2,9 @@ import { doesExist, InvalidArgumentError, mustExist, NotImplementedError } from 
 import { createAppAuth } from '@octokit/auth-app';
 import { Octokit } from '@octokit/rest';
 
-import { IssueUpdate, LabelQuery, LabelUpdate, ProjectQuery, Remote, RemoteOptions } from '.';
+import { CommentUpdate, IssueUpdate, LabelQuery, LabelUpdate, ProjectQuery, Remote, RemoteOptions } from '.';
+import { ChangeVerb } from '../resolve';
+import { VERSION_INFO } from '../version';
 
 /**
  * Github/Octokit API implementation of the `Remote` contract.
@@ -17,8 +19,7 @@ export class GithubRemote implements Remote {
 
   constructor(options: RemoteOptions) {
     this.options = options;
-
-    options.logger.debug(options, 'github remote');
+    this.options.logger.debug(options, 'created github remote');
   }
 
   public async connect() {
@@ -60,8 +61,27 @@ export class GithubRemote implements Remote {
     };
   }
 
-  public async createComment() {
-    throw new NotImplementedError();
+  public async createComment(options: CommentUpdate): Promise<unknown> {
+    const path = await this.splitProject(options.project);
+    const body = this.formatBody(options);
+
+    this.options.logger.debug({
+      body,
+      issue: options.issue,
+      project: options.project,
+    }, 'creating issue comment');
+
+    if (this.writeCapable) {
+      await this.writeRequest.issues.createComment({
+        body,
+        /* eslint-disable-next-line camelcase */
+        issue_number: parseInt(options.issue, 10),
+        owner: path.owner,
+        repo: path.repo,
+      });
+    }
+
+    return options;
   }
 
   public async createLabel(options: LabelUpdate): Promise<LabelUpdate> {
@@ -179,6 +199,37 @@ export class GithubRemote implements Remote {
     } else {
       return options;
     }
+  }
+
+  public formatBody(options: CommentUpdate): string {
+    const lines = [];
+    lines.push(`${VERSION_INFO.package.name} v${VERSION_INFO.package.version} has updated the labels on this issue!`);
+    lines.push('');
+
+    for (const change of options.changes) {
+      switch (change.effect) {
+        case ChangeVerb.CONFLICTED:
+          lines.push(`- \`${change.label}\` conflicted with \`${change.cause}\`.`);
+          break;
+        case ChangeVerb.CREATED:
+          lines.push(`- \`${change.label}\` was created by \`${change.cause}\`.`);
+          break;
+        case ChangeVerb.EXISTING:
+          lines.push(`- \`${change.label}\` already existed.`);
+          break;
+        case ChangeVerb.REMOVED:
+          lines.push(`- \`${change.label}\` was removed by \`${change.cause}\`.`);
+          break;
+        case ChangeVerb.REQUIRED:
+          lines.push(`- \`${change.label}\` was removed because it requires \`${change.cause}\`.`);
+          break;
+        default:
+          lines.push(`- an unknown change occurred: \`${JSON.stringify(change)}\`.`);
+          break;
+      }
+    }
+
+    return lines.join('\n');
   }
 
   protected get writeCapable(): boolean {
