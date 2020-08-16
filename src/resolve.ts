@@ -1,6 +1,7 @@
 import { doesExist } from '@apextoaster/js-utils';
 
 import { BaseLabel, FlagLabel, getValueName, prioritySort, StateLabel } from './labels';
+import { defaultUntil } from './utils';
 
 /**
  * How a label changed.
@@ -136,10 +137,15 @@ export function resolveLabels(options: ResolveInput): ResolveResult {
           }
         } else {
           // TODO: combine rules, but use state/value name
-          if (!checkLabelRules(state)) {
-            break;
-          }
-          if (!checkLabelRules(value)) {
+          const combinedValue: BaseLabel = {
+            adds: [...state.adds, ...value.adds],
+            name,
+            priority: defaultUntil(value.priority, state.priority, 0),
+            removes: [...state.removes, ...value.removes],
+            requires: [...state.requires, ...value.requires],
+          };
+
+          if (!checkLabelRules(combinedValue)) {
             break;
           }
 
