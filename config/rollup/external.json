@@ -5,7 +5,6 @@
 		"async_hooks",
 		"chai",
 		"dtrace-provider",
-		"node-fetch",
 		"sinon",
 		"source-map",
 		"source-map-support"

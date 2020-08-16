@@ -37,11 +37,19 @@ export async function syncIssueLabels(options: SyncOptions): Promise<unknown> {
 
     logger.debug({ changes, errors, issue, labels }, 'resolved labels');
 
+<<<<<<< HEAD
     // TODO: prompt user if they want to update this particular issue
     const sameLabels = compareItems(issue.labels, labels) || changes.length === 0;
     if (sameLabels === false && errors.length === 0) {
       logger.info({ changes, errors, issue, labels }, 'updating issue');
       await remote.updateIssue({
+=======
+    // TODO: prompt user to update this particular issue
+    const changed = !compareItems(issue.labels, labels) || changes.length > 0;
+    if (changed && errors.length === 0) {
+      options.logger.info({ issue, labels }, 'updating issue');
+      await options.remote.updateIssue({
+>>>>>>> 529484f... total hack for browser loading
         ...issue,
         labels,
       });

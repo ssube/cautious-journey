@@ -11,5 +11,13 @@ module.exports = {
         'universal-github-app-jwt': join('.', 'node_modules', 'universal-github-app-jwt', 'dist-node', 'index.js'),
       },
     }),
+		alias({
+			resolve: ['.tsx', '.ts'],
+			entries: {
+				'find-up': flag_serve ? join(rootPath, 'src/platform/path') : require.resolve('find-up'),
+				'locate-path': flag_serve ? join(rootPath, 'src/platform/path') : require.resolve('locate-path'),
+				'./platform': join(rootPath, 'src', 'platform', flag_serve ? 'browser.ts' : 'cli.ts'),
+			},
+		}),
   ],
 };
