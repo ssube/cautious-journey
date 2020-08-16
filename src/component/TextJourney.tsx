@@ -1,10 +1,10 @@
-import { InvalidArgumentError, isNil } from '@apextoaster/js-utils';
+import { InvalidArgumentError } from '@apextoaster/js-utils';
 import { safeDump, safeLoad, Schema } from 'js-yaml';
 import { observer } from 'mobx-react';
 import React from 'react';
 
-import { ResolveInput, resolveLabels } from '../resolve';
 import { validateConfig } from '../config';
+import { resolveLabels } from '../resolve';
 
 /* eslint-disable no-console */
 
@@ -62,12 +62,16 @@ export class TextJourney extends React.Component<TextJourneyProps> {
       }
 
       // calculate expected labels
-      const input: ResolveInput = {
-        flags: config.projects[0].flags,
-        labels: this.props.state.labels.split(','),
-        states: config.projects[0].states,
-      };
-      const results = resolveLabels(input);
+      const results = [];
+      for (const project of config.projects) {
+        const result = resolveLabels({
+          flags: project.flags,
+          labels: this.props.state.labels.split(','),
+          states: project.states,
+        });
+
+        results.push(result);
+      }
       
       // print the results into demo-output
       this.props.state.output = safeDump(results, {
