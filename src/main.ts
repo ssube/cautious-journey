@@ -11,6 +11,7 @@ import { BunyanLogger } from './logger/bunyan';
 import { GithubRemote } from './remote/github';
 import { syncIssueLabels, SyncOptions, syncProjectLabels } from './sync';
 import { VERSION_INFO } from './version';
+import { graphLabels, dotGraph } from './graph';
 
 export { FlagLabel, StateLabel } from './labels';
 export { Remote, RemoteOptions } from './remote';
@@ -85,6 +86,10 @@ export async function main(argv: Array<string>): Promise<number> {
       states,
     };
     switch (mode) {
+      case Commands.GRAPH:
+        const graph = graphLabels(project);
+        process.stdout.write(dotGraph(graph));
+        break;
       case Commands.ISSUES:
         await syncIssueLabels(options);
         break;

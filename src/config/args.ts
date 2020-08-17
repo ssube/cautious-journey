@@ -4,6 +4,7 @@ import { VERSION_INFO } from '../version';
 
 export enum Commands {
   UNKNOWN = 'unknown',
+  GRAPH = 'dot-graph',
   ISSUES = 'sync-issues',
   LABELS = 'sync-labels',
 }
@@ -24,6 +25,11 @@ type Modeback = (mode: string) => void;
 export function createParser(modeset: Modeback): Parser<ParsedArgs> {
   /* eslint-disable-next-line sonarjs/prefer-immediate-return */
   const parser = usage(`Usage: ${VERSION_INFO.package.name} <mode> [options]`)
+    .command({
+      command: Commands.GRAPH,
+      describe: 'graph label state changes',
+      handler: () => modeset(Commands.GRAPH),
+    })
     .command({
       command: Commands.ISSUES,
       describe: 'sync issue labels',
