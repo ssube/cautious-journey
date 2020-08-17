@@ -7,6 +7,7 @@ import { defaultUntil } from './utils';
  * How a label changed.
  */
 export enum ChangeVerb {
+  BECAME = 'became',
   CONFLICTED = 'conflicted',
   CREATED = 'created',
   EXISTING = 'existing',

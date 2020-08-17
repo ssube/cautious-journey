@@ -1,7 +1,9 @@
 import { BaseLabel, FlagLabel, getValueName, StateLabel } from './labels';
 import { ChangeVerb } from './resolve';
+import { defaultTo, defaultUntil } from './utils';
 
 export interface Node {
+  color: string;
   name: string;
 }
 
@@ -56,6 +58,7 @@ export function graphLabels(options: GraphOptions): Graph {
 
   for (const flag of options.flags) {
     nodes.push({
+      color: defaultTo(flag.color, 'aaaaaa'),
       name: flag.name,
     });
 
@@ -74,6 +77,7 @@ export function graphLabels(options: GraphOptions): Graph {
     for (const value of state.values) {
       const name = getValueName(state, value);
       sub.nodes.push({
+        color: defaultUntil(value.color, state.color, 'aaaaaa'),
         name,
       });
 
@@ -82,6 +86,17 @@ export function graphLabels(options: GraphOptions): Graph {
         name,
       }, edges);
 
+      for (const otherValue of state.values) {
+        if (value !== otherValue) {
+          const otherName = getValueName(state, otherValue);
+          sub.edges.push({
+            source: name,
+            target: otherName,
+            type: ChangeVerb.CONFLICTED,
+          });
+        }
+      }
+
       for (const become of value.becomes) {
         const matchNames = become.matches.map((it) => it.name);
         const becomeName = [name, 'with'].concat(matchNames).join(',');
@@ -89,7 +104,7 @@ export function graphLabels(options: GraphOptions): Graph {
         sub.edges.push({
           source: name,
           target: becomeName,
-          type: ChangeVerb.EXISTING,
+          type: ChangeVerb.BECAME,
         });
 
         labelEdges({
@@ -119,16 +134,18 @@ export function cleanName(name: string): string {
 
 export function edgeStyle(edge: Edge) {
   switch (edge.type) {
+    case ChangeVerb.BECAME:
+      return '[arrowhead="onormal" color="purple"]';
     case ChangeVerb.CREATED:
       return '[color="green"]';
     case ChangeVerb.EXISTING:
-      return '[color="purple"]';
+      return '[color="gray"]';
     case ChangeVerb.REMOVED:
       return '[color="red"]';
     case ChangeVerb.CONFLICTED:
       return '[color="orange"]';
     case ChangeVerb.REQUIRED:
-      return '[color="blue"]';
+      return '[arrowhead="onormal" color="blue"]';
     default:
       return '';
   }
@@ -143,7 +160,7 @@ export function dotGraph(graph: Graph): string {
     const subName = cleanName(sub.name);
     lines.push(`subgraph cluster_${subName} {`);
     lines.push(`label = "${subName}";`);
-    lines.push('color = blue');
+    lines.push('color = gray');
 
     for (const edge of sub.edges) {
       const source = cleanName(edge.source);
@@ -153,7 +170,7 @@ export function dotGraph(graph: Graph): string {
 
     for (const node of sub.nodes) {
       const nodeName = cleanName(node.name);
-      lines.push(`${nodeName} [style=filled];`);
+      lines.push(`${nodeName} [color="#${node.color}" style=filled];`);
     }
 
     lines.push('}');
@@ -167,7 +184,7 @@ export function dotGraph(graph: Graph): string {
 
   for (const node of graph.nodes) {
     const nodeName = cleanName(node.name);
-    lines.push(`${nodeName} [style=filled];`);
+    lines.push(`${nodeName} [color="#${node.color}" style=filled];`);
   }
 
   lines.push('}');
