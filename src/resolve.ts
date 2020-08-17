@@ -143,9 +143,10 @@ export function resolveLabels(options: ResolveInput): ResolveResult {
           };
 
           if (checkLabelRules(combinedValue)) {
-            break;
+            continue;
           }
 
+          let removed = false;
           for (const become of value.becomes) {
             if (become.matches.every((l) => activeLabels.has(l.name))) {
               checkLabelRules({
@@ -161,10 +162,15 @@ export function resolveLabels(options: ResolveInput): ResolveResult {
                   effect: ChangeVerb.REMOVED,
                   label: name,
                 });
+                removed = true;
               }
 
               break;
             }
+          }
+
+          if (removed) {
+            continue;
           }
 
           activeValue = name;
