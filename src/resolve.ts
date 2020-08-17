@@ -69,25 +69,22 @@ export function resolveLabels(options: ResolveInput): ResolveResult {
   const errors: Array<ErrorRecord> = [];
 
   function checkLabelRules(label: BaseLabel) {
-    let isRemoved = false;
-    if (activeLabels.has(label.name)) {
-      for (const requiredLabel of label.requires) {
-        if (!activeLabels.has(requiredLabel.name)) {
-          if (activeLabels.delete(label.name)) {
-            changes.push({
-              cause: requiredLabel.name,
-              effect: ChangeVerb.REQUIRED,
-              label: label.name,
-            });
-          }
-
-          isRemoved = true;
-        }
-      }
+    if (activeLabels.has(label.name) === false) {
+      return true;
     }
 
-    if (isRemoved) {
-      return true;
+    for (const requiredLabel of label.requires) {
+      if (!activeLabels.has(requiredLabel.name)) {
+        if (activeLabels.delete(label.name)) {
+          changes.push({
+            cause: requiredLabel.name,
+            effect: ChangeVerb.REQUIRED,
+            label: label.name,
+          });
+        }
+
+        return true;
+      }
     }
 
     for (const addedLabel of label.adds) {
@@ -137,7 +134,6 @@ export function resolveLabels(options: ResolveInput): ResolveResult {
             });
           }
         } else {
-          // TODO: combine rules, but use state/value name
           const combinedValue: BaseLabel = {
             adds: [...state.adds, ...value.adds],
             name,
@@ -146,11 +142,31 @@ export function resolveLabels(options: ResolveInput): ResolveResult {
             requires: [...state.requires, ...value.requires],
           };
 
-          if (!checkLabelRules(combinedValue)) {
+          if (checkLabelRules(combinedValue)) {
             break;
           }
 
-          // TODO: check becomes rules
+          for (const become of value.becomes) {
+            if (become.matches.every((l) => activeLabels.has(l.name))) {
+              checkLabelRules({
+                ...combinedValue,
+                adds: become.adds,
+                removes: [...become.matches, ...become.removes],
+                requires: [],
+              });
+
+              if (activeLabels.delete(name)) {
+                changes.push({
+                  cause: name,
+                  effect: ChangeVerb.REMOVED,
+                  label: name,
+                });
+              }
+
+              break;
+            }
+          }
+
           activeValue = name;
         }
       }

@@ -50,7 +50,7 @@ export async function syncIssueLabels(options: SyncOptions): Promise<unknown> {
     // TODO: prompt user to update this particular issue
     const sameLabels = compareItems(issue.labels, labels) || changes.length === 0;
     if (sameLabels === false && errors.length === 0) {
-      options.logger.info({ issue, labels }, 'updating issue');
+      options.logger.info({ changes, errors, issue, labels }, 'updating issue');
       await options.remote.updateIssue({
         ...issue,
         labels,
