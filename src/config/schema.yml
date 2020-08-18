@@ -3,12 +3,17 @@ $id: cautious-journey
 definitions:
   label-ref:
     type: object
+    required:
+      - name
     properties:
       name:
         type: string
 
   change-set:
     type: object
+    required:
+      - adds
+      - removes
     properties:
       adds:
         type: array
@@ -23,6 +28,9 @@ definitions:
 
   base-label:
     type: object
+    required:
+      - name
+      - requires
     properties:
       color:
         type: string
@@ -59,7 +67,13 @@ definitions:
       - $ref: "#/definitions/change-set"
       - $ref: "#/definitions/base-label"
       - type: object
+        required:
+          - divider
+          - values
         properties:
+          divider:
+            type: string
+            default: "/"
           values:
             type: array
             items:
@@ -71,6 +85,8 @@ definitions:
       - $ref: "#/definitions/change-set"
       - $ref: "#/definitions/base-label"
       - type: object
+        required:
+          - becomes
         properties:
           becomes:
             type: array
@@ -78,38 +94,60 @@ definitions:
               $ref: "#/definitions/state-change"
             default: []
 
+  project:
+    type: object
+    required:
+      - colors
+      - comment
+      - flags
+      - name
+      - remote
+      - states
+    properties:
+      colors:
+        type: array
+        items:
+          type: string
+      comment:
+        type: boolean
+        default: true
+      flags:
+        type: array
+        items:
+          $ref: "#/definitions/flag-label"
+        default: []
+      name:
+        type: string
+      remote:
+        type: object
+      states:
+        type: array
+        items:
+          $ref: "#/definitions/state-label"
+        default: []
+
+  logger:
+    type: object
+    required:
+      - level
+      - name
+    properties:
+      level:
+        type: string
+      name:
+        type: string
+
   config:
     type: object
+    required:
+      - logger
+      - projects
     properties:
       logger:
-        type: object
-        properties:
-          level:
-            type: string
-          name:
-            type: string
+        $ref: "#/definitions/logger"
       projects:
         type: array
         items:
-          type: object
-          properties:
-            colors:
-              type: array
-              items:
-                type: string
-            flags:
-              type: array
-              items:
-                $ref: "#/definitions/flag-label"
-              default: []
-            name:
-              type: string
-            remote:
-              type: object
-            states:
-              type: array
-              items:
-                $ref: "#/definitions/state-label"
-              default: []
-
+          $ref: "#/definitions/project"
+        
 type: object

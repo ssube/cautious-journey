@@ -14,7 +14,7 @@ const STATUS_ERROR = 1;
  */
 main(process.argv).then((status) => process.exit(status)).catch((err: Error) => {
   // eslint-disable-next-line no-console
-  console.error('uncaught error during main:', err);
+  console.error('uncaught error during main:', err.message);
   process.exit(STATUS_ERROR);
 });
 

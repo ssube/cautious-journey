@@ -133,40 +133,45 @@ export function resolveLabels(options: ResolveInput): ResolveResult {
               label: name,
             });
           }
-        } else {
-          const combinedValue: BaseLabel = {
-            adds: [...state.adds, ...value.adds],
-            name,
-            priority: defaultUntil(value.priority, state.priority, 0),
-            removes: [...state.removes, ...value.removes],
-            requires: [...state.requires, ...value.requires],
-          };
 
-          if (checkLabelRules(combinedValue)) {
-            continue;
-          }
+          continue;
+        }
 
-          let removed = false;
-          for (const become of value.becomes) {
-            if (become.matches.every((l) => activeLabels.has(l.name))) {
-              checkLabelRules({
-                ...combinedValue,
-                adds: become.adds,
-                removes: [...become.matches, ...become.removes],
-                requires: [],
+        const combinedValue: BaseLabel = {
+          adds: [...state.adds, ...value.adds],
+          name,
+          priority: defaultUntil(value.priority, state.priority, 0),
+          removes: [...state.removes, ...value.removes],
+          requires: [...state.requires, ...value.requires],
+        };
+
+        if (checkLabelRules(combinedValue)) {
+          continue;
+        }
+
+        // TODO: flatten this bit and remove the mutable boolean
+        let removed = false;
+        for (const become of value.becomes) {
+          const matches = become.matches.every((l) => activeLabels.has(l.name));
+
+          if (matches) {
+            checkLabelRules({
+              ...combinedValue,
+              adds: become.adds,
+              removes: [...become.matches, ...become.removes],
+              requires: [],
+            });
+
+            if (activeLabels.delete(name)) {
+              changes.push({
+                cause: name,
+                effect: ChangeVerb.REMOVED,
+                label: name,
               });
-
-              if (activeLabels.delete(name)) {
-                changes.push({
-                  cause: name,
-                  effect: ChangeVerb.REMOVED,
-                  label: name,
-                });
-                removed = true;
-              }
-
-              break;
+              removed = true;
             }
+
+            break;
           }
 
           if (removed) {

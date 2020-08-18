@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { alea } from 'seedrandom';
 
-import { getLabelColor, getLabelNames, prioritySort } from '../src/labels';
+import { getLabelColor, getLabelNames, prioritySort, StateLabel } from '../src/labels';
 
 describe('label helpers', () => {
   describe('label name helper', () => {
@@ -38,8 +38,9 @@ describe('label helpers', () => {
         removes: [],
         requires: [],
       }];
-      const states = [{
+      const states: Array<StateLabel> = [{
         adds: [],
+        divider: '/',
         name: 'foo',
         priority: 1,
         removes: [],
@@ -47,6 +48,7 @@ describe('label helpers', () => {
         values,
       }, {
         adds: [],
+        divider: '/',
         name: 'bar',
         priority: 1,
         removes: [],
@@ -109,6 +111,7 @@ describe('label helpers', () => {
       expect(getLabelColor(['test'], alea(), {
         adds: [],
         color: 'beans',
+        divider: '/',
         name: '',
         priority: 1,
         removes: [],
@@ -129,6 +132,7 @@ describe('label helpers', () => {
       expect(getLabelColor(['test'], alea(), {
         adds: [],
         color: 'beans',
+        divider: '/',
         name: '',
         priority: 1,
         removes: [],

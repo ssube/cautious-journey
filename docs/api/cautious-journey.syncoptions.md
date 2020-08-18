@@ -14,11 +14,8 @@ export interface SyncOptions
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [colors](./cautious-journey.syncoptions.colors.md) | Array&lt;string&gt; |  |
-|  [flags](./cautious-journey.syncoptions.flags.md) | Array&lt;[FlagLabel](./cautious-journey.flaglabel.md)<!-- -->&gt; |  |
 |  [logger](./cautious-journey.syncoptions.logger.md) | Logger |  |
-|  [project](./cautious-journey.syncoptions.project.md) | string |  |
+|  [project](./cautious-journey.syncoptions.project.md) | ProjectConfig |  |
 |  [random](./cautious-journey.syncoptions.random.md) | prng |  |
 |  [remote](./cautious-journey.syncoptions.remote.md) | [Remote](./cautious-journey.remote.md) |  |
-|  [states](./cautious-journey.syncoptions.states.md) | Array&lt;[StateLabel](./cautious-journey.statelabel.md)<!-- -->&gt; | States from project config. |
 
