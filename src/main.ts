@@ -1,4 +1,4 @@
-import { doesExist, InvalidArgumentError, isNil } from '@apextoaster/js-utils';
+import { doesExist, InvalidArgumentError } from '@apextoaster/js-utils';
 import { createSchema } from '@apextoaster/js-yaml-schema';
 import { existsSync, readFileSync, realpathSync } from 'fs';
 import { DEFAULT_SAFE_SCHEMA, safeLoad } from 'js-yaml';
@@ -7,11 +7,11 @@ import { alea } from 'seedrandom';
 
 import { ConfigData, validateConfig } from './config';
 import { Commands, createParser } from './config/args';
+import { dotGraph, graphLabels } from './graph';
 import { BunyanLogger } from './logger/bunyan';
 import { GithubRemote } from './remote/github';
 import { syncIssueLabels, SyncOptions, syncProjectLabels } from './sync';
 import { VERSION_INFO } from './version';
-import { graphLabels, dotGraph } from './graph';
 
 export { FlagLabel, StateLabel } from './labels';
 export { Remote, RemoteOptions } from './remote';
@@ -38,7 +38,7 @@ async function loadConfig(path: string): Promise<ConfigData> {
   const config = safeLoad(rawConfig, { schema });
 
   if (!validateConfig(config)) {
-    throw new Error();
+    throw new InvalidArgumentError();
   }
 
   return config as ConfigData;
@@ -52,14 +52,16 @@ export async function main(argv: Array<string>): Promise<number> {
   const logger = BunyanLogger.create(config.logger);
 
   logger.info({
-    args,
-    config,
     mode,
     version: VERSION_INFO,
-  }, 'startup environment');
+  }, 'running main');
+  logger.debug({
+    args,
+    config,
+  }, 'runtime data');
 
   for (const project of config.projects) {
-    const { colors, flags, name, states } = project;
+    const { name } = project;
 
     if (doesExist(args.project) && !args.project.includes(name)) {
       logger.info({ project: name }, 'skipping project');
@@ -77,13 +79,10 @@ export async function main(argv: Array<string>): Promise<number> {
 
     // mode switch
     const options: SyncOptions = {
-      colors,
-      flags,
       logger,
-      project: name,
+      project,
       random,
       remote,
-      states,
     };
     switch (mode) {
       case Commands.GRAPH:

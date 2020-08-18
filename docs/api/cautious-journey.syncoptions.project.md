@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-project: string;
+project: ProjectConfig;
 ```

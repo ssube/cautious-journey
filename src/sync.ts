@@ -6,25 +6,13 @@ import { FlagLabel, getLabelColor, getLabelNames, getValueName, StateLabel } fro
 import { LabelUpdate, Remote } from './remote';
 import { resolveLabels } from './resolve';
 import { defaultTo, defaultUntil, compareItems } from './utils';
+import { ProjectConfig } from './config';
 
 export interface SyncOptions {
-  /**
-   */
-  colors: Array<string>;
-
-  /**
-   */
-  flags: Array<FlagLabel>;
-
   logger: Logger;
-  project: string;
+  project: ProjectConfig;
   random: prng;
   remote: Remote;
-
-  /**
-   * States from project config.
-   */
-  states: Array<StateLabel>;
 }
 
 /**
@@ -32,34 +20,38 @@ export interface SyncOptions {
  * if there are changes and no errors, then updates the issue.
  */
 export async function syncIssueLabels(options: SyncOptions): Promise<unknown> {
-  const issues = await options.remote.listIssues({
-    project: options.project,
+  const { logger, project, remote } = options;
+  const issues = await remote.listIssues({
+    project: project.name,
   });
 
   for (const issue of issues) {
-    options.logger.info({ issue }, 'project issue');
+    logger.info({ issue }, 'project issue');
 
     const { changes, errors, labels } = resolveLabels({
-      flags: options.flags,
+      flags: project.flags,
       labels: issue.labels,
-      states: options.states,
+      states: project.states,
     });
 
-    options.logger.debug({ changes, errors, issue, labels }, 'resolved labels');
+    logger.debug({ changes, errors, issue, labels }, 'resolved labels');
 
     // TODO: prompt user to update this particular issue
     const sameLabels = compareItems(issue.labels, labels) || changes.length === 0;
     if (sameLabels === false && errors.length === 0) {
-      options.logger.info({ changes, errors, issue, labels }, 'updating issue');
-      await options.remote.updateIssue({
+      logger.info({ changes, errors, issue, labels }, 'updating issue');
+      await remote.updateIssue({
         ...issue,
         labels,
       });
-      await options.remote.createComment({
-        ...issue,
-        changes,
-        errors,
-      });
+
+      if (project.comment) {
+        await remote.createComment({
+          ...issue,
+          changes,
+          errors,
+        });
+      }
     }
   }
 
@@ -67,19 +59,21 @@ export async function syncIssueLabels(options: SyncOptions): Promise<unknown> {
 }
 
 export async function syncProjectLabels(options: SyncOptions): Promise<unknown> {
-  const labels = await options.remote.listLabels({
-    project: options.project,
+  const { logger, project, remote } = options;
+
+  const labels = await remote.listLabels({
+    project: project.name,
   });
 
   const present = new Set(labels.map((l) => l.name));
-  const desired = getLabelNames(options.flags, options.states);
+  const desired = getLabelNames(project.flags, project.states);
   const combined = new Set([...desired, ...present]);
 
   for (const label of combined) {
     const exists = present.has(label);
     const expected = desired.has(label);
 
-    options.logger.info({
+    logger.info({
       exists,
       expected,
       label,
@@ -90,15 +84,15 @@ export async function syncProjectLabels(options: SyncOptions): Promise<unknown> 
         const data = mustExist(labels.find((l) => l.name === label));
         await syncSingleLabel(options, data);
       } else {
-        options.logger.warn({ label }, 'remove label');
-        await options.remote.deleteLabel({
+        logger.warn({ label }, 'remove label');
+        await remote.deleteLabel({
           name: label,
-          project: options.project,
+          project: project.name,
         });
       }
     } else {
       if (expected) {
-        options.logger.info({ label }, 'create label');
+        logger.info({ label }, 'create label');
         await createLabel(options, label);
       } else {
         // skip
@@ -110,27 +104,29 @@ export async function syncProjectLabels(options: SyncOptions): Promise<unknown> 
 }
 
 export async function createLabel(options: SyncOptions, name: string) {
-  const flag = options.flags.find((it) => name === it.name);
+  const { project, remote } = options;
+
+  const flag = project.flags.find((it) => name === it.name);
   if (doesExist(flag)) {
-    await options.remote.createLabel({
-      color: getLabelColor(options.colors, options.random, flag),
+    await remote.createLabel({
+      color: getLabelColor(project.colors, options.random, flag),
       desc: mustExist(flag.desc),
       name,
-      project: options.project,
+      project: project.name,
     });
 
     return;
   }
 
-  const state = options.states.find((it) => name.startsWith(it.name));
+  const state = project.states.find((it) => name.startsWith(it.name));
   if (doesExist(state)) {
     const value = state.values.find((it) => getValueName(state, it) === name);
     if (doesExist(value)) {
-      await options.remote.createLabel({
-        color: getLabelColor(options.colors, options.random, state, value),
+      await remote.createLabel({
+        color: getLabelColor(project.colors, options.random, state, value),
         desc: defaultUntil(value.desc, state.desc, ''),
         name: getValueName(state, value),
-        project: options.project,
+        project: project.name,
       });
 
       return;
@@ -139,6 +135,8 @@ export async function createLabel(options: SyncOptions, name: string) {
 }
 
 export async function syncLabelDiff(options: SyncOptions, oldLabel: LabelUpdate, newLabel: LabelUpdate) {
+  const { logger, project } = options;
+
   const dirty =
     oldLabel.color !== mustExist(newLabel.color) ||
     oldLabel.desc !== mustExist(newLabel.desc);
@@ -148,41 +146,40 @@ export async function syncLabelDiff(options: SyncOptions, oldLabel: LabelUpdate,
       color: defaultTo(newLabel.color, oldLabel.color),
       desc: defaultTo(newLabel.desc, oldLabel.desc),
       name: oldLabel.name,
-      project: options.project,
+      project: project.name,
     };
 
-    options.logger.debug({ body, newLabel, oldLabel }, 'update label');
-
+    logger.debug({ body, newLabel, oldLabel }, 'updating label');
     const resp = await options.remote.updateLabel(body);
-
-    options.logger.debug({ resp }, 'update resp');
+    logger.debug({ resp }, 'update response');
   }
 }
 
 export async function syncSingleLabel(options: SyncOptions, label: LabelUpdate): Promise<void> {
-  const flag = options.flags.find((it) => label.name === it.name);
+  const { project } = options;
+  const flag = project.flags.find((it) => label.name === it.name);
   if (doesExist(flag)) {
-    const color = getLabelColor(options.colors, options.random, flag);
+    const color = getLabelColor(project.colors, options.random, flag);
     await syncLabelDiff(options, label, {
       color,
       desc: defaultTo(flag.desc, label.desc),
       name: flag.name,
-      project: options.project,
+      project: project.name,
     });
 
     return;
   }
 
-  const state = options.states.find((it) => label.name.startsWith(it.name));
+  const state = project.states.find((it) => label.name.startsWith(it.name));
   if (doesExist(state)) {
     const value = state.values.find((it) => getValueName(state, it) === label.name);
     if (doesExist(value)) {
-      const color = mustExist(getLabelColor(options.colors, options.random, state, value));
+      const color = mustExist(getLabelColor(project.colors, options.random, state, value));
       await syncLabelDiff(options, label, {
         color,
         desc: defaultTo(value.desc, label.desc),
         name: getValueName(state, value),
-        project: options.project,
+        project: project.name,
       });
 
       return;

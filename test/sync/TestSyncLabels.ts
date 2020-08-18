@@ -12,30 +12,35 @@ describe('label sync', () => {
     const logger = BunyanLogger.create({
       name: 'test',
     });
-    const remote = new GithubRemote({
+    const remoteConfig = {
       data: {},
       dryrun: true,
       logger,
       type: '',
-    });
+    };
+    const remote = new GithubRemote(remoteConfig);
     const updateSpy = spy(remote, 'updateLabel');
 
     await syncSingleLabel({
-      colors: [
-        'ff0000',
-      ],
-      flags: [{
-        adds: [],
-        name: 'foo',
-        priority: 1,
-        removes: [],
-        requires: [],
-      }],
       logger,
-      project: '',
+      project: {
+        colors: [
+          'ff0000',
+        ],
+        comment: true,
+        flags: [{
+          adds: [],
+          name: 'foo',
+          priority: 1,
+          removes: [],
+          requires: [],
+        }],
+        name: '',
+        remote: remoteConfig,
+        states: [],
+      },
       random: alea(),
       remote,
-      states: [],
     }, {
       color: '',
       desc: '',

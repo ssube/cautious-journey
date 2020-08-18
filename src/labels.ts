@@ -71,6 +71,8 @@ export interface StateValue extends BaseLabel {
  * Grouped labels: the equivalent of a radio group.
  */
 export interface StateLabel extends BaseLabel {
+  divider: string;
+
   /**
    * Values for this state.
    */
@@ -97,12 +99,12 @@ export function getLabelNames(flags: Array<FlagLabel>, states: Array<StateLabel>
   return new Set(labels);
 }
 
-export function splitValueName(name: string): Array<string> {
-  return name.split('/');
+export function splitValueName(state: StateLabel, name: string): Array<string> {
+  return name.split(state.divider);
 }
 
 export function getValueName(state: StateLabel, value: StateValue): string {
-  return `${state.name}/${value.name}`;
+  return `${state.name}${state.divider}${value.name}`;
 }
 
 /**
