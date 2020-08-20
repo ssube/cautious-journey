@@ -229,4 +229,4 @@ To view the graph after you have generated it:
 ```
 
 - Label colors in the generated graph will match the colors of the project labels in Github
-- Refer to [Graphviz](https://graphviz.org/documentation/) for additional graphing optionsake
+- Refer to [Graphviz](https://graphviz.org/documentation/) for additional graphing options
