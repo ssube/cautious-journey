@@ -4,9 +4,9 @@ import { VERSION_INFO } from '../version';
 
 export enum Commands {
   UNKNOWN = 'unknown',
-  GRAPH = 'dot-graph',
+  GRAPH = 'graph-labels',
   ISSUES = 'sync-issues',
-  LABELS = 'sync-labels',
+  LABELS = 'sync-projects',
 }
 
 interface Parser<TData> {
