@@ -30,6 +30,8 @@ This guide explains how to start using `cautious-journey` to manage project and 
   - [Examples](#examples)
     - [Example: Conflicting Labels](#example-conflicting-labels)
     - [Example: Release Workflow](#example-release-workflow)
+  - [Debug](#debug)
+    - [Graphing](#graphing)
 
 ## Setup
 
@@ -208,3 +210,23 @@ TODO: describe a workflow with `blocked` as a flag that removes any `status`
 ### Example: Release Workflow
 
 TODO: describe a workflow with `status` state and `next`/`release` flags
+
+## Debug
+
+### Graphing
+
+To generate a graph of your project labels and how they relate to each other:
+
+```shell
+> node --require esm ./out/index.js graph-labels --config ~/config.yml --remote github | dot -Tpng -o /tmp/labels.png
+```
+
+To view the graph after you have generated it:
+
+```shell
+> google-chrome /tmp/labels.png
+# replace `google-chrome` with your web browser of choice
+```
+
+- Label colors in the generated graph will match the colors of the project labels in Github
+- Refer to [Graphviz](https://graphviz.org/documentation/) for additional graphing optionsake
