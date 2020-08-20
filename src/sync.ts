@@ -2,11 +2,11 @@ import { doesExist, mustExist } from '@apextoaster/js-utils';
 import { Logger } from 'noicejs';
 import { prng } from 'seedrandom';
 
-import { FlagLabel, getLabelColor, getLabelNames, getValueName, StateLabel } from './labels';
+import { ProjectConfig } from './config';
+import { getLabelColor, getLabelNames, getValueName } from './labels';
 import { LabelUpdate, Remote } from './remote';
 import { resolveLabels } from './resolve';
-import { defaultTo, defaultUntil, compareItems } from './utils';
-import { ProjectConfig } from './config';
+import { compareItems, defaultTo, defaultUntil } from './utils';
 
 export interface SyncOptions {
   logger: Logger;

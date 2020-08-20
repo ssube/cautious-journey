@@ -35,11 +35,3 @@ export function compareItems<T>(a: Array<T>, b: Array<T>): boolean {
 
   return true;
 }
-
-interface Collection<T> {
-  has(value: T): boolean;
-}
-
-export function contains<T>(a: Collection<T>, b: Array<T>): boolean {
-  return b.every((it) => a.has(it));
-}

@@ -20,8 +20,9 @@ This guide explains how to start using `cautious-journey` to manage project and 
     - [Available Remotes](#available-remotes)
     - [Copying Project Remotes](#copying-project-remotes)
   - [Commands](#commands)
-    - [Sync Issue Labels](#sync-issue-labels)
-    - [Sync Project Labels](#sync-project-labels)
+    - [Graph Labels](#graph-labels)
+    - [Sync Issues](#sync-issues)
+    - [Sync Projects](#sync-projects)
   - [Changes](#changes)
     - [Flag Changes](#flag-changes)
     - [State Changes](#state-changes)
@@ -145,15 +146,20 @@ TODO: how would you share a remote config block between two projects?
 
 The program can run in a few different modes:
 
-- sync issue labels
-- sync project labels
+- [`dot-graph`](#graph-labels)
+- [`sync-issues`](#sync-issue-labels)
+- [`sync-labels`](#sync-project-labels)
 
-### Sync Issue Labels
+### Graph Labels
+
+This mode will print a `dot` graph, to be formatted with the GraphViz tools.
+
+### Sync Issues
 
 This mode will look through each issue on the project, open or closed, and check for label updates. Labels will
 be resolved using the project's rules, and a comment left recording any changes.
 
-### Sync Project Labels
+### Sync Projects
 
 This mode will look through the project labels, ensuring they are up to date with the project labels in the
 config. Missing labels will be created, extra labels will be deleted, and existing labels will be updated to
