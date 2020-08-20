@@ -2,6 +2,9 @@ import { BaseLabel, FlagLabel, getValueName, StateLabel } from './labels';
 import { ChangeVerb } from './resolve';
 import { defaultTo, defaultUntil } from './utils';
 
+const COLOR_NODE = 'cccccc';
+const COLOR_MIDNODE = 'aaaaaa';
+
 export interface Node {
   color: string;
   name: string;
@@ -58,7 +61,7 @@ export function graphLabels(options: GraphOptions): Graph {
 
   for (const flag of options.flags) {
     nodes.push({
-      color: defaultTo(flag.color, 'aaaaaa'),
+      color: defaultTo(flag.color, COLOR_NODE),
       name: flag.name,
     });
 
@@ -77,7 +80,7 @@ export function graphLabels(options: GraphOptions): Graph {
     for (const value of state.values) {
       const name = getValueName(state, value);
       sub.nodes.push({
-        color: defaultUntil(value.color, state.color, 'aaaaaa'),
+        color: defaultUntil(value.color, state.color, COLOR_NODE),
         name,
       });
 
@@ -98,18 +101,23 @@ export function graphLabels(options: GraphOptions): Graph {
       }
 
       for (const become of value.becomes) {
-        const matchNames = become.matches.map((it) => it.name);
-        const becomeName = [name, 'with'].concat(matchNames).join(',');
+        const matchNames = become.matches.map((it) => it.name).join(',');
+        const matchLabel = `${name} with (${matchNames})`;
+
+        sub.nodes.push({
+          color: COLOR_MIDNODE,
+          name: matchLabel,
+        });
 
         sub.edges.push({
           source: name,
-          target: becomeName,
+          target: matchLabel,
           type: ChangeVerb.BECAME,
         });
 
         labelEdges({
           adds: become.adds,
-          name: becomeName,
+          name: matchLabel,
           priority: value.priority,
           removes: become.removes,
           requires: become.matches,
@@ -129,7 +137,7 @@ export function graphLabels(options: GraphOptions): Graph {
 }
 
 export function cleanName(name: string): string {
-  return name.replace(/[^a-z0-9_]/g, '_');
+  return name.replace(/[^a-z0-9_]/g, '_').replace(/(^_|_$|__)/g, '');
 }
 
 export function edgeStyle(edge: Edge) {
@@ -139,11 +147,11 @@ export function edgeStyle(edge: Edge) {
     case ChangeVerb.CREATED:
       return '[color="green"]';
     case ChangeVerb.EXISTING:
-      return '[color="gray"]';
+      return '[color="gray" weight=0.1]';
     case ChangeVerb.REMOVED:
       return '[color="red"]';
     case ChangeVerb.CONFLICTED:
-      return '[color="orange"]';
+      return '[color="orange" weight=0.1]';
     case ChangeVerb.REQUIRED:
       return '[arrowhead="onormal" color="blue"]';
     default:
@@ -156,6 +164,19 @@ export function dotGraph(graph: Graph): string {
   const name = cleanName(graph.name);
   lines.push(`digraph ${name} {`);
 
+  // flag nodes
+  lines.push('subgraph cluster_flags {');
+  lines.push('label = "flags";');
+  lines.push('color = gray');
+
+  for (const node of graph.nodes) {
+    const nodeName = cleanName(node.name);
+    lines.push(`${nodeName} [color="#${node.color}" label="${node.name}" style=filled];`);
+  }
+
+  lines.push('}');
+
+  // state clusters
   for (const sub of graph.subs) {
     const subName = cleanName(sub.name);
     lines.push(`subgraph cluster_${subName} {`);
@@ -170,24 +191,19 @@ export function dotGraph(graph: Graph): string {
 
     for (const node of sub.nodes) {
       const nodeName = cleanName(node.name);
-      lines.push(`${nodeName} [color="#${node.color}" style=filled];`);
+      lines.push(`${nodeName} [color="#${node.color}" label="${node.name}" style=filled];`);
     }
 
     lines.push('}');
   }
 
+  // remaining edges
   for (const edge of graph.edges) {
     const source = cleanName(edge.source);
     const target = cleanName(edge.target);
     lines.push(`${source} -> ${target} ${edgeStyle(edge)};`);
   }
 
-  for (const node of graph.nodes) {
-    const nodeName = cleanName(node.name);
-    lines.push(`${nodeName} [color="#${node.color}" style=filled];`);
-  }
-
   lines.push('}');
-
   return lines.join('\n');
 }
