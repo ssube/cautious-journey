@@ -53,8 +53,8 @@ TODO
 
 TODO: merging from a terminal
 
-- For merging from Visual Studio Code, see [Using Version Control in VS Code](https://code.visualstudio.com/docs/editor/versioncontrol)
-- Foor merging from Github Desktop, see [Syncing Your Branch](https://docs.github.com/en/desktop/contributing-and-collaborating-using-github-desktop/syncing-your-branch)
+- If you are using VS Code: [Using Version Control in VS Code](https://code.visualstudio.com/docs/editor/versioncontrol)
+- If you are using Github's desktop client: [Syncing Your Branch](https://docs.github.com/en/desktop/contributing-and-collaborating-using-github-desktop/syncing-your-branch)
 
 ### Test Coverage
 
