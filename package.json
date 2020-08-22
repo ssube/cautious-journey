@@ -2,8 +2,8 @@
   "name": "cautious-journey",
   "version": "0.1.0",
   "description": "Github/Gitlab label & workflow manager",
-  "main": "out/index-cli.js",
-  "browser": "out/index-dom.js",
+  "main": "out/index.js",
+  "browser": "out/browser.js",
   "directories": {
     "doc": "docs",
     "test": "test"

@@ -58,9 +58,7 @@ export interface ConfigData {
 }
 
 /**
- * Load the config from files or the hosting webpage.
- *
- * @todo
+ * Load the config from files.
  */
 export async function initConfig(path: string): Promise<ConfigData> {
   const schema = createSchema({
@@ -93,7 +91,6 @@ export const SCHEMA_OPTIONS: Ajv.Options = {
   useDefaults: true,
   verbose: true,
 };
-
 
 export function validateConfig(it: unknown): it is ConfigData {
   const ajv = new Ajv(SCHEMA_OPTIONS);

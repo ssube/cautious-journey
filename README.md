@@ -71,10 +71,26 @@ cautious-journey can be installed as a Docker image or an npm package:
 ### Running with Docker
 
 ```shell
-$(yarn global bin)/cautious-journey --help
+> docker run --rm --it ssube/cautious-journey --help
+
+Usage: cautious-journey <mode> [options]
+
+Commands:
+  index.js graph-labels   graph label state changes
+  index.js sync-issues    sync issue labels
+  index.js sync-projects  sync project labels
+
+Options:
+  --help         Show help                                             [boolean]
+  --version      Show version number                                   [boolean]
+  --config, -c                                               [string] [required]
+  --dryrun, -d                                         [boolean] [default: true]
+  --project, -p                                                          [array]
+  --remote, -r                                               [string] [required]
 ```
 
-TODO: explain
+Docker provides a single output stream, regardless of logger configuration. When running `graph-labes`, turning
+the `logger.level` to `warn` or `error` will suppress log messages that could confuse `dot`.
 
 ### Running with Yarn
 
@@ -82,7 +98,7 @@ TODO: explain
 $(yarn global bin)/cautious-journey --help
 ```
 
-TODO: explain
+Yarn will install a copy of the latest `cautious-journey` package into your `$(yarn global dir)` path.
 
 ### Logging with Bunyan
 
@@ -90,7 +106,10 @@ TODO: explain
 $(yarn global bin)/cautious-journey sync-issues | $(yarn global bin)/bunyan
 ```
 
-TODO: explain, note stderr for graph output
+Piping logs through `bunyan` will pretty-print the JSON records that `cautious-journey` emits. When running with
+`docker`, note that all program output will be combined into a single stream.
+
+You can also use `jq` to format or filter messages. Logs are line-delimited JSON.
 
 ### Graphing with GraphViz
 
