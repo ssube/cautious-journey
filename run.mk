@@ -6,7 +6,7 @@ run-help:
 	node --require esm ./out/index.js --help
 
 run-graph:
-	node --require esm ./out/index.js graph-labels --config $(RUN_CONFIG) --remote github
+	node --require esm ./out/index.js graph-labels --config $(RUN_CONFIG)
 
 run-version:
 	node --require esm ./out/index.js --version

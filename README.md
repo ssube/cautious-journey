@@ -86,7 +86,6 @@ Options:
   --config, -c                                               [string] [required]
   --dryrun, -d                                         [boolean] [default: true]
   --project, -p                                                          [array]
-  --remote, -r                                               [string] [required]
 ```
 
 Docker provides a single output stream, regardless of logger configuration. When running `graph-labels`, turning

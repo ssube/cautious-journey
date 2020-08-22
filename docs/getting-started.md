@@ -239,7 +239,7 @@ TODO: describe a workflow with `status` state and `next`/`release` flags
 To generate a graph of your project labels and how they relate to each other:
 
 ```shell
-> node --require esm ./out/index.js graph-labels --config ~/config.yml --remote github | dot -Tpng -o /tmp/labels.png
+> node --require esm ./out/index.js graph-labels --config ~/config.yml | dot -Tpng -o /tmp/labels.png
 ```
 
 To view the graph after you have generated it:
