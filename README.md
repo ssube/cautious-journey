@@ -89,7 +89,7 @@ Options:
   --remote, -r                                               [string] [required]
 ```
 
-Docker provides a single output stream, regardless of logger configuration. When running `graph-labes`, turning
+Docker provides a single output stream, regardless of logger configuration. When running `graph-labels`, turning
 the `logger.level` to `warn` or `error` will suppress log messages that could confuse `dot`.
 
 ### Running with Yarn
