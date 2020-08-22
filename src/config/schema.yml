@@ -124,6 +124,21 @@ definitions:
         type: string
       remote:
         type: object
+        required:
+          - data
+          - type
+        properties:
+          type:
+            type: string
+            enum:
+              - github-remote
+              - gitlab-remote
+          data:
+            type: object
+            additionalProperties: false
+            patternProperties:
+              ".*":
+                type: string
       states:
         type: array
         items:
