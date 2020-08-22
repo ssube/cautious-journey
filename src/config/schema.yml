@@ -65,7 +65,6 @@ definitions:
             items:
               $ref: "#/definitions/label-ref"
 
-
   state-label:
     allOf:
       - $ref: "#/definitions/change-set"
@@ -98,6 +97,24 @@ definitions:
               $ref: "#/definitions/state-change"
             default: []
 
+  remote:
+    type: object
+    required:
+      - data
+      - type
+    properties:
+      type:
+        type: string
+        enum:
+          - github-remote
+          - gitlab-remote
+      data:
+        type: object
+        additionalProperties: false
+        patternProperties:
+          ".*":
+            type: string
+
   project:
     type: object
     required:
@@ -112,6 +129,7 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/hex-string"
+        default: []
       comment:
         type: boolean
         default: true
@@ -123,22 +141,7 @@ definitions:
       name:
         type: string
       remote:
-        type: object
-        required:
-          - data
-          - type
-        properties:
-          type:
-            type: string
-            enum:
-              - github-remote
-              - gitlab-remote
-          data:
-            type: object
-            additionalProperties: false
-            patternProperties:
-              ".*":
-                type: string
+        $ref: "#/definitions/remote"
       states:
         type: array
         items:
