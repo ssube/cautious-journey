@@ -13,13 +13,12 @@ describe('issue sync', () => {
 
     const logger = NullLogger.global;
     const remoteData = {
-      container,
       data: {},
       dryrun: true,
       logger,
       type: '',
     };
-    const remote = new GithubRemote(remoteData);
+    const remote = await container.create(GithubRemote, remoteData);
     const listStub = stub(remote, 'listIssues').returns(Promise.resolve([{
       issue: '',
       labels: ['nope'],

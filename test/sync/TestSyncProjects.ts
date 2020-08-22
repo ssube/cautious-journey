@@ -18,13 +18,12 @@ describe('project sync', () => {
         name: 'test',
       });
       const remoteConfig = {
-        container,
         data: {},
         dryrun: true,
         logger,
         type: '',
       };
-      const remote = new GithubRemote(remoteConfig);
+      const remote = await container.create(GithubRemote, remoteConfig);
       const updateSpy = spy(remote, 'updateLabel');
 
       await syncSingleLabel({
@@ -71,13 +70,12 @@ describe('project sync', () => {
         name: 'test',
       });
       const remoteConfig = {
-        container,
         data: {},
         dryrun: true,
         logger,
         type: '',
       };
-      const remote = new GithubRemote(remoteConfig);
+      const remote = await container.create(GithubRemote, remoteConfig);
       const createStub = stub(remote, 'createLabel');
       const deleteStub = stub(remote, 'deleteLabel');
       const listStub = stub(remote, 'listLabels').returns(Promise.resolve([]));
@@ -117,13 +115,12 @@ describe('project sync', () => {
         name: 'test',
       });
       const remoteConfig = {
-        container,
         data: {},
         dryrun: true,
         logger,
         type: '',
       };
-      const remote = new GithubRemote(remoteConfig);
+      const remote = await container.create(GithubRemote, remoteConfig);
       const createStub = stub(remote, 'createLabel');
       const deleteStub = stub(remote, 'deleteLabel');
       const listStub = stub(remote, 'listLabels').returns(Promise.resolve([{

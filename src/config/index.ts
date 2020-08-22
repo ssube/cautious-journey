@@ -41,7 +41,7 @@ export interface ProjectConfig {
   /**
    * Remote APIs.
    */
-  remote: RemoteOptions;
+  remote: Omit<RemoteOptions, 'container'>;
 
   /**
    * Grouped state labels.
