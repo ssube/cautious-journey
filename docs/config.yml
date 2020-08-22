@@ -13,7 +13,7 @@ projects:
           KEY MATERIAL HERE
         token: ''
         type: 'app'
-      type: 'github'
+      type: 'github-remote'
     states:
       - name: scope
         values:
