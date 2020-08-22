@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+import { Container } from 'noicejs';
 import { alea } from 'seedrandom';
 import { match, spy, stub } from 'sinon';
 
@@ -10,10 +11,14 @@ describe('project sync', () => {
   describe('all labels', () => {
     it('should sync each label');
     it('should pick a stable random color for each label', async () => {
+      const container = Container.from();
+      await container.configure();
+
       const logger = BunyanLogger.create({
         name: 'test',
       });
       const remoteConfig = {
+        container,
         data: {},
         dryrun: true,
         logger,
@@ -59,10 +64,14 @@ describe('project sync', () => {
     });
 
     it('should create missing labels', async () => {
+      const container = Container.from();
+      await container.configure();
+
       const logger = BunyanLogger.create({
         name: 'test',
       });
       const remoteConfig = {
+        container,
         data: {},
         dryrun: true,
         logger,
@@ -101,10 +110,14 @@ describe('project sync', () => {
     });
 
     it('should delete extra labels', async () => {
+      const container = Container.from();
+      await container.configure();
+
       const logger = BunyanLogger.create({
         name: 'test',
       });
       const remoteConfig = {
+        container,
         data: {},
         dryrun: true,
         logger,

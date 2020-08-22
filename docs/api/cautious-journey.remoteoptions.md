@@ -7,8 +7,9 @@
 <b>Signature:</b>
 
 ```typescript
-export interface RemoteOptions 
+export interface RemoteOptions extends BaseOptions 
 ```
+<b>Extends:</b> BaseOptions
 
 ## Properties
 

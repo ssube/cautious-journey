@@ -16,6 +16,7 @@ export interface Remote
 
 |  Method | Description |
 |  --- | --- |
+|  [connect()](./cautious-journey.remote.connect.md) |  |
 |  [createComment(options)](./cautious-journey.remote.createcomment.md) | Add a comment to an issue (for attribution and auditing). |
 |  [createLabel(options)](./cautious-journey.remote.createlabel.md) | Create a new label. |
 |  [deleteLabel(options)](./cautious-journey.remote.deletelabel.md) | Delete an existing label. |

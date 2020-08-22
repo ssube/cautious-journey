@@ -1,10 +1,13 @@
 import { doesExist, InvalidArgumentError } from '@apextoaster/js-utils';
+import { Container } from 'noicejs';
 import { alea } from 'seedrandom';
 
 import { initConfig } from './config';
 import { Commands, createParser } from './config/args';
 import { dotGraph, graphLabels } from './graph';
 import { BunyanLogger } from './logger/bunyan';
+import { RemoteModule } from './module/RemoteModule';
+import { Remote, RemoteOptions } from './remote';
 import { GithubRemote } from './remote/github';
 import { syncIssueLabels, SyncOptions, syncProjectLabels } from './sync';
 import { VERSION_INFO } from './version';
@@ -34,6 +37,9 @@ export async function main(argv: Array<string>): Promise<number> {
     config,
   }, 'runtime data');
 
+  const container = Container.from(new RemoteModule());
+  await container.configure();
+
   for (const project of config.projects) {
     const { name } = project;
 
@@ -43,13 +49,18 @@ export async function main(argv: Array<string>): Promise<number> {
     }
 
     const random = alea(name);
-    const remote = new GithubRemote({
+    const remote = await container.create<Remote, RemoteOptions>(project.remote.type, {
       data: project.remote.data,
       dryrun: args.dryrun || project.remote.dryrun || false,
       logger,
       type: project.remote.type,
     });
-    await remote.connect();
+
+    const connected = await remote.connect();
+    if (!connected) {
+      logger.error({ type: project.remote.type }, 'unable to connect to remote');
+      return 1;
+    }
 
     // mode switch
     const options: SyncOptions = {

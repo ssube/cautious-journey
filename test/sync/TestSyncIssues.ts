@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { NullLogger } from 'noicejs';
+import { Container, NullLogger } from 'noicejs';
 import { alea } from 'seedrandom';
 import { stub } from 'sinon';
 
@@ -8,8 +8,12 @@ import { syncIssueLabels } from '../../src/sync';
 
 describe('issue sync', () => {
   it('should resolve each issue', async () => {
+    const container = Container.from();
+    await container.configure();
+
     const logger = NullLogger.global;
     const remoteData = {
+      container,
       data: {},
       dryrun: true,
       logger,

@@ -11,7 +11,11 @@ export class GitlabRemote implements Remote {
     // TODO: set up gitlab API
   }
 
-  public async createComment() {
+  public async connect(): Promise<boolean> {
+    throw new NotImplementedError();
+  }
+
+  public async createComment(): Promise<void> {
     throw new NotImplementedError();
   }
 
