@@ -1,4 +1,4 @@
-import { doesExist, mustExist } from '@apextoaster/js-utils';
+import { doesExist, InvalidArgumentError, mustExist } from '@apextoaster/js-utils';
 import { Logger } from 'noicejs';
 import { prng } from 'seedrandom';
 
@@ -36,7 +36,7 @@ export async function syncIssueLabels(options: SyncOptions): Promise<unknown> {
 
     logger.debug({ changes, errors, issue, labels }, 'resolved labels');
 
-    // TODO: prompt user to update this particular issue
+    // TODO: prompt user if they want to update this particular issue
     const sameLabels = compareItems(issue.labels, labels) || changes.length === 0;
     if (sameLabels === false && errors.length === 0) {
       logger.info({ changes, errors, issue, labels }, 'updating issue');
@@ -82,13 +82,10 @@ export async function syncProjectLabels(options: SyncOptions): Promise<unknown> 
     if (exists) {
       if (expected) {
         const data = mustExist(labels.find((l) => l.name === label));
-        await syncSingleLabel(options, data);
+        await updateLabel(options, data);
       } else {
         logger.warn({ label }, 'remove label');
-        await remote.deleteLabel({
-          name: label,
-          project: project.name,
-        });
+        await deleteLabel(options, label);
       }
     } else {
       if (expected) {
@@ -134,40 +131,49 @@ export async function createLabel(options: SyncOptions, name: string) {
   }
 }
 
-export async function syncLabelDiff(options: SyncOptions, oldLabel: LabelUpdate, newLabel: LabelUpdate) {
+export async function deleteLabel(options: SyncOptions, name: string) {
+  const { project, remote } = options;
+
+  // TODO: check if label is in use, prompt user if they want to remove it
+  await remote.deleteLabel({
+    name,
+    project: project.name,
+  });
+}
+
+export async function diffUpdateLabel(options: SyncOptions, prevLabel: LabelUpdate, newLabel: LabelUpdate) {
   const { logger, project } = options;
 
   const dirty =
-    oldLabel.color !== mustExist(newLabel.color) ||
-    oldLabel.desc !== mustExist(newLabel.desc);
+    prevLabel.color !== mustExist(newLabel.color) ||
+    prevLabel.desc !== mustExist(newLabel.desc);
 
   if (dirty) {
     const body = {
-      color: defaultTo(newLabel.color, oldLabel.color),
-      desc: defaultTo(newLabel.desc, oldLabel.desc),
-      name: oldLabel.name,
+      color: defaultTo(newLabel.color, prevLabel.color),
+      desc: defaultTo(newLabel.desc, prevLabel.desc),
+      name: prevLabel.name,
       project: project.name,
     };
 
-    logger.debug({ body, newLabel, oldLabel }, 'updating label');
+    logger.debug({ body, newLabel, oldLabel: prevLabel }, 'updating label');
     const resp = await options.remote.updateLabel(body);
     logger.debug({ resp }, 'update response');
   }
 }
 
-export async function syncSingleLabel(options: SyncOptions, label: LabelUpdate): Promise<void> {
+export async function updateLabel(options: SyncOptions, label: LabelUpdate): Promise<void> {
   const { project } = options;
+
   const flag = project.flags.find((it) => label.name === it.name);
   if (doesExist(flag)) {
     const color = getLabelColor(project.colors, options.random, flag);
-    await syncLabelDiff(options, label, {
+    return diffUpdateLabel(options, label, {
       color,
       desc: defaultTo(flag.desc, label.desc),
       name: flag.name,
       project: project.name,
     });
-
-    return;
   }
 
   const state = project.states.find((it) => label.name.startsWith(it.name));
@@ -175,14 +181,14 @@ export async function syncSingleLabel(options: SyncOptions, label: LabelUpdate):
     const value = state.values.find((it) => getValueName(state, it) === label.name);
     if (doesExist(value)) {
       const color = mustExist(getLabelColor(project.colors, options.random, state, value));
-      await syncLabelDiff(options, label, {
+      return diffUpdateLabel(options, label, {
         color,
         desc: defaultTo(value.desc, label.desc),
         name: getValueName(state, value),
         project: project.name,
       });
-
-      return;
     }
   }
+
+  throw new InvalidArgumentError('label is not present in options');
 }

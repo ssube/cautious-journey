@@ -5,7 +5,7 @@ import { match, spy, stub } from 'sinon';
 
 import { BunyanLogger } from '../../src/logger/bunyan';
 import { GithubRemote } from '../../src/remote/github';
-import { syncProjectLabels, syncSingleLabel } from '../../src/sync';
+import { syncProjectLabels, updateLabel } from '../../src/sync';
 
 describe('project sync', () => {
   describe('all labels', () => {
@@ -26,7 +26,7 @@ describe('project sync', () => {
       const remote = await container.create(GithubRemote, remoteConfig);
       const updateSpy = spy(remote, 'updateLabel');
 
-      await syncSingleLabel({
+      await updateLabel({
         logger,
         project: {
           colors: [
