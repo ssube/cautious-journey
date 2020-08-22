@@ -1,6 +1,10 @@
 $schema: "http://json-schema.org/schema#"
 $id: cautious-journey
 definitions:
+  hex-string:
+    type: string
+    pattern: "[0-9a-fA-F]{6}"
+
   label-ref:
     type: object
     required:
@@ -33,7 +37,7 @@ definitions:
       - requires
     properties:
       color:
-        type: string
+        $ref: "#/definitions/hex-string"
       desc:
         type: string
         default: ''
@@ -107,7 +111,7 @@ definitions:
       colors:
         type: array
         items:
-          type: string
+          $ref: "#/definitions/hex-string"
       comment:
         type: boolean
         default: true
