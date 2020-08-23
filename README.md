@@ -9,6 +9,7 @@ Label manager and state machine, for Github and Gitlab.
 - mutually-exclusive label groups
 - state machine between group values
 - `dot` graph output
+- supports Github and Gitlab
 
 ## Contents
 

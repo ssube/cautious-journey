@@ -145,11 +145,11 @@ Remotes abstract the API calls, requests, and writes needed to persist data in s
 The following remote services are supported:
 
 - Github
+- Gitlab
 
 Support for more is planned:
 
-- File
-- Gitlab
+- Local file
 
 ### Share Project Remotes
 
