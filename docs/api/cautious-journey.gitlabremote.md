@@ -9,8 +9,10 @@ Gitlab API implementation of the `Remote` contract.
 <b>Signature:</b>
 
 ```typescript
-export declare class GitlabRemote implements Remote 
+export declare class GitlabRemote extends BaseRemote<RemoteBundle, RemoteOptions> implements Remote 
 ```
+<b>Extends:</b> BaseRemote&lt;RemoteBundle, [RemoteOptions](./cautious-journey.remoteoptions.md)<!-- -->&gt;
+
 <b>Implements:</b> [Remote](./cautious-journey.remote.md)
 
 ## Constructors
@@ -19,26 +21,19 @@ export declare class GitlabRemote implements Remote
 |  --- | --- | --- |
 |  [(constructor)(options)](./cautious-journey.gitlabremote._constructor_.md) |  | Constructs a new instance of the <code>GitlabRemote</code> class |
 
-## Properties
-
-|  Property | Modifiers | Type | Description |
-|  --- | --- | --- | --- |
-|  [client](./cautious-journey.gitlabremote.client.md) |  | RemoteBundle |  |
-|  [options](./cautious-journey.gitlabremote.options.md) |  | [RemoteOptions](./cautious-journey.remoteoptions.md) |  |
-
 ## Methods
 
 |  Method | Modifiers | Description |
 |  --- | --- | --- |
 |  [connect()](./cautious-journey.gitlabremote.connect.md) |  |  |
-|  [createComment()](./cautious-journey.gitlabremote.createcomment.md) |  |  |
-|  [createLabel()](./cautious-journey.gitlabremote.createlabel.md) |  |  |
-|  [deleteLabel()](./cautious-journey.gitlabremote.deletelabel.md) |  |  |
+|  [createComment(options)](./cautious-journey.gitlabremote.createcomment.md) |  |  |
+|  [createLabel(options)](./cautious-journey.gitlabremote.createlabel.md) |  |  |
+|  [deleteLabel(options)](./cautious-journey.gitlabremote.deletelabel.md) |  |  |
 |  [getIssue()](./cautious-journey.gitlabremote.getissue.md) |  |  |
 |  [getLabel()](./cautious-journey.gitlabremote.getlabel.md) |  |  |
 |  [listIssues(options)](./cautious-journey.gitlabremote.listissues.md) |  |  |
 |  [listLabels(options)](./cautious-journey.gitlabremote.listlabels.md) |  |  |
 |  [resolvePath(path)](./cautious-journey.gitlabremote.resolvepath.md) |  |  |
-|  [updateIssue()](./cautious-journey.gitlabremote.updateissue.md) |  |  |
-|  [updateLabel()](./cautious-journey.gitlabremote.updatelabel.md) |  |  |
+|  [updateIssue(options)](./cautious-journey.gitlabremote.updateissue.md) |  |  |
+|  [updateLabel(options)](./cautious-journey.gitlabremote.updatelabel.md) |  |  |
 

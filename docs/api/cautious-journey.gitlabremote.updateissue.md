@@ -7,8 +7,15 @@
 <b>Signature:</b>
 
 ```typescript
-updateIssue(): Promise<IssueUpdate>;
+updateIssue(options: IssueUpdate): Promise<IssueUpdate>;
 ```
+
+## Parameters
+
+|  Parameter | Type | Description |
+|  --- | --- | --- |
+|  options | IssueUpdate |  |
+
 <b>Returns:</b>
 
 Promise&lt;IssueUpdate&gt;
