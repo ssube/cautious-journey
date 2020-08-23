@@ -7,8 +7,15 @@
 <b>Signature:</b>
 
 ```typescript
-listIssues(): Promise<Array<IssueUpdate>>;
+listIssues(options: IssueQuery): Promise<Array<IssueUpdate>>;
 ```
+
+## Parameters
+
+|  Parameter | Type | Description |
+|  --- | --- | --- |
+|  options | IssueQuery |  |
+
 <b>Returns:</b>
 
 Promise&lt;Array&lt;IssueUpdate&gt;&gt;

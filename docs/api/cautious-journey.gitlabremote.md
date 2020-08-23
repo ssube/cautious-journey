@@ -19,6 +19,13 @@ export declare class GitlabRemote implements Remote
 |  --- | --- | --- |
 |  [(constructor)(options)](./cautious-journey.gitlabremote._constructor_.md) |  | Constructs a new instance of the <code>GitlabRemote</code> class |
 
+## Properties
+
+|  Property | Modifiers | Type | Description |
+|  --- | --- | --- | --- |
+|  [client](./cautious-journey.gitlabremote.client.md) |  | RemoteBundle |  |
+|  [options](./cautious-journey.gitlabremote.options.md) |  | [RemoteOptions](./cautious-journey.remoteoptions.md) |  |
+
 ## Methods
 
 |  Method | Modifiers | Description |
@@ -29,8 +36,9 @@ export declare class GitlabRemote implements Remote
 |  [deleteLabel()](./cautious-journey.gitlabremote.deletelabel.md) |  |  |
 |  [getIssue()](./cautious-journey.gitlabremote.getissue.md) |  |  |
 |  [getLabel()](./cautious-journey.gitlabremote.getlabel.md) |  |  |
-|  [listIssues()](./cautious-journey.gitlabremote.listissues.md) |  |  |
-|  [listLabels()](./cautious-journey.gitlabremote.listlabels.md) |  |  |
+|  [listIssues(options)](./cautious-journey.gitlabremote.listissues.md) |  |  |
+|  [listLabels(options)](./cautious-journey.gitlabremote.listlabels.md) |  |  |
+|  [resolvePath(path)](./cautious-journey.gitlabremote.resolvepath.md) |  |  |
 |  [updateIssue()](./cautious-journey.gitlabremote.updateissue.md) |  |  |
 |  [updateLabel()](./cautious-journey.gitlabremote.updatelabel.md) |  |  |
 
