@@ -18,7 +18,7 @@ This guide explains how to start using `cautious-journey` to manage project and 
     - [Running Select Projects](#running-select-projects)
   - [Remotes](#remotes)
     - [Available Remotes](#available-remotes)
-    - [Copying Project Remotes](#copying-project-remotes)
+    - [Share Project Remotes](#share-project-remotes)
   - [Commands](#commands)
     - [Graph Labels](#graph-labels)
     - [Sync Issues](#sync-issues)
@@ -53,13 +53,17 @@ To use the latest code from Github, following the [developer guide's `setup` and
 
 ### Running
 
-To run the Docker image:
+To run the Docker image in a temporary container:
 
 ```shell
 > docker run --rm -it ssube/cautious-journey:master --help
 ```
 
-TODO: mounting config file into container
+To mount a custom config file into the container:
+
+```shell
+> docker run --rm -v ${HOME}/.cautious-journey.yml:/root/.cautious-journey.yml -it ssube/cautious-journey:master graph-labels
+```
 
 To run the npm package:
 
@@ -80,6 +84,9 @@ To pretty-print logs for any of the above methods, pipe the output through `buny
 > $(yarn global bin)/cautious-journey --help | $(yarn global bin)/bunyan
 > node --require esm ./out/index.js --help | ./node_modules/.bin/bunyan
 ```
+
+Note that Docker will combine app output into a single stream. To use `dot` with `docker run`, set the `logger.level`
+to `warn` or higher, which will suppress the version banner and other progress messages.
 
 ### Configuring
 
@@ -123,7 +130,11 @@ The config file has a `projects` key at its root, containing a list of projects 
 
 ### Running Select Projects
 
-TODO: how would you run a single project, or a subset?
+To run a subset of projects from the config, pass the project names as `--project` options:
+
+```shell
+> cautious-journey --project foo/bar --project foo/bin --config foo-config.yml sync-issues
+```
 
 ## Remotes
 
@@ -140,9 +151,19 @@ Support for more is planned:
 - File
 - Gitlab
 
-### Copying Project Remotes
+### Share Project Remotes
 
-TODO: how would you share a remote config block between two projects?
+To share a remote config between two different projects in the same file and YAML document, use YAML anchors:
+
+```yaml
+projects:
+  - name: foo/bar
+    remote: &foo_remote
+      data: {}
+      type: github
+  - name: foo/bin
+    remote: *foo_remote
+```
 
 ## Commands
 
@@ -218,7 +239,7 @@ TODO: describe a workflow with `status` state and `next`/`release` flags
 To generate a graph of your project labels and how they relate to each other:
 
 ```shell
-> node --require esm ./out/index.js graph-labels --config ~/config.yml --remote github | dot -Tpng -o /tmp/labels.png
+> node --require esm ./out/index.js graph-labels --config ~/config.yml | dot -Tpng -o /tmp/labels.png
 ```
 
 To view the graph after you have generated it:

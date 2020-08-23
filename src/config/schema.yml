@@ -1,6 +1,10 @@
 $schema: "http://json-schema.org/schema#"
 $id: cautious-journey
 definitions:
+  hex-string:
+    type: string
+    pattern: "[0-9a-fA-F]{6}"
+
   label-ref:
     type: object
     required:
@@ -33,7 +37,7 @@ definitions:
       - requires
     properties:
       color:
-        type: string
+        $ref: "#/definitions/hex-string"
       desc:
         type: string
         default: ''
@@ -60,7 +64,6 @@ definitions:
           matches:
             items:
               $ref: "#/definitions/label-ref"
-
 
   state-label:
     allOf:
@@ -94,6 +97,24 @@ definitions:
               $ref: "#/definitions/state-change"
             default: []
 
+  remote:
+    type: object
+    required:
+      - data
+      - type
+    properties:
+      type:
+        type: string
+        enum:
+          - github-remote
+          - gitlab-remote
+      data:
+        type: object
+        additionalProperties: false
+        patternProperties:
+          ".*":
+            type: string
+
   project:
     type: object
     required:
@@ -107,7 +128,8 @@ definitions:
       colors:
         type: array
         items:
-          type: string
+          $ref: "#/definitions/hex-string"
+        default: []
       comment:
         type: boolean
         default: true
@@ -119,7 +141,7 @@ definitions:
       name:
         type: string
       remote:
-        type: object
+        $ref: "#/definitions/remote"
       states:
         type: array
         items:

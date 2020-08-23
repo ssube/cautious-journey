@@ -23,6 +23,7 @@ export declare class GitlabRemote implements Remote
 
 |  Method | Modifiers | Description |
 |  --- | --- | --- |
+|  [connect()](./cautious-journey.gitlabremote.connect.md) |  |  |
 |  [createComment()](./cautious-journey.gitlabremote.createcomment.md) |  |  |
 |  [createLabel()](./cautious-journey.gitlabremote.createlabel.md) |  |  |
 |  [deleteLabel()](./cautious-journey.gitlabremote.deletelabel.md) |  |  |

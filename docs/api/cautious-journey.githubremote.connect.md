@@ -7,9 +7,9 @@
 <b>Signature:</b>
 
 ```typescript
-connect(): Promise<void>;
+connect(): Promise<boolean>;
 ```
 <b>Returns:</b>
 
-Promise&lt;void&gt;
+Promise&lt;boolean&gt;
 

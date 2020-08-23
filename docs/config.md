@@ -60,7 +60,7 @@ Project path on the remote, including username, group, etc. Slash-delimited.
 ### Project Remote
 
 - `data`: string map, arbitrary data for the remote
-- `type`: string enum, one of `github` or `gitlab`
+- `type`: string enum, one of `github-remote` or `gitlab-remote`
 
 #### Github Remote
 

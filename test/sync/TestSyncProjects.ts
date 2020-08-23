@@ -1,15 +1,19 @@
 import { expect } from 'chai';
+import { Container } from 'noicejs';
 import { alea } from 'seedrandom';
 import { match, spy, stub } from 'sinon';
 
 import { BunyanLogger } from '../../src/logger/bunyan';
 import { GithubRemote } from '../../src/remote/github';
-import { syncProjectLabels, syncSingleLabel } from '../../src/sync';
+import { syncProjectLabels, updateLabel } from '../../src/sync';
 
 describe('project sync', () => {
   describe('all labels', () => {
     it('should sync each label');
     it('should pick a stable random color for each label', async () => {
+      const container = Container.from();
+      await container.configure();
+
       const logger = BunyanLogger.create({
         name: 'test',
       });
@@ -19,10 +23,10 @@ describe('project sync', () => {
         logger,
         type: '',
       };
-      const remote = new GithubRemote(remoteConfig);
+      const remote = await container.create(GithubRemote, remoteConfig);
       const updateSpy = spy(remote, 'updateLabel');
 
-      await syncSingleLabel({
+      await updateLabel({
         logger,
         project: {
           colors: [
@@ -59,6 +63,9 @@ describe('project sync', () => {
     });
 
     it('should create missing labels', async () => {
+      const container = Container.from();
+      await container.configure();
+
       const logger = BunyanLogger.create({
         name: 'test',
       });
@@ -68,7 +75,7 @@ describe('project sync', () => {
         logger,
         type: '',
       };
-      const remote = new GithubRemote(remoteConfig);
+      const remote = await container.create(GithubRemote, remoteConfig);
       const createStub = stub(remote, 'createLabel');
       const deleteStub = stub(remote, 'deleteLabel');
       const listStub = stub(remote, 'listLabels').returns(Promise.resolve([]));
@@ -101,6 +108,9 @@ describe('project sync', () => {
     });
 
     it('should delete extra labels', async () => {
+      const container = Container.from();
+      await container.configure();
+
       const logger = BunyanLogger.create({
         name: 'test',
       });
@@ -110,7 +120,7 @@ describe('project sync', () => {
         logger,
         type: '',
       };
-      const remote = new GithubRemote(remoteConfig);
+      const remote = await container.create(GithubRemote, remoteConfig);
       const createStub = stub(remote, 'createLabel');
       const deleteStub = stub(remote, 'deleteLabel');
       const listStub = stub(remote, 'listLabels').returns(Promise.resolve([{

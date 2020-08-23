@@ -22,7 +22,7 @@ export class GithubRemote implements Remote {
     this.options.logger.debug(options, 'created github remote');
   }
 
-  public async connect() {
+  public async connect(): Promise<boolean> {
     this.options.logger.info('connecting to github');
 
     const type = mustExist(this.options.data.type);
@@ -48,6 +48,8 @@ export class GithubRemote implements Remote {
       default:
         throw new InvalidArgumentError('unknown authentication type');
     }
+
+    return true;
   }
 
   public async splitProject(project: string): Promise<{

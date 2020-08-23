@@ -1,4 +1,5 @@
-import { Logger } from 'noicejs';
+import { BaseOptions, Logger } from 'noicejs';
+
 import { ChangeRecord, ErrorRecord } from '../resolve';
 
 export interface ProjectQuery {
@@ -32,7 +33,7 @@ export interface LabelUpdate extends LabelQuery {
   desc: string;
 }
 
-export interface RemoteOptions {
+export interface RemoteOptions extends BaseOptions {
   /**
    * Arbitrary key-value data for this remote, usually credentials and base URLs.
    */
@@ -55,6 +56,8 @@ export interface RemoteOptions {
  * Basic functions which every remote API must provide.
  */
 export interface Remote {
+  connect(): Promise<boolean>;
+
   /**
    * Add a comment to an issue (for attribution and auditing).
    */

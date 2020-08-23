@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import { defaultTo, defaultUntil, compareItems } from '../src/utils';
+import { compareItems, defaultTo, defaultUntil, kebabCase } from '../src/utils';
 
 const TEST_TRUE = 'foo';
 const TEST_FALSE = 'bar';
@@ -62,6 +62,33 @@ describe('utils', () => {
         new Array(5).fill(1),
         new Array(3).fill(1)
       )).to.equal(false);
+    });
+  });
+
+  describe('kebab case helper', () => {
+    it('should replace non-alnum characters with dashes', () => {
+      expect(kebabCase('1_2,3+4')).to.equal('1-2-3-4');
+    });
+
+    it('should lowercase the value', () => {
+      expect(kebabCase('ABC')).to.equal('a-b-c');
+      expect(kebabCase('A-B-C')).to.equal('a-b-c');
+    });
+
+    it('should remove leading dashes', () => {
+      expect(kebabCase('--1')).to.equal('1');
+      expect(kebabCase('++1')).to.equal('1');
+      expect(kebabCase('-g-g')).to.equal('g-g');
+    });
+
+    it('should remove trailing dashes', () => {
+      expect(kebabCase('1--')).to.equal('1');
+      expect(kebabCase('1++')).to.equal('1');
+    });
+
+    it('should remove duplicate dashes', () => {
+      expect(kebabCase('foo...bar')).to.equal('foo-bar');
+      expect(kebabCase('foo-.-bar')).to.equal('foo-bar');
     });
   });
 });

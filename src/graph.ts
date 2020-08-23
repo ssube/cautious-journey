@@ -1,9 +1,23 @@
+import { mustExist } from '@apextoaster/js-utils';
+
 import { BaseLabel, FlagLabel, getValueName, StateLabel } from './labels';
 import { ChangeVerb } from './resolve';
 import { defaultTo, defaultUntil } from './utils';
 
 const COLOR_NODE = 'cccccc';
 const COLOR_MIDNODE = 'aaaaaa';
+
+export enum EdgeType {
+  /**
+   * Both directions, arrows on both ends.
+   */
+  BOTH = 'both',
+
+  /**
+   * Source to target, arrow at target.
+   */
+  FORWARD = 'forward',
+}
 
 export interface Node {
   color: string;
@@ -13,7 +27,8 @@ export interface Node {
 export interface Edge {
   source: string;
   target: string;
-  type: ChangeVerb;
+  type: EdgeType;
+  verb: ChangeVerb;
 }
 
 export interface Graph {
@@ -34,7 +49,8 @@ function labelEdges(label: BaseLabel, edges: Array<Edge>) {
     edges.push({
       source: label.name,
       target: add.name,
-      type: ChangeVerb.CREATED,
+      type: EdgeType.FORWARD,
+      verb: ChangeVerb.CREATED,
     });
   }
 
@@ -42,7 +58,8 @@ function labelEdges(label: BaseLabel, edges: Array<Edge>) {
     edges.push({
       source: label.name,
       target: remove.name,
-      type: ChangeVerb.REMOVED,
+      type: EdgeType.FORWARD,
+      verb: ChangeVerb.REMOVED,
     });
   }
 
@@ -50,9 +67,30 @@ function labelEdges(label: BaseLabel, edges: Array<Edge>) {
     edges.push({
       source: label.name,
       target: require.name,
-      type: ChangeVerb.REQUIRED,
+      type: EdgeType.FORWARD,
+      verb: ChangeVerb.REQUIRED,
     });
   }
+}
+
+function mergeEdges(edges: Array<Edge>): Array<Edge> {
+  const uniqueEdges = new Map<string, Edge>();
+
+  for (const edge of edges) {
+    const sortedNodes = [edge.source, edge.target].sort();
+    const dirName = [edge.verb, ...sortedNodes].join(':');
+
+    if (uniqueEdges.has(dirName)) {
+      const prevEdge = mustExist(uniqueEdges.get(dirName));
+      if (edge.type !== prevEdge.type || edge.source !== prevEdge.source) {
+        prevEdge.type = EdgeType.BOTH;
+      }
+    } else {
+      uniqueEdges.set(dirName, edge);
+    }
+  }
+
+  return Array.from(uniqueEdges.values());
 }
 
 export function graphLabels(options: GraphOptions): Graph {
@@ -95,7 +133,8 @@ export function graphLabels(options: GraphOptions): Graph {
           sub.edges.push({
             source: name,
             target: otherName,
-            type: ChangeVerb.CONFLICTED,
+            type: EdgeType.FORWARD,
+            verb: ChangeVerb.CONFLICTED,
           });
         }
       }
@@ -112,7 +151,8 @@ export function graphLabels(options: GraphOptions): Graph {
         sub.edges.push({
           source: name,
           target: matchLabel,
-          type: ChangeVerb.BECAME,
+          type: EdgeType.FORWARD,
+          verb: ChangeVerb.BECAME,
         });
 
         labelEdges({
@@ -141,19 +181,19 @@ export function cleanName(name: string): string {
 }
 
 export function edgeStyle(edge: Edge) {
-  switch (edge.type) {
+  switch (edge.verb) {
     case ChangeVerb.BECAME:
-      return '[arrowhead="onormal" color="purple"]';
+      return `[dir="${edge.type}" arrowhead="onormal" color="purple"]`;
     case ChangeVerb.CREATED:
-      return '[color="green"]';
+      return `[dir="${edge.type}" color="green" weight=0.8]`;
     case ChangeVerb.EXISTING:
-      return '[color="gray" weight=0.1]';
+      return `[dir="${edge.type}" color="gray" weight=0.1]`;
     case ChangeVerb.REMOVED:
-      return '[color="red"]';
+      return `[dir="${edge.type}" color="red"]`;
     case ChangeVerb.CONFLICTED:
-      return '[color="orange" weight=0.1]';
+      return `[dir="${edge.type}" color="orange" weight=0.1]`;
     case ChangeVerb.REQUIRED:
-      return '[arrowhead="onormal" color="blue"]';
+      return `[dir="${edge.type}" arrowhead="onormal" color="blue"]`;
     default:
       return '';
   }
@@ -183,7 +223,7 @@ export function dotGraph(graph: Graph): string {
     lines.push(`label = "${subName}";`);
     lines.push('color = gray');
 
-    for (const edge of sub.edges) {
+    for (const edge of mergeEdges(sub.edges)) {
       const source = cleanName(edge.source);
       const target = cleanName(edge.target);
       lines.push(`${source} -> ${target} ${edgeStyle(edge)};`);
@@ -198,7 +238,7 @@ export function dotGraph(graph: Graph): string {
   }
 
   // remaining edges
-  for (const edge of graph.edges) {
+  for (const edge of mergeEdges(graph.edges)) {
     const source = cleanName(edge.source);
     const target = cleanName(edge.target);
     lines.push(`${source} -> ${target} ${edgeStyle(edge)};`);

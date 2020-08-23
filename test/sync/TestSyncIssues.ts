@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { NullLogger } from 'noicejs';
+import { Container, NullLogger } from 'noicejs';
 import { alea } from 'seedrandom';
 import { stub } from 'sinon';
 
@@ -8,6 +8,9 @@ import { syncIssueLabels } from '../../src/sync';
 
 describe('issue sync', () => {
   it('should resolve each issue', async () => {
+    const container = Container.from();
+    await container.configure();
+
     const logger = NullLogger.global;
     const remoteData = {
       data: {},
@@ -15,7 +18,7 @@ describe('issue sync', () => {
       logger,
       type: '',
     };
-    const remote = new GithubRemote(remoteData);
+    const remote = await container.create(GithubRemote, remoteData);
     const listStub = stub(remote, 'listIssues').returns(Promise.resolve([{
       issue: '',
       labels: ['nope'],

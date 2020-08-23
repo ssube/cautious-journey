@@ -35,3 +35,11 @@ export function compareItems<T>(a: Array<T>, b: Array<T>): boolean {
 
   return true;
 }
+
+export function kebabCase(name: string): string {
+  return name
+    .replace(/([A-Z])/g, (m: string, p1: string) => `-${p1.toLocaleLowerCase()}`) // capitals
+    .replace(/[^-a-z0-9]/g, '-') // non-alnum
+    .replace(/--+/g, '-') // duplicates
+    .replace(/(^-|-$)/g, ''); // leading/trailing
+}
