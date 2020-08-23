@@ -3,7 +3,7 @@ $id: cautious-journey
 definitions:
   hex-string:
     type: string
-    pattern: "[0-9a-fA-F]{6}"
+    pattern: "^[0-9a-fA-F]{6}$"
 
   label-ref:
     type: object

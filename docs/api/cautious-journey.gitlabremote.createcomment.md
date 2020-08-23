@@ -7,8 +7,15 @@
 <b>Signature:</b>
 
 ```typescript
-createComment(): Promise<void>;
+createComment(options: CommentUpdate): Promise<void>;
 ```
+
+## Parameters
+
+|  Parameter | Type | Description |
+|  --- | --- | --- |
+|  options | CommentUpdate |  |
+
 <b>Returns:</b>
 
 Promise&lt;void&gt;

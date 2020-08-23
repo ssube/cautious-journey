@@ -1,24 +1,17 @@
-import { doesExist, InvalidArgumentError, mustExist, NotImplementedError } from '@apextoaster/js-utils';
+import { InvalidArgumentError, mustExist, NotImplementedError } from '@apextoaster/js-utils';
 import { createAppAuth } from '@octokit/auth-app';
 import { Octokit } from '@octokit/rest';
 
 import { CommentUpdate, IssueUpdate, LabelQuery, LabelUpdate, ProjectQuery, Remote, RemoteOptions } from '.';
-import { ChangeVerb } from '../resolve';
-import { VERSION_INFO } from '../version';
+import { BaseRemote } from './base';
 
 /**
  * Github/Octokit API implementation of the `Remote` contract.
  */
-export class GithubRemote implements Remote {
-  protected options: RemoteOptions;
-
-  /**
-   * Github API client. Will not be set for a dry run.
-   */
-  protected request?: Octokit;
-
+export class GithubRemote extends BaseRemote<Octokit, RemoteOptions> implements Remote {
   constructor(options: RemoteOptions) {
-    this.options = options;
+    super(options);
+
     this.options.logger.debug(options, 'created github remote');
   }
 
@@ -30,7 +23,7 @@ export class GithubRemote implements Remote {
     switch (type) {
       case 'app':
         this.options.logger.info('using app auth');
-        this.request = new Octokit({
+        this.client = new Octokit({
           auth: {
             id: parseInt(mustExist(this.options.data.id), 10),
             installationId: parseInt(mustExist(this.options.data.installationId), 10),
@@ -41,7 +34,7 @@ export class GithubRemote implements Remote {
         break;
       case 'token':
         this.options.logger.info('using token auth');
-        this.request = new Octokit({
+        this.client = new Octokit({
           auth: mustExist(this.options.data.token),
         });
         break;
@@ -52,7 +45,7 @@ export class GithubRemote implements Remote {
     return true;
   }
 
-  public async splitProject(project: string): Promise<{
+  public async resolvePath(project: string): Promise<{
     owner: string;
     repo: string;
   }> {
@@ -64,7 +57,7 @@ export class GithubRemote implements Remote {
   }
 
   public async createComment(options: CommentUpdate): Promise<unknown> {
-    const path = await this.splitProject(options.project);
+    const path = await this.resolvePath(options.project);
     const body = this.formatBody(options);
 
     this.options.logger.debug({
@@ -74,7 +67,7 @@ export class GithubRemote implements Remote {
     }, 'creating issue comment');
 
     if (this.writeCapable) {
-      await this.writeRequest.issues.createComment({
+      await this.writeClient.issues.createComment({
         body,
         /* eslint-disable-next-line camelcase */
         issue_number: parseInt(options.issue, 10),
@@ -87,11 +80,11 @@ export class GithubRemote implements Remote {
   }
 
   public async createLabel(options: LabelUpdate): Promise<LabelUpdate> {
-    const path = await this.splitProject(options.project);
+    const path = await this.resolvePath(options.project);
 
     // TODO: check if the label already exists
     if (this.writeCapable) {
-      await this.writeRequest.issues.createLabel({
+      await this.writeClient.issues.createLabel({
         color: options.color,
         description: options.desc,
         name: options.name,
@@ -104,11 +97,11 @@ export class GithubRemote implements Remote {
   }
 
   public async deleteLabel(options: LabelQuery): Promise<LabelQuery> {
-    const path = await this.splitProject(options.project);
+    const path = await this.resolvePath(options.project);
 
     // TODO: check if the label is in use
     if (this.writeCapable) {
-      await this.writeRequest.issues.deleteLabel({
+      await this.writeClient.issues.deleteLabel({
         name: options.name,
         owner: path.owner,
         repo: path.repo,
@@ -127,11 +120,11 @@ export class GithubRemote implements Remote {
   }
 
   public async listIssues(options: ProjectQuery): Promise<Array<IssueUpdate>> {
-    const path = await this.splitProject(options.project);
+    const path = await this.resolvePath(options.project);
 
     const issues: Array<IssueUpdate> = [];
 
-    const repo = await mustExist(this.request).issues.listForRepo(path);
+    const repo = await mustExist(this.client).issues.listForRepo(path);
     for (const issue of repo.data) {
       issues.push({
         issue: issue.number.toString(),
@@ -145,11 +138,11 @@ export class GithubRemote implements Remote {
   }
 
   public async listLabels(options: ProjectQuery): Promise<Array<LabelUpdate>> {
-    const path = await this.splitProject(options.project);
+    const path = await this.resolvePath(options.project);
 
     const labels: Array<LabelUpdate> = [];
 
-    const repo = await mustExist(this.request).issues.listLabelsForRepo(path);
+    const repo = await mustExist(this.client).issues.listLabelsForRepo(path);
     for (const label of repo.data) {
       labels.push({
         color: label.color,
@@ -163,10 +156,10 @@ export class GithubRemote implements Remote {
   }
 
   public async updateIssue(options: IssueUpdate): Promise<IssueUpdate> {
-    const path = await this.splitProject(options.project);
+    const path = await this.resolvePath(options.project);
 
     if (this.writeCapable) {
-      const data = await this.writeRequest.issues.setLabels({
+      const data = await this.writeClient.issues.setLabels({
         /* eslint-disable-next-line camelcase */
         issue_number: parseInt(options.issue, 10),
         labels: options.labels,
@@ -181,10 +174,10 @@ export class GithubRemote implements Remote {
   }
 
   public async updateLabel(options: LabelUpdate): Promise<LabelUpdate> {
-    const path = await this.splitProject(options.project);
+    const path = await this.resolvePath(options.project);
 
     if (this.writeCapable) {
-      const data = await this.writeRequest.issues.updateLabel({
+      const data = await this.writeClient.issues.updateLabel({
         color: options.color,
         description: options.desc,
         name: options.name,
@@ -200,49 +193,6 @@ export class GithubRemote implements Remote {
       };
     } else {
       return options;
-    }
-  }
-
-  public formatBody(options: CommentUpdate): string {
-    const lines = [];
-    lines.push(`${VERSION_INFO.package.name} v${VERSION_INFO.package.version} has updated the labels on this issue!`);
-    lines.push('');
-
-    for (const change of options.changes) {
-      switch (change.effect) {
-        case ChangeVerb.CONFLICTED:
-          lines.push(`- \`${change.label}\` conflicted with \`${change.cause}\`.`);
-          break;
-        case ChangeVerb.CREATED:
-          lines.push(`- \`${change.label}\` was created by \`${change.cause}\`.`);
-          break;
-        case ChangeVerb.EXISTING:
-          lines.push(`- \`${change.label}\` already existed.`);
-          break;
-        case ChangeVerb.REMOVED:
-          lines.push(`- \`${change.label}\` was removed by \`${change.cause}\`.`);
-          break;
-        case ChangeVerb.REQUIRED:
-          lines.push(`- \`${change.label}\` was removed because it requires \`${change.cause}\`.`);
-          break;
-        default:
-          lines.push(`- an unknown change occurred: \`${JSON.stringify(change)}\`.`);
-          break;
-      }
-    }
-
-    return lines.join('\n');
-  }
-
-  protected get writeCapable(): boolean {
-    return this.options.dryrun === false;
-  }
-
-  protected get writeRequest(): Octokit {
-    if (doesExist(this.request)) {
-      return this.request;
-    } else {
-      throw new InvalidArgumentError();
     }
   }
 }

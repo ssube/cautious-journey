@@ -9,8 +9,10 @@ Github/Octokit API implementation of the `Remote` contract.
 <b>Signature:</b>
 
 ```typescript
-export declare class GithubRemote implements Remote 
+export declare class GithubRemote extends BaseRemote<Octokit, RemoteOptions> implements Remote 
 ```
+<b>Extends:</b> BaseRemote&lt;Octokit, [RemoteOptions](./cautious-journey.remoteoptions.md)<!-- -->&gt;
+
 <b>Implements:</b> [Remote](./cautious-journey.remote.md)
 
 ## Constructors
@@ -18,15 +20,6 @@ export declare class GithubRemote implements Remote
 |  Constructor | Modifiers | Description |
 |  --- | --- | --- |
 |  [(constructor)(options)](./cautious-journey.githubremote._constructor_.md) |  | Constructs a new instance of the <code>GithubRemote</code> class |
-
-## Properties
-
-|  Property | Modifiers | Type | Description |
-|  --- | --- | --- | --- |
-|  [options](./cautious-journey.githubremote.options.md) |  | [RemoteOptions](./cautious-journey.remoteoptions.md) |  |
-|  [request](./cautious-journey.githubremote.request.md) |  | Octokit | Github API client. Will not be set for a dry run. |
-|  [writeCapable](./cautious-journey.githubremote.writecapable.md) |  | boolean |  |
-|  [writeRequest](./cautious-journey.githubremote.writerequest.md) |  | Octokit |  |
 
 ## Methods
 
@@ -36,12 +29,11 @@ export declare class GithubRemote implements Remote
 |  [createComment(options)](./cautious-journey.githubremote.createcomment.md) |  |  |
 |  [createLabel(options)](./cautious-journey.githubremote.createlabel.md) |  |  |
 |  [deleteLabel(options)](./cautious-journey.githubremote.deletelabel.md) |  |  |
-|  [formatBody(options)](./cautious-journey.githubremote.formatbody.md) |  |  |
 |  [getIssue()](./cautious-journey.githubremote.getissue.md) |  |  |
 |  [getLabel()](./cautious-journey.githubremote.getlabel.md) |  |  |
 |  [listIssues(options)](./cautious-journey.githubremote.listissues.md) |  |  |
 |  [listLabels(options)](./cautious-journey.githubremote.listlabels.md) |  |  |
-|  [splitProject(project)](./cautious-journey.githubremote.splitproject.md) |  |  |
+|  [resolvePath(project)](./cautious-journey.githubremote.resolvepath.md) |  |  |
 |  [updateIssue(options)](./cautious-journey.githubremote.updateissue.md) |  |  |
 |  [updateLabel(options)](./cautious-journey.githubremote.updatelabel.md) |  |  |
 
