@@ -32,15 +32,13 @@ Label manager and state machine, for Github and Gitlab.
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=ssube_cautious-journey&metric=ncloc)](https://sonarcloud.io/dashboard?id=ssube_cautious-journey)
 [![Test coverage](https://codecov.io/gh/ssube/cautious-journey/branch/master/graph/badge.svg)](https://codecov.io/gh/ssube/cautious-journey)
 [![MIT license](https://img.shields.io/github/license/ssube/cautious-journey.svg)](https://github.com/ssube/cautious-journey/blob/master/LICENSE.md)
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fssube%2Fcautious-journey.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fssube%2Fcautious-journey?ref=badge_shield)
 
 [![Open bug count](https://img.shields.io/github/issues-raw/ssube/cautious-journey/type-bug.svg)](https://github.com/ssube/cautious-journey/issues?q=is%3Aopen+is%3Aissue+label%3Atype%2Fbug)
 [![Open issue count](https://img.shields.io/github/issues-raw/ssube/cautious-journey.svg)](https://github.com/ssube/cautious-journey/issues?q=is%3Aopen+is%3Aissue)
 [![Closed issue count](https://img.shields.io/github/issues-closed-raw/ssube/cautious-journey.svg)](https://github.com/ssube/cautious-journey/issues?q=is%3Aissue+is%3Aclosed)
 
 [![Renovate badge](https://badges.renovateapi.com/github/ssube/cautious-journey)](https://renovatebot.com)
-[![Dependency status](https://img.shields.io/david/ssube/cautious-journey.svg)](https://david-dm.org/ssube/cautious-journey)
-[![Dev dependency status](https://img.shields.io/david/dev/ssube/cautious-journey.svg)](https://david-dm.org/ssube/cautious-journey?type=dev)
+[![Dependency status](https://img.shields.io/librariesio/github/ssube/cautious-journey)](https://libraries.io/github/ssube/cautious-journey)
 [![Known vulnerabilities](https://snyk.io/test/github/ssube/cautious-journey/badge.svg)](https://snyk.io/test/github/ssube/cautious-journey)
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/599b7b2382601f95d7a5/maintainability)](https://codeclimate.com/github/ssube/cautious-journey/maintainability)
@@ -128,4 +126,4 @@ Node 12 or better is required, along with Yarn 1.x or better.
 
 ## License
 
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fssube%2Fcautious-journey.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fssube%2Fcautious-journey?ref=badge_large)
+Released under [the MIT license](./LICENSE.md).
