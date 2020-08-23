@@ -86,4 +86,9 @@ After you have pushed your local changes, you can create a pull request and merg
 
 ### Test Coverage
 
-TODO
+To see how much of your code is covered by your tests:
+
+```shell
+> google-chrome ./out/coverage/index.html
+# change google-chrome to your web browser of choice
+```
