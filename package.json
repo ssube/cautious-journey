@@ -32,7 +32,7 @@
     "@types/react-dom": "16.9.8",
     "@types/seedrandom": "2.4.28",
     "@types/sinon-chai": "3.2.4",
-    "@types/source-map-support": "0.5.2",
+    "@types/source-map-support": "0.5.3",
     "@types/yargs": "15.0.5",
     "@typescript-eslint/eslint-plugin": "3.8.0",
     "@typescript-eslint/eslint-plugin-tslint": "3.8.0",
