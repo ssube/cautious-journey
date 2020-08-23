@@ -43,8 +43,7 @@ Label manager and state machine, for Github and Gitlab.
 [![Dev dependency status](https://img.shields.io/david/dev/ssube/cautious-journey.svg)](https://david-dm.org/ssube/cautious-journey?type=dev)
 [![Known vulnerabilities](https://snyk.io/test/github/ssube/cautious-journey/badge.svg)](https://snyk.io/test/github/ssube/cautious-journey)
 
-TODO: code climate maintainability
-
+[![Maintainability](https://api.codeclimate.com/v1/badges/599b7b2382601f95d7a5/maintainability)](https://codeclimate.com/github/ssube/cautious-journey/maintainability)
 [![Technical debt ratio](https://img.shields.io/codeclimate/tech-debt/ssube/cautious-journey.svg)](https://codeclimate.com/github/ssube/cautious-journey/trends/technical_debt)
 [![Quality issues](https://img.shields.io/codeclimate/issues/ssube/cautious-journey.svg)](https://codeclimate.com/github/ssube/cautious-journey/issues)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/ssube/cautious-journey.svg?logo=lgtm)](https://lgtm.com/projects/g/ssube/cautious-journey/context:javascript)
