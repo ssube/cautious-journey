@@ -101,5 +101,8 @@
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
+  },
+  "bin": {
+    "cautious-journey": "out/index.js"
   }
 }
