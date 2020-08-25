@@ -17,7 +17,7 @@
   resolved "https://registry.yarnpkg.com/@apextoaster/js-yaml-schema/-/js-yaml-schema-0.4.0-3.tgz#f6a6222b588ab04270dd2806f7e72b145ebc8245"
   integrity sha512-QpM5LUrVpGJk3cUxLxQjs8mXNcwipts1ul75+YMTgiIo6rmYO5/0HZg0RF5C7nLcxzVEkcCytct9TNbXnftuwQ==
 
-"@babel/code-frame@^7.0.0", "@babel/code-frame@^7.10.4", "@babel/code-frame@^7.8.3":
+"@babel/code-frame@^7.0.0", "@babel/code-frame@^7.10.4":
   version "7.10.4"
   resolved "https://artifacts.apextoaster.com/repository/group-npm/@babel/code-frame/-/code-frame-7.10.4.tgz#168da1a36e90da68ae8d49c0f1b48c7c6249213a"
   integrity sha512-vG6SvB6oYEhvgisZNFRmRCUkLz11c7rp+tbNTynGqc6mS1d5ATd/sGyV6W0KZZnXRKMTzZDRgQT3Ou9jhpAfUg==
@@ -270,36 +270,36 @@
   resolved "https://artifacts.apextoaster.com/repository/group-npm/@istanbuljs/schema/-/schema-0.1.2.tgz#26520bf09abe4a5644cd5414e37125a8954241dd"
   integrity sha512-tsAQNx32a8CoFhjhijUIhI4kccIAgmGhy8LZMZgGfmXcpMbPRUqn5LWmgRttILi6yeGmBJd2xsPkFMs0PzgPCw==
 
-"@microsoft/api-documenter@7.8.33":
-  version "7.8.33"
-  resolved "https://registry.yarnpkg.com/@microsoft/api-documenter/-/api-documenter-7.8.33.tgz#515c9c81dc4787992c4221424b96fccdd6e1e927"
-  integrity sha512-LW6I5LDz1V9dOUadaDTUtKj2UMynxTgvc4M6Cc/7UckkTDPjZeX/2MtqOpzPY++rtcvSQ0kWuAbsM9Kaez5BpA==
+"@microsoft/api-documenter@7.8.35":
+  version "7.8.35"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/@microsoft/api-documenter/-/api-documenter-7.8.35.tgz#e8c67b16dc26c75da56de6801ecf204e3c2893a4"
+  integrity sha512-UzPx8J+mCTeL3nn0AW+EFM7gwl63y7z+4T8/gLmRp+t2zSa7xQero+lHM53XYMCOa6QqnNQTBosXwizjSK1b5w==
   dependencies:
-    "@microsoft/api-extractor-model" "7.8.17"
+    "@microsoft/api-extractor-model" "7.8.18"
     "@microsoft/tsdoc" "0.12.19"
-    "@rushstack/node-core-library" "3.29.0"
-    "@rushstack/ts-command-line" "4.6.2"
+    "@rushstack/node-core-library" "3.29.1"
+    "@rushstack/ts-command-line" "4.6.3"
     colors "~1.2.1"
     js-yaml "~3.13.1"
     resolve "~1.17.0"
 
-"@microsoft/api-extractor-model@7.8.17":
-  version "7.8.17"
-  resolved "https://registry.yarnpkg.com/@microsoft/api-extractor-model/-/api-extractor-model-7.8.17.tgz#a0286ee8ae22ee69bc8dca763e65feae39155eb5"
-  integrity sha512-iyVdA1WTlwgddDJwJTedTFcpGjDoV9grq/JGP7rK2t4yo4kOE5XhLbi+BlZ3t5vuggFJf8LawDyomEb8tGtwRQ==
+"@microsoft/api-extractor-model@7.8.18":
+  version "7.8.18"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/@microsoft/api-extractor-model/-/api-extractor-model-7.8.18.tgz#15a0a53216b921a42388ab29ddee3eb33c2d9995"
+  integrity sha512-f/cotp4xvhhhpqAvnHd+M5xfaWIwokZfrezDcCEW4BFQMdjB7VhhXMA62Std/2E83B1YZ+/QsWoIZPaGuIcbBg==
   dependencies:
     "@microsoft/tsdoc" "0.12.19"
-    "@rushstack/node-core-library" "3.29.0"
+    "@rushstack/node-core-library" "3.29.1"
 
-"@microsoft/api-extractor@7.9.9":
-  version "7.9.9"
-  resolved "https://registry.yarnpkg.com/@microsoft/api-extractor/-/api-extractor-7.9.9.tgz#e89da1c8cc0655c6ed8264a0ce635d5f1410ca05"
-  integrity sha512-alqX4qmrSSS2HZHU6HivGv39/8Mknbew4L+qL3D3q6gWQhmDj7cLNOzS7pBp7yZrbt0jQfb/o8EgeTsRQL2T1A==
+"@microsoft/api-extractor@7.9.10":
+  version "7.9.10"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/@microsoft/api-extractor/-/api-extractor-7.9.10.tgz#e15676ca35c5061971697a017ac05abf9cba694b"
+  integrity sha512-hN/iyFN7FRM6flSDmeb2RJGGeo1CF7CONlsjxgoiXU3cqx8601vWheJK06s8+aR8IrBtnV12ZVMii8syQw6AgA==
   dependencies:
-    "@microsoft/api-extractor-model" "7.8.17"
+    "@microsoft/api-extractor-model" "7.8.18"
     "@microsoft/tsdoc" "0.12.19"
-    "@rushstack/node-core-library" "3.29.0"
-    "@rushstack/ts-command-line" "4.6.2"
+    "@rushstack/node-core-library" "3.29.1"
+    "@rushstack/ts-command-line" "4.6.3"
     colors "~1.2.1"
     lodash "~4.17.15"
     resolve "~1.17.0"
@@ -438,10 +438,10 @@
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
 
-"@rushstack/node-core-library@3.29.0":
-  version "3.29.0"
-  resolved "https://registry.yarnpkg.com/@rushstack/node-core-library/-/node-core-library-3.29.0.tgz#07202a2b807afd6ff556a376de176e6b27696897"
-  integrity sha512-8mEfn7mUqqzANnOvi4/xTc0tJ6coQs3qywlOl86jiqZUaB4sRLo0MtzUQz0VtyRfan2fFuxKzIleJGtNTAwYQQ==
+"@rushstack/node-core-library@3.29.1":
+  version "3.29.1"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/@rushstack/node-core-library/-/node-core-library-3.29.1.tgz#99d246b3e0573b78a2f9669356b29d70e3e25773"
+  integrity sha512-EHPZOy6/6lc9e1rfvB46sSXXsyaGMMfjBthGsRBqjmLedwUd6pFounlTtrGolugmW7DjRgs7wwvfYbsBcOW/vQ==
   dependencies:
     "@types/node" "10.17.13"
     colors "~1.2.1"
@@ -452,10 +452,10 @@
     timsort "~0.3.0"
     z-schema "~3.18.3"
 
-"@rushstack/ts-command-line@4.6.2":
-  version "4.6.2"
-  resolved "https://registry.yarnpkg.com/@rushstack/ts-command-line/-/ts-command-line-4.6.2.tgz#2981a44ac6a6911cec53be7841697f03a47292ac"
-  integrity sha512-wMjCrgiVYO5L1VkRKWv6EmisxduWuthOP4OghUPkl1kbbw9z2yZzQd9uk9rIqmGwOg8hjFX+0HrZCCXGHtABIQ==
+"@rushstack/ts-command-line@4.6.3":
+  version "4.6.3"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/@rushstack/ts-command-line/-/ts-command-line-4.6.3.tgz#0c4213a340e6e56a9a910f962e2db6f061cf81e2"
+  integrity sha512-mSkUDnc88kxiC9dKDVCNm1d08Ih918vSpLZGi1XHy/gYiQy4JcEW/O4MlqGAY9vNRigtm0dg4iJTiae+FTIxfA==
   dependencies:
     "@types/argparse" "1.0.38"
     argparse "~1.0.9"
@@ -489,7 +489,7 @@
     "@sinonjs/commons" "^1"
     "@sinonjs/samsam" "^5.0.2"
 
-"@sinonjs/samsam@^5.0.2", "@sinonjs/samsam@^5.0.3":
+"@sinonjs/samsam@^5.0.2", "@sinonjs/samsam@^5.1.0":
   version "5.1.0"
   resolved "https://artifacts.apextoaster.com/repository/group-npm/@sinonjs/samsam/-/samsam-5.1.0.tgz#3afe719232b541bb6cf3411a4c399a188de21ec0"
   integrity sha512-42nyaQOVunX5Pm6GRJobmzbS7iLI+fhERITnETXzzwDZh+TtDr/Au3yAvXVjFmZ4wEUaE4Y3NFZfKv0bV0cbtg==
@@ -598,10 +598,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/lodash@4.14.159":
-  version "4.14.159"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.159.tgz#61089719dc6fdd9c5cb46efc827f2571d1517065"
-  integrity sha512-gF7A72f7WQN33DpqOWw9geApQPh4M3PxluMtaHxWHXEGSN12/WbcEk/eNSqWNQcQhF66VSZ06vCF94CrHwXJDg==
+"@types/lodash@4.14.160":
+  version "4.14.160"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/@types/lodash/-/lodash-4.14.160.tgz#2f1bba6500bc3cb9a732c6d66a083378fb0b0b29"
+  integrity sha512-aP03BShJoO+WVndoVj/WNcB/YBPt+CIU1mvaao2GRAHy2yg4pT/XS4XnVHEQBjPJGycWf/9seKEO9vopTJGkvA==
 
 "@types/lru-cache@^5.1.0":
   version "5.1.0"
@@ -650,10 +650,18 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@16.9.46":
+"@types/react@*":
   version "16.9.46"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.9.46.tgz#f0326cd7adceda74148baa9bff6e918632f5069e"
   integrity sha512-dbHzO3aAq1lB3jRQuNpuZ/mnu+CdD3H0WVaaBQA8LTT3S33xhVBUj232T8M3tAhSWJs/D/UqORYUlJNl/8VQZg==
+  dependencies:
+    "@types/prop-types" "*"
+    csstype "^3.0.2"
+
+"@types/react@16.9.47":
+  version "16.9.47"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/@types/react/-/react-16.9.47.tgz#fb092936f0b56425f874d0ff1b08051fdf70c1ba"
+  integrity sha512-dAJO4VbrjYqTUwFiQqAKjLyHHl4RSTNnRyPdX3p16MPbDKvow51wxATUPxoe2QsiXNMEYrOjc2S6s92VjG+1VQ==
   dependencies:
     "@types/prop-types" "*"
     csstype "^3.0.2"
@@ -716,60 +724,60 @@
   dependencies:
     "@types/yargs-parser" "*"
 
-"@typescript-eslint/eslint-plugin-tslint@3.8.0":
-  version "3.8.0"
-  resolved "https://artifacts.apextoaster.com/repository/group-npm/@typescript-eslint/eslint-plugin-tslint/-/eslint-plugin-tslint-3.8.0.tgz#9b0f1d0f26408c2ab170f878eb51d1a096d9b82c"
-  integrity sha512-21JffyPyqES8g5dG4ae+gLQDdujsf0CsGzQTIsttToJLE/Q3i682N2weg0re3Y4L44DBvuyxw4EpVE31vFFuAg==
+"@typescript-eslint/eslint-plugin-tslint@3.10.1":
+  version "3.10.1"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/@typescript-eslint/eslint-plugin-tslint/-/eslint-plugin-tslint-3.10.1.tgz#0c01577635fd5c3469a603e964b193306a923034"
+  integrity sha512-DD2sr8Qkoi0TUYlbxLGMivTvMz3i5s8qt7n3/ptWSO3fSQlnf43OeM6tQCujC1MWEKoOwDnyCuMehWwNm3Xi0w==
   dependencies:
-    "@typescript-eslint/experimental-utils" "3.8.0"
+    "@typescript-eslint/experimental-utils" "3.10.1"
     lodash "^4.17.15"
 
-"@typescript-eslint/eslint-plugin@3.8.0":
-  version "3.8.0"
-  resolved "https://artifacts.apextoaster.com/repository/group-npm/@typescript-eslint/eslint-plugin/-/eslint-plugin-3.8.0.tgz#f82947bcdd9a4e42be7ad80dfd61f1dc411dd1df"
-  integrity sha512-lFb4VCDleFSR+eo4Ew+HvrJ37ZH1Y9ZyE+qyP7EiwBpcCVxwmUc5PAqhShCQ8N8U5vqYydm74nss+a0wrrCErw==
+"@typescript-eslint/eslint-plugin@3.10.1":
+  version "3.10.1"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/@typescript-eslint/eslint-plugin/-/eslint-plugin-3.10.1.tgz#7e061338a1383f59edc204c605899f93dc2e2c8f"
+  integrity sha512-PQg0emRtzZFWq6PxBcdxRH3QIQiyFO3WCVpRL3fgj5oQS3CDs3AeAKfv4DxNhzn8ITdNJGJ4D3Qw8eAJf3lXeQ==
   dependencies:
-    "@typescript-eslint/experimental-utils" "3.8.0"
+    "@typescript-eslint/experimental-utils" "3.10.1"
     debug "^4.1.1"
     functional-red-black-tree "^1.0.1"
     regexpp "^3.0.0"
     semver "^7.3.2"
     tsutils "^3.17.1"
 
-"@typescript-eslint/experimental-utils@3.8.0":
-  version "3.8.0"
-  resolved "https://artifacts.apextoaster.com/repository/group-npm/@typescript-eslint/experimental-utils/-/experimental-utils-3.8.0.tgz#ac1f7c88322dcfb7635ece6f0441516dd951099a"
-  integrity sha512-o8T1blo1lAJE0QDsW7nSyvZHbiDzQDjINJKyB44Z3sSL39qBy5L10ScI/XwDtaiunoyKGLiY9bzRk4YjsUZl8w==
+"@typescript-eslint/experimental-utils@3.10.1":
+  version "3.10.1"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/@typescript-eslint/experimental-utils/-/experimental-utils-3.10.1.tgz#e179ffc81a80ebcae2ea04e0332f8b251345a686"
+  integrity sha512-DewqIgscDzmAfd5nOGe4zm6Bl7PKtMG2Ad0KG8CUZAHlXfAKTF9Ol5PXhiMh39yRL2ChRH1cuuUGOcVyyrhQIw==
   dependencies:
     "@types/json-schema" "^7.0.3"
-    "@typescript-eslint/types" "3.8.0"
-    "@typescript-eslint/typescript-estree" "3.8.0"
+    "@typescript-eslint/types" "3.10.1"
+    "@typescript-eslint/typescript-estree" "3.10.1"
     eslint-scope "^5.0.0"
     eslint-utils "^2.0.0"
 
-"@typescript-eslint/parser@3.8.0":
-  version "3.8.0"
-  resolved "https://artifacts.apextoaster.com/repository/group-npm/@typescript-eslint/parser/-/parser-3.8.0.tgz#8e1dcd404299bf79492409c81c415fa95a7c622b"
-  integrity sha512-u5vjOBaCsnMVQOvkKCXAmmOhyyMmFFf5dbkM3TIbg3MZ2pyv5peE4gj81UAbTHwTOXEwf7eCQTUMKrDl/+qGnA==
+"@typescript-eslint/parser@3.10.1":
+  version "3.10.1"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/@typescript-eslint/parser/-/parser-3.10.1.tgz#1883858e83e8b442627e1ac6f408925211155467"
+  integrity sha512-Ug1RcWcrJP02hmtaXVS3axPPTTPnZjupqhgj+NnZ6BCkwSImWk/283347+x9wN+lqOdK9Eo3vsyiyDHgsmiEJw==
   dependencies:
     "@types/eslint-visitor-keys" "^1.0.0"
-    "@typescript-eslint/experimental-utils" "3.8.0"
-    "@typescript-eslint/types" "3.8.0"
-    "@typescript-eslint/typescript-estree" "3.8.0"
+    "@typescript-eslint/experimental-utils" "3.10.1"
+    "@typescript-eslint/types" "3.10.1"
+    "@typescript-eslint/typescript-estree" "3.10.1"
     eslint-visitor-keys "^1.1.0"
 
-"@typescript-eslint/types@3.8.0":
-  version "3.8.0"
-  resolved "https://artifacts.apextoaster.com/repository/group-npm/@typescript-eslint/types/-/types-3.8.0.tgz#58581dd863f86e0cd23353d94362bb90b4bea796"
-  integrity sha512-8kROmEQkv6ss9kdQ44vCN1dTrgu4Qxrd2kXr10kz2NP5T8/7JnEfYNxCpPkArbLIhhkGLZV3aVMplH1RXQRF7Q==
+"@typescript-eslint/types@3.10.1":
+  version "3.10.1"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/@typescript-eslint/types/-/types-3.10.1.tgz#1d7463fa7c32d8a23ab508a803ca2fe26e758727"
+  integrity sha512-+3+FCUJIahE9q0lDi1WleYzjCwJs5hIsbugIgnbB+dSCYUxl8L6PwmsyOPFZde2hc1DlTo/xnkOgiTLSyAbHiQ==
 
-"@typescript-eslint/typescript-estree@3.8.0":
-  version "3.8.0"
-  resolved "https://artifacts.apextoaster.com/repository/group-npm/@typescript-eslint/typescript-estree/-/typescript-estree-3.8.0.tgz#0606d19f629f813dbdd5a34c7a1e895d6191cac6"
-  integrity sha512-MTv9nPDhlKfclwnplRNDL44mP2SY96YmPGxmMbMy6x12I+pERcxpIUht7DXZaj4mOKKtet53wYYXU0ABaiXrLw==
+"@typescript-eslint/typescript-estree@3.10.1":
+  version "3.10.1"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/@typescript-eslint/typescript-estree/-/typescript-estree-3.10.1.tgz#fd0061cc38add4fad45136d654408569f365b853"
+  integrity sha512-QbcXOuq6WYvnB3XPsZpIwztBoquEYLXh2MtwVU+kO8jgYCiv4G5xrSP/1wg4tkvrEE+esZVquIPX/dxPlePk1w==
   dependencies:
-    "@typescript-eslint/types" "3.8.0"
-    "@typescript-eslint/visitor-keys" "3.8.0"
+    "@typescript-eslint/types" "3.10.1"
+    "@typescript-eslint/visitor-keys" "3.10.1"
     debug "^4.1.1"
     glob "^7.1.6"
     is-glob "^4.0.1"
@@ -777,10 +785,10 @@
     semver "^7.3.2"
     tsutils "^3.17.1"
 
-"@typescript-eslint/visitor-keys@3.8.0":
-  version "3.8.0"
-  resolved "https://artifacts.apextoaster.com/repository/group-npm/@typescript-eslint/visitor-keys/-/visitor-keys-3.8.0.tgz#ad35110249fb3fc30a36bfcbfeea93e710cfaab1"
-  integrity sha512-gfqQWyVPpT9NpLREXNR820AYwgz+Kr1GuF3nf1wxpHD6hdxI62tq03ToomFnDxY0m3pUB39IF7sil7D5TQexLA==
+"@typescript-eslint/visitor-keys@3.10.1":
+  version "3.10.1"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/@typescript-eslint/visitor-keys/-/visitor-keys-3.10.1.tgz#cd4274773e3eb63b2e870ac602274487ecd1e931"
+  integrity sha512-9JgC82AaQeglebjZMgYR5wgmfUdUc+EitGUUMW8u2nDckaeimzW+VsoLV6FoimPv2id3VQzfjwBxEMVz08ameQ==
   dependencies:
     eslint-visitor-keys "^1.1.0"
 
@@ -1973,10 +1981,10 @@ eslint-visitor-keys@^1.1.0, eslint-visitor-keys@^1.3.0:
   resolved "https://artifacts.apextoaster.com/repository/group-npm/eslint-visitor-keys/-/eslint-visitor-keys-1.3.0.tgz#30ebd1ef7c2fdff01c3a4f151044af25fab0523e"
   integrity sha512-6J72N8UNa462wa/KFODt/PJ3IU60SDpC3QXC1Hjc1BXXpfL2C9R5+AU7jhe0F6GREqVMh4Juu+NY7xn+6dipUQ==
 
-eslint@7.6.0:
-  version "7.6.0"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-7.6.0.tgz#522d67cfaea09724d96949c70e7a0550614d64d6"
-  integrity sha512-QlAManNtqr7sozWm5TF4wIH9gmUm2hE3vNRUvyoYAa4y1l5/jxD/PQStEjBMQtCqZmSep8UxrcecI60hOpe61w==
+eslint@7.7.0:
+  version "7.7.0"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/eslint/-/eslint-7.7.0.tgz#18beba51411927c4b64da0a8ceadefe4030d6073"
+  integrity sha512-1KUxLzos0ZVsyL81PnRN335nDtQ8/vZUD6uMtWbF+5zDtjKcsklIi78XoE0MVL93QvWTu+E5y44VyyCsOMBrIg==
   dependencies:
     "@babel/code-frame" "^7.0.0"
     ajv "^6.10.0"
@@ -3042,7 +3050,7 @@ jest-worker@^24.0.0:
     merge-stream "^2.0.0"
     supports-color "^6.1.0"
 
-jest-worker@^26.0.0:
+jest-worker@^26.2.1:
   version "26.3.0"
   resolved "https://artifacts.apextoaster.com/repository/group-npm/jest-worker/-/jest-worker-26.3.0.tgz#7c8a97e4f4364b4f05ed8bca8ca0c24de091871f"
   integrity sha512-Vmpn2F6IASefL+DVBhPzI2J9/GJUsqzomdeN+P+dK8/jKxbh8R3BtFnx3FIta7wYlPU62cpJMJQo4kuOowcMnw==
@@ -3728,7 +3736,7 @@ nice-try@^1.0.4:
   resolved "https://artifacts.apextoaster.com/repository/group-npm/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
   integrity sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==
 
-nise@^4.0.1:
+nise@^4.0.4:
   version "4.0.4"
   resolved "https://artifacts.apextoaster.com/repository/group-npm/nise/-/nise-4.0.4.tgz#d73dea3e5731e6561992b8f570be9e363c4512dd"
   integrity sha512-bTTRUNlemx6deJa+ZyoCUTRvH3liK5+N6VQZ4NIw90AgDXY6iPnsqplNFf6STcj+ePk0H/xqxnP75Lr0J0Fq3A==
@@ -4678,15 +4686,15 @@ rollup-plugin-serve@1.0.3:
     mime ">=2.0.3"
     opener "1"
 
-rollup-plugin-terser@6.1.0:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-terser/-/rollup-plugin-terser-6.1.0.tgz#071866585aea104bfbb9dd1019ac523e63c81e45"
-  integrity sha512-4fB3M9nuoWxrwm39habpd4hvrbrde2W2GG4zEGPQg1YITNkM3Tqur5jSuXlWNzbv/2aMLJ+dZJaySc3GCD8oDw==
+rollup-plugin-terser@7.0.0:
+  version "7.0.0"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/rollup-plugin-terser/-/rollup-plugin-terser-7.0.0.tgz#26b38ada4f0b351cd7cd872ca04c0f8532d4864f"
+  integrity sha512-p/N3lLiFusCjYTLfVkoaiRTOGr5AESEaljMPH12MhOtoMkmTBhIAfuadrcWy4am1U0vU4WTxO9fi0K09O4CboQ==
   dependencies:
-    "@babel/code-frame" "^7.8.3"
-    jest-worker "^26.0.0"
-    serialize-javascript "^3.0.0"
-    terser "^4.7.0"
+    "@babel/code-frame" "^7.10.4"
+    jest-worker "^26.2.1"
+    serialize-javascript "^4.0.0"
+    terser "^5.0.0"
 
 rollup-plugin-tslint@0.2.2:
   version "0.2.2"
@@ -4830,7 +4838,7 @@ semver@^7.1.1, semver@^7.2.1, semver@^7.3.2, semver@~7.3.0:
   resolved "https://artifacts.apextoaster.com/repository/group-npm/semver/-/semver-7.3.2.tgz#604962b052b81ed0786aae84389ffba70ffd3938"
   integrity sha512-OrOb32TeeambH6UrhtShmF7CRDqhL6/5XpPNp2DuRH6+9QLw/orhp72j87v8Qa1ScDkvrrBNpZcDejAirJmfXQ==
 
-serialize-javascript@4.0.0:
+serialize-javascript@4.0.0, serialize-javascript@^4.0.0:
   version "4.0.0"
   resolved "https://artifacts.apextoaster.com/repository/group-npm/serialize-javascript/-/serialize-javascript-4.0.0.tgz#b525e1238489a5ecfc42afacc3fe99e666f4b1aa"
   integrity sha512-GaNA54380uFefWghODBWEGisLZFj00nS5ACs6yHa9nLqlLpVLO8ChDGeKRjZnV4Nh4n0Qi7nhYZD/9fCPzEqkw==
@@ -4841,13 +4849,6 @@ serialize-javascript@^2.1.2:
   version "2.1.2"
   resolved "https://artifacts.apextoaster.com/repository/group-npm/serialize-javascript/-/serialize-javascript-2.1.2.tgz#ecec53b0e0317bdc95ef76ab7074b7384785fa61"
   integrity sha512-rs9OggEUF0V4jUSecXazOYsLfu7OGK2qIn3c7IPBiffz32XniEp/TX9Xmc9LQfK2nQ2QKHvZ2oygKUGU0lG4jQ==
-
-serialize-javascript@^3.0.0:
-  version "3.1.0"
-  resolved "https://artifacts.apextoaster.com/repository/group-npm/serialize-javascript/-/serialize-javascript-3.1.0.tgz#8bf3a9170712664ef2561b44b691eafe399214ea"
-  integrity sha512-JIJT1DGiWmIKhzRsG91aS6Ze4sFUrYbltlkg2onR5OrnNM02Kl/hnY/T4FN2omvyeBbQmMJv+K4cPOpGzOTFBg==
-  dependencies:
-    randombytes "^2.1.0"
 
 set-blocking@^2.0.0:
   version "2.0.0"
@@ -4897,17 +4898,17 @@ sinon-chai@3.5.0:
   resolved "https://artifacts.apextoaster.com/repository/group-npm/sinon-chai/-/sinon-chai-3.5.0.tgz#c9a78304b0e15befe57ef68e8a85a00553f5c60e"
   integrity sha512-IifbusYiQBpUxxFJkR3wTU68xzBN0+bxCScEaKMjBvAQERg6FnTTc1F17rseLb1tjmkJ23730AXpFI0c47FgAg==
 
-sinon@9.0.2:
-  version "9.0.2"
-  resolved "https://artifacts.apextoaster.com/repository/group-npm/sinon/-/sinon-9.0.2.tgz#b9017e24633f4b1c98dfb6e784a5f0509f5fd85d"
-  integrity sha512-0uF8Q/QHkizNUmbK3LRFqx5cpTttEVXudywY9Uwzy8bTfZUhljZ7ARzSxnRHWYWtVTeh4Cw+tTb3iU21FQVO9A==
+sinon@9.0.3:
+  version "9.0.3"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/sinon/-/sinon-9.0.3.tgz#bffc3ec28c936332cd2a41833547b9eed201ecff"
+  integrity sha512-IKo9MIM111+smz9JGwLmw5U1075n1YXeAq8YeSFlndCLhAL5KGn6bLgu7b/4AYHTV/LcEMcRm2wU2YiL55/6Pg==
   dependencies:
     "@sinonjs/commons" "^1.7.2"
     "@sinonjs/fake-timers" "^6.0.1"
     "@sinonjs/formatio" "^5.0.1"
-    "@sinonjs/samsam" "^5.0.3"
+    "@sinonjs/samsam" "^5.1.0"
     diff "^4.0.2"
-    nise "^4.0.1"
+    nise "^4.0.4"
     supports-color "^7.1.0"
 
 slash@^3.0.0:
@@ -5229,10 +5230,10 @@ table@^5.2.3:
     slice-ansi "^2.1.0"
     string-width "^3.0.0"
 
-terser@^4.7.0:
-  version "4.8.0"
-  resolved "https://artifacts.apextoaster.com/repository/group-npm/terser/-/terser-4.8.0.tgz#63056343d7c70bb29f3af665865a46fe03a0df17"
-  integrity sha512-EAPipTNeWsb/3wLPeup1tVPaXfIaU68xMnVdPafIL1TV05OhASArYyIfFvnvJCNrR2NIOvDVNNTFRa+Re2MWyw==
+terser@^5.0.0:
+  version "5.2.1"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/terser/-/terser-5.2.1.tgz#40b971b8d28b4fe98c9e8c0d073ab48e7bb96cd8"
+  integrity sha512-/AOtjRtAMNGO0fIF6m8HfcvXTw/2AKpsOzDn36tA5RfhRdeXyb4RvHxJ5Pah7iL6dFkLk+gOnCaNHGwJPl6TrQ==
   dependencies:
     commander "^2.20.0"
     source-map "~0.6.1"
@@ -5388,10 +5389,10 @@ tslint-consistent-codestyle@1.16.0:
     tslib "^1.7.1"
     tsutils "^2.29.0"
 
-tslint-etc@1.13.0:
-  version "1.13.0"
-  resolved "https://artifacts.apextoaster.com/repository/group-npm/tslint-etc/-/tslint-etc-1.13.0.tgz#84550e3d0bfa71fdc17c44ac616625b9f015a557"
-  integrity sha512-Ikm11WILA+xI6eaYaFQxBQWoInFtCZU4MBnhJ4IRkIw79iX2NKyRtI41doC6VQMFJrkCW0IbVn3rzlgfxXONKg==
+tslint-etc@1.13.6:
+  version "1.13.6"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/tslint-etc/-/tslint-etc-1.13.6.tgz#b86c087134fb2d4f3520cfe7b40a22a58d802206"
+  integrity sha512-lIWS8aIJy+4XWGQYTC7EFncC42INlPQAKLjZffCv0q989ALHGxiNGptaSHYKQ6m+zXzhzn4R00QcQNCTdYn9dQ==
   dependencies:
     "@phenomnomnominal/tsquery" "^4.0.0"
     tslib "^2.0.0"
