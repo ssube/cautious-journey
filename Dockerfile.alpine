@@ -4,13 +4,16 @@ FROM node:12-alpine
 RUN apk add --update jq \
  && rm -rf /var/cache/apk/* \
  && yarn global add bunyan
+
 ENV PATH="${PATH}:$(yarn global bin)"
+WORKDIR /cautious-journey
 
 # copy config, which changes rarely
 COPY docs/config.yml /root/.cautious-journey.yml
 
 # copy package first, to invalidate other layers when version changes
 COPY package.json /cautious-journey/package.json
+RUN yarn
 
 # copy chunks, largest to smallest (entrypoint)
 COPY out/vendor.js /cautious-journey/out/vendor.js
@@ -18,7 +21,6 @@ COPY out/main.js /cautious-journey/out/main.js
 COPY out/index.js /cautious-journey/out/index.js
 
 # set up as global cli tool
-WORKDIR /cautious-journey
 RUN yarn global add file:$(pwd)
 
 ENTRYPOINT [ "node", "/cautious-journey/out/index.js" ]
