@@ -44,7 +44,7 @@ export interface GraphOptions {
   states: Array<StateLabel>;
 }
 
-function labelEdges(label: BaseLabel, edges: Array<Edge>) {
+export function labelEdges(label: BaseLabel, edges: Array<Edge>) {
   for (const add of label.adds) {
     edges.push({
       source: label.name,
@@ -73,7 +73,7 @@ function labelEdges(label: BaseLabel, edges: Array<Edge>) {
   }
 }
 
-function mergeEdges(edges: Array<Edge>): Array<Edge> {
+export function mergeEdges(edges: Array<Edge>): Array<Edge> {
   const uniqueEdges = new Map<string, Edge>();
 
   for (const edge of edges) {
@@ -186,7 +186,7 @@ export function graphProject(options: GraphOptions): Graph {
 }
 
 export function cleanName(name: string): string {
-  return name.replace(/[^a-z0-9_]/g, '_').replace(/(^_|_$|__)/g, '');
+  return name.replace(/[^a-z0-9_]/g, '_').replace('__', '_').replace(/(^_|_$)/g, '');
 }
 
 export function edgeColor(verb: ChangeVerb): string {
