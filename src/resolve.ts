@@ -10,7 +10,6 @@ export enum ChangeVerb {
   BECAME = 'became',
   CONFLICTED = 'conflicted',
   CREATED = 'created',
-  EXISTING = 'existing',
   REMOVED = 'removed',
   REQUIRED = 'required',
 }

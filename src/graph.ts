@@ -4,8 +4,8 @@ import { BaseLabel, FlagLabel, getValueName, StateChange, StateLabel } from './l
 import { ChangeVerb } from './resolve';
 import { defaultTo, defaultUntil } from './utils';
 
-const COLOR_NODE = 'cccccc';
-const COLOR_MIDNODE = 'aaaaaa';
+const COLOR_CHANGE = 'aaaaaa';
+const COLOR_LABEL = 'cccccc';
 
 export enum EdgeType {
   /**
@@ -98,7 +98,7 @@ export function graphChange(root: Graph, change: StateChange, name: string, prio
   const matchLabel = `${name} with (${matchNames})`;
 
   root.nodes.push({
-    color: COLOR_MIDNODE,
+    color: COLOR_CHANGE,
     name: matchLabel,
   });
 
@@ -131,7 +131,7 @@ export function graphState(state: StateLabel): Graph {
     const priority = defaultUntil(value.priority, state.priority, 0);
 
     child.nodes.push({
-      color: defaultUntil(value.color, state.color, COLOR_NODE),
+      color: defaultUntil(value.color, state.color, COLOR_LABEL),
       name,
     });
 
@@ -170,7 +170,7 @@ export function graphProject(options: GraphOptions): Graph {
 
   for (const flag of options.flags) {
     root.nodes.push({
-      color: defaultTo(flag.color, COLOR_NODE),
+      color: defaultTo(flag.color, COLOR_LABEL),
       name: flag.name,
     });
 
@@ -189,22 +189,38 @@ export function cleanName(name: string): string {
   return name.replace(/[^a-z0-9_]/g, '_').replace(/(^_|_$|__)/g, '');
 }
 
+export function edgeColor(verb: ChangeVerb): string {
+  switch (verb) {
+    case ChangeVerb.BECAME:
+      return 'purple';
+    case ChangeVerb.CONFLICTED:
+      return 'orange';
+    case ChangeVerb.CREATED:
+      return 'green';
+    case ChangeVerb.REMOVED:
+      return 'red';
+    case ChangeVerb.REQUIRED:
+      return 'blue';
+    default:
+      return 'gray';
+  }
+}
+
 export function edgeStyle(edge: Edge) {
+  const color = edgeColor(edge.verb);
+  const dir = edge.type;
+
   switch (edge.verb) {
     case ChangeVerb.BECAME:
-      return `[dir="${edge.type}" arrowhead="onormal" color="purple"]`;
-    case ChangeVerb.CREATED:
-      return `[dir="${edge.type}" color="green" weight=0.8]`;
-    case ChangeVerb.EXISTING:
-      return `[dir="${edge.type}" color="gray" weight=0.1]`;
-    case ChangeVerb.REMOVED:
-      return `[dir="${edge.type}" color="red"]`;
-    case ChangeVerb.CONFLICTED:
-      return `[dir="${edge.type}" color="orange" weight=0.1]`;
     case ChangeVerb.REQUIRED:
-      return `[dir="${edge.type}" arrowhead="onormal" color="blue"]`;
+      return `[dir="${dir}" color="${color}" arrowhead="onormal"]`;
+    case ChangeVerb.CONFLICTED:
+      return `[dir="${dir}" color="${color}" weight=0.1]`;
+    case ChangeVerb.CREATED:
+      return `[dir="${dir}" color="${color}" weight=0.8]`;
+    case ChangeVerb.REMOVED:
     default:
-      return '';
+      return `[dir="${dir}" color="${color}"]`;
   }
 }
 
