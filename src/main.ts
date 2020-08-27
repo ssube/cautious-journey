@@ -4,7 +4,7 @@ import { alea } from 'seedrandom';
 
 import { initConfig } from './config';
 import { Commands, createParser } from './config/args';
-import { dotGraph, graphLabels } from './graph';
+import { dotGraph, graphProject } from './graph';
 import { BunyanLogger } from './logger/bunyan';
 import { RemoteModule } from './module/RemoteModule';
 import { Remote, RemoteOptions } from './remote';
@@ -71,7 +71,7 @@ export async function main(argv: Array<string>): Promise<number> {
     };
     switch (mode) {
       case Commands.GRAPH:
-        const graph = graphLabels(project);
+        const graph = graphProject(project);
         process.stdout.write(dotGraph(graph));
         break;
       case Commands.ISSUES:

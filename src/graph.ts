@@ -1,6 +1,6 @@
 import { mustExist } from '@apextoaster/js-utils';
 
-import { BaseLabel, FlagLabel, getValueName, StateLabel } from './labels';
+import { BaseLabel, FlagLabel, getValueName, StateChange, StateLabel } from './labels';
 import { ChangeVerb } from './resolve';
 import { defaultTo, defaultUntil } from './utils';
 
@@ -32,10 +32,10 @@ export interface Edge {
 }
 
 export interface Graph {
+  children: Array<Graph>;
   edges: Array<Edge>;
   name: string;
   nodes: Array<Node>;
-  subs: Array<Graph>;
 }
 
 export interface GraphOptions {
@@ -93,87 +93,96 @@ function mergeEdges(edges: Array<Edge>): Array<Edge> {
   return Array.from(uniqueEdges.values());
 }
 
-export function graphLabels(options: GraphOptions): Graph {
-  const edges: Array<Edge> = [];
-  const nodes: Array<Node> = [];
+export function graphChange(root: Graph, change: StateChange, name: string, priority: number): void {
+  const matchNames = change.matches.map((it) => it.name).join(',');
+  const matchLabel = `${name} with (${matchNames})`;
+
+  root.nodes.push({
+    color: COLOR_MIDNODE,
+    name: matchLabel,
+  });
+
+  root.edges.push({
+    source: name,
+    target: matchLabel,
+    type: EdgeType.FORWARD,
+    verb: ChangeVerb.BECAME,
+  });
+
+  labelEdges({
+    adds: change.adds,
+    name: matchLabel,
+    priority,
+    removes: change.removes,
+    requires: change.matches,
+  }, root.edges);
+}
+
+export function graphState(state: StateLabel): Graph {
+  const child: Graph = {
+    children: [],
+    edges: [],
+    name: state.name,
+    nodes: [],
+  };
+
+  for (const value of state.values) {
+    const name = getValueName(state, value);
+    const priority = defaultUntil(value.priority, state.priority, 0);
+
+    child.nodes.push({
+      color: defaultUntil(value.color, state.color, COLOR_NODE),
+      name,
+    });
+
+    labelEdges({
+      ...value,
+      name,
+    }, child.edges);
+
+    for (const otherValue of state.values) {
+      if (value !== otherValue) {
+        const otherName = getValueName(state, otherValue);
+        child.edges.push({
+          source: name,
+          target: otherName,
+          type: EdgeType.FORWARD,
+          verb: ChangeVerb.CONFLICTED,
+        });
+      }
+    }
+
+    for (const change of value.becomes) {
+      graphChange(child, change, name, priority);
+    }
+  }
+
+  return child;
+}
+
+export function graphProject(options: GraphOptions): Graph {
+  const root: Graph = {
+    children: [],
+    edges: [],
+    name: options.name,
+    nodes: [],
+  };
 
   for (const flag of options.flags) {
-    nodes.push({
+    root.nodes.push({
       color: defaultTo(flag.color, COLOR_NODE),
       name: flag.name,
     });
 
-    labelEdges(flag, edges);
+    labelEdges(flag, root.edges);
   }
 
-  const subs: Array<Graph> = [];
   for (const state of options.states) {
-    const sub: Graph = {
-      edges: [],
-      name: state.name,
-      nodes: [],
-      subs: [],
-    };
-
-    for (const value of state.values) {
-      const name = getValueName(state, value);
-      sub.nodes.push({
-        color: defaultUntil(value.color, state.color, COLOR_NODE),
-        name,
-      });
-
-      labelEdges({
-        ...value,
-        name,
-      }, edges);
-
-      for (const otherValue of state.values) {
-        if (value !== otherValue) {
-          const otherName = getValueName(state, otherValue);
-          sub.edges.push({
-            source: name,
-            target: otherName,
-            type: EdgeType.FORWARD,
-            verb: ChangeVerb.CONFLICTED,
-          });
-        }
-      }
-
-      for (const become of value.becomes) {
-        const matchNames = become.matches.map((it) => it.name).join(',');
-        const matchLabel = `${name} with (${matchNames})`;
-
-        sub.nodes.push({
-          color: COLOR_MIDNODE,
-          name: matchLabel,
-        });
-
-        sub.edges.push({
-          source: name,
-          target: matchLabel,
-          type: EdgeType.FORWARD,
-          verb: ChangeVerb.BECAME,
-        });
-
-        labelEdges({
-          adds: become.adds,
-          name: matchLabel,
-          priority: value.priority,
-          removes: become.removes,
-          requires: become.matches,
-        }, sub.edges);
-      }
-    }
-
-    subs.push(sub);
+    const child = graphState(state);
+    root.children.push(child);
   }
 
-  return {
-    edges,
-    name: options.name,
-    nodes,
-    subs,
-  };
+  return root;
 }
 
 export function cleanName(name: string): string {
@@ -217,7 +226,7 @@ export function dotGraph(graph: Graph): string {
   lines.push('}');
 
   // state clusters
-  for (const sub of graph.subs) {
+  for (const sub of graph.children) {
     const subName = cleanName(sub.name);
     lines.push(`subgraph cluster_${subName} {`);
     lines.push(`label = "${subName}";`);
