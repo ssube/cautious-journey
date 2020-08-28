@@ -62,7 +62,7 @@ describe('project sync', () => {
       });
     });
 
-    it('should create missing labels', async () => {
+    it('should create missing flags', async () => {
       const container = Container.from();
       await container.configure();
 
@@ -105,6 +105,60 @@ describe('project sync', () => {
       expect(listStub).to.have.callCount(1);
       expect(createStub).to.have.callCount(1);
       expect(deleteStub).to.have.callCount(0);
+    });
+
+    it('should create missing states', async () => {
+      const container = Container.from();
+      await container.configure();
+
+      const logger = BunyanLogger.create({
+        name: 'test',
+      });
+      const remoteConfig = {
+        data: {},
+        dryrun: true,
+        logger,
+        type: '',
+      };
+      const remote = await container.create(GithubRemote, remoteConfig);
+      const createStub = stub(remote, 'createLabel');
+      const listStub = stub(remote, 'listLabels').returns(Promise.resolve([]));
+
+      await syncProjectLabels({
+        logger,
+        project: {
+          colors: [],
+          comment: true,
+          flags: [],
+          name: '',
+          remote: remoteConfig,
+          states: [{
+            adds: [],
+            color: '',
+            desc: '',
+            divider: '/',
+            name: 'foo',
+            priority: 1,
+            removes: [],
+            requires: [],
+            values: [{
+              adds: [],
+              becomes: [],
+              name: 'bar',
+              priority: 1,
+              removes: [],
+              requires: [],
+            }],
+          }],
+        },
+        random: alea(),
+        remote,
+      });
+
+      expect(listStub).to.have.callCount(1);
+      expect(createStub).to.have.callCount(1).and.to.have.been.calledWithMatch({
+        name: 'foo/bar',
+      });
     });
 
     it('should delete extra labels', async () => {

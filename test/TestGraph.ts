@@ -1,6 +1,17 @@
 import { expect } from 'chai';
+import { match } from 'sinon';
 
-import { Edge, labelEdges, EdgeType, dotGraph, graphProject, cleanName, edgeStyle } from '../src/graph';
+import {
+  cleanName,
+  dotGraph,
+  Edge,
+  edgeStyle,
+  EdgeType,
+  graphChange,
+  graphProject,
+  labelEdges,
+  mergeEdges,
+} from '../src/graph';
 import { ChangeVerb } from '../src/resolve';
 
 describe('graph tools', () => {
@@ -160,6 +171,165 @@ describe('graph tools', () => {
       });
 
       expect(graph).to.include('digraph foo');
+    });
+  });
+
+  describe('merge edges helper', () => {
+    it('should merge opposing edges', () => {
+      const edges = mergeEdges([{
+        source: 'foo',
+        target: 'bar',
+        type: EdgeType.FORWARD,
+        verb: ChangeVerb.CREATED,
+      }, {
+        source: 'bar',
+        target: 'foo',
+        type: EdgeType.FORWARD,
+        verb: ChangeVerb.CREATED,
+      }]);
+
+      expect(edges).to.have.lengthOf(1).and.to.deep.include({
+        source: 'foo',
+        target: 'bar',
+        type: EdgeType.BOTH,
+        verb: ChangeVerb.CREATED,
+      });
+    });
+
+    it('should merge identical edges', () => {
+      const edges = mergeEdges([{
+        source: 'foo',
+        target: 'bar',
+        type: EdgeType.FORWARD,
+        verb: ChangeVerb.CREATED,
+      }, {
+        source: 'foo',
+        target: 'bar',
+        type: EdgeType.FORWARD,
+        verb: ChangeVerb.CREATED,
+      }]);
+
+      expect(edges).to.have.lengthOf(1).and.to.deep.include({
+        source: 'foo',
+        target: 'bar',
+        type: EdgeType.FORWARD,
+        verb: ChangeVerb.CREATED,
+      });
+    });
+
+    it('should prefer both type to forward', () => {
+      const edges = mergeEdges([{
+        source: 'foo',
+        target: 'bar',
+        type: EdgeType.FORWARD,
+        verb: ChangeVerb.CREATED,
+      }, {
+        source: 'bar',
+        target: 'foo',
+        type: EdgeType.BOTH,
+        verb: ChangeVerb.CREATED,
+      }]);
+
+      expect(edges).to.have.lengthOf(1).and.to.deep.include({
+        source: 'foo',
+        target: 'bar',
+        type: EdgeType.BOTH,
+        verb: ChangeVerb.CREATED,
+      });
+    });
+
+    it('should not merge different verbs', () => {
+      const edges = mergeEdges([{
+        source: 'foo',
+        target: 'bar',
+        type: EdgeType.FORWARD,
+        verb: ChangeVerb.CREATED,
+      }, {
+        source: 'bar',
+        target: 'foo',
+        type: EdgeType.FORWARD,
+        verb: ChangeVerb.REQUIRED,
+      }]);
+
+      const EXPECTED_EDGES = 2;
+      expect(edges).to.have.lengthOf(EXPECTED_EDGES);
+    });
+  });
+
+  describe('graph change', () => {
+    it('should add state change node', () => {
+      const graph = {
+        children: [],
+        edges: [],
+        name: '',
+        nodes: [],
+      };
+      graphChange(graph, {
+        adds: [],
+        matches: [{
+          name: 'bar',
+        }, {
+          name: 'bin',
+        }],
+        removes: [],
+      }, 'foo', 0);
+
+      expect(graph.nodes).to.have.lengthOf(1).and.to.deep.include({
+        color: 'aaaaaa',
+        name: 'foo with (bar,bin)',
+      });
+    });
+
+    it('should add state change edge', () => {
+      const graph = {
+        children: [],
+        edges: [],
+        name: '',
+        nodes: [],
+      };
+      graphChange(graph, {
+        adds: [],
+        matches: [{
+          name: 'bar',
+        }, {
+          name: 'bin',
+        }],
+        removes: [],
+      }, 'foo', 0);
+
+      const EXPECTED_EDGES = 3;
+      expect(graph.edges).to.have.lengthOf(EXPECTED_EDGES).and.to.deep.include({
+        source: 'foo',
+        target: 'foo with (bar,bin)',
+        type: EdgeType.FORWARD,
+        verb: ChangeVerb.BECAME,
+      });
+    });
+
+    it('should add normal edges', () => {
+      const graph = {
+        children: [],
+        edges: [],
+        name: '',
+        nodes: [],
+      };
+      graphChange(graph, {
+        adds: [{
+          name: 'bar',
+        }],
+        matches: [],
+        removes: [{
+          name: 'bin',
+        }],
+      }, 'foo', 0);
+
+      const EXPECTED_EDGES = 3;
+      expect(graph.edges).to.have.lengthOf(EXPECTED_EDGES).and.to.deep.include({
+        source: 'foo with ()',
+        target: 'bar',
+        type: EdgeType.FORWARD,
+        verb: ChangeVerb.CREATED,
+      });
     });
   });
 });
