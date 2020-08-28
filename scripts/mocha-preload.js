@@ -1,4 +1,4 @@
-export const jsdom = require('jsdom-global')();
+require('jsdom-global')();
 
 const sourceMapSupport = require('source-map-support');
 sourceMapSupport.install({

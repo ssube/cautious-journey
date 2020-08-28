@@ -8,8 +8,8 @@ import { dotGraph, graphProject } from './graph';
 import { BunyanLogger } from './logger/bunyan';
 import { RemoteModule } from './module/RemoteModule';
 import { Remote, RemoteOptions } from './remote';
-import { GithubRemote } from './remote/github';
 import { syncIssueLabels, SyncOptions, syncProjectLabels } from './sync';
+import { defaultUntil } from './utils';
 import { VERSION_INFO } from './version';
 
 export { FlagLabel, StateLabel } from './labels';
@@ -48,10 +48,9 @@ export async function main(argv: Array<string>): Promise<number> {
       continue;
     }
 
-    const random = alea(name);
     const remote = await container.create<Remote, RemoteOptions>(project.remote.type, {
       data: project.remote.data,
-      dryrun: args.dryrun || project.remote.dryrun || false,
+      dryrun: defaultUntil(args.dryrun, project.remote.dryrun, false),
       logger,
       type: project.remote.type,
     });
@@ -66,7 +65,7 @@ export async function main(argv: Array<string>): Promise<number> {
     const options: SyncOptions = {
       logger,
       project,
-      random,
+      random: alea(name),
       remote,
     };
     switch (mode) {
