@@ -6,6 +6,7 @@ import { stub } from 'sinon';
 
 import { RemoteModule } from '../../src/module/RemoteModule';
 import { GithubRemote } from '../../src/remote/github';
+import { ChangeVerb } from '../../src/resolve';
 
 describe('github remote', () => {
   it('should create an octokit client with token auth', async () => {
@@ -73,6 +74,44 @@ describe('github remote', () => {
 
     expect(remote.writeCapable).to.equal(false);
     expect(() => remote.writeClient).to.throw(InvalidArgumentError);
+  });
+
+  describe('format body', () => {
+    it('should include change details', async () => {
+      const logger = NullLogger.global;
+      const module = new RemoteModule();
+      const container = Container.from(module);
+      await container.configure();
+
+      const client = new Octokit();
+      stub(client.issues, 'createLabel');
+      module.bind(Octokit).toInstance(client);
+
+      const remote = await container.create(GithubRemote, {
+        data: {
+          token: 'test',
+          type: 'token',
+        },
+        dryrun: false,
+        logger,
+        type: '',
+      });
+
+      for (const effect of [ChangeVerb.CONFLICTED, ChangeVerb.CREATED, ChangeVerb.REMOVED, ChangeVerb.REQUIRED]) {
+        const body = remote.formatBody({
+          changes: [{
+            cause: 'foo',
+            effect,
+            label: 'bar',
+          }],
+          errors: [],
+          issue: '',
+          project: '',
+        });
+
+        expect(body).to.include('bar').and.include('foo');
+      }
+    });
   });
 
   describe('create label endpoint', () => {

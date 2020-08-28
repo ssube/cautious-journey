@@ -3,10 +3,8 @@ import { GetResponse } from '@gitbeaker/core/dist/types/infrastructure/RequestHe
 import { Bundle } from '@gitbeaker/core/dist/types/infrastructure/Utils';
 import { IssueNotes, Issues, Labels, Projects, ProjectsBundle } from '@gitbeaker/node';
 
-import { CommentUpdate, IssueQuery, IssueUpdate, LabelUpdate, ProjectQuery, Remote, RemoteOptions } from '.';
+import { CommentUpdate, IssueUpdate, LabelUpdate, ProjectQuery, Remote, RemoteOptions } from '.';
 import { BaseRemote } from './base';
-
-/* eslint-disable no-console */
 
 // gitbeaker exports the bundle types as const, breaking typeof
 type RemoteBundle = InstanceType<Bundle<{
@@ -31,7 +29,7 @@ export class GitlabRemote extends BaseRemote<RemoteBundle, RemoteOptions> implem
   }
 
   public async connect(): Promise<boolean> {
-    this.client = new ProjectsBundle({
+    this.client = await this.options.container.create(ProjectsBundle, {
       host: this.options.data.host,
       token: mustExist(this.options.data.token),
     });
@@ -70,7 +68,7 @@ export class GitlabRemote extends BaseRemote<RemoteBundle, RemoteOptions> implem
     return options;
   }
 
-  public async listIssues(options: IssueQuery): Promise<Array<IssueUpdate>> {
+  public async listIssues(options: ProjectQuery): Promise<Array<IssueUpdate>> {
     const project = await this.resolvePath(options.project);
     const data = unwrapResponse<Array<GitlabIssue>>(await mustExist(this.client).Issues.all({
       ...project,
