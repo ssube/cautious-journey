@@ -55,7 +55,7 @@ export class GithubRemote extends BaseRemote<Octokit, RemoteOptions> implements 
     };
   }
 
-  public async createComment(options: CommentUpdate): Promise<unknown> {
+  public async createComment(options: CommentUpdate): Promise<CommentUpdate> {
     const path = await this.resolvePath(options.project);
     const body = this.formatBody(options);
 

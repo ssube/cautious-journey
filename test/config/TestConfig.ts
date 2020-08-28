@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import { validateConfig } from '../src/config';
+import { validateConfig } from '../../src/config';
 
 describe('config', () => {
   describe('validate config', () => {

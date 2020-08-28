@@ -61,7 +61,7 @@ export interface Remote {
   /**
    * Add a comment to an issue (for attribution and auditing).
    */
-  createComment(options: CommentUpdate): Promise<unknown>;
+  createComment(options: CommentUpdate): Promise<CommentUpdate>;
 
   /**
    * Create a new label.

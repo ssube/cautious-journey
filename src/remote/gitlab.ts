@@ -37,13 +37,15 @@ export class GitlabRemote extends BaseRemote<RemoteBundle, RemoteOptions> implem
     return true;
   }
 
-  public async createComment(options: CommentUpdate): Promise<void> {
+  public async createComment(options: CommentUpdate): Promise<CommentUpdate> {
     const project = await this.resolvePath(options.project);
     const body = this.formatBody(options);
 
     if (this.writeCapable) {
       await this.writeClient.IssueNotes.create(project.projectId, parseInt(options.issue, 10), body);
     }
+
+    return options;
   }
 
   public async createLabel(options: LabelUpdate): Promise<LabelUpdate> {

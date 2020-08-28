@@ -9,7 +9,7 @@ Add a comment to an issue (for attribution and auditing).
 <b>Signature:</b>
 
 ```typescript
-createComment(options: CommentUpdate): Promise<unknown>;
+createComment(options: CommentUpdate): Promise<CommentUpdate>;
 ```
 
 ## Parameters
@@ -20,5 +20,5 @@ createComment(options: CommentUpdate): Promise<unknown>;
 
 <b>Returns:</b>
 
-Promise&lt;unknown&gt;
+Promise&lt;CommentUpdate&gt;
 

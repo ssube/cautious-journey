@@ -4,6 +4,7 @@ import { VERSION_INFO } from '../version';
 
 export enum Commands {
   UNKNOWN = 'unknown',
+  ERROR = 'error',
   GRAPH = 'graph-labels',
   ISSUES = 'sync-issues',
   LABELS = 'sync-projects',
@@ -63,6 +64,10 @@ export function createParser(modeset: Modeback): Parser<ParsedArgs> {
       },
     })
     .completion()
+    .exitProcess(false)
+    .fail((msg: string, err: Error) => {
+      modeset(Commands.ERROR);
+    })
     .help()
     .alias('help', 'h')
     .version(VERSION_INFO.package.version)

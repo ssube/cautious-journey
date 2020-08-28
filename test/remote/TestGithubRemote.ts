@@ -4,13 +4,28 @@ import { expect } from 'chai';
 import { BaseOptions, Container, NullLogger } from 'noicejs';
 import { stub } from 'sinon';
 
+import { RemoteOptions } from '../../src';
 import { RemoteModule } from '../../src/module/RemoteModule';
 import { GithubRemote } from '../../src/remote/github';
 import { ChangeVerb } from '../../src/resolve';
 
+const REMOTE_OPTIONS: Omit<RemoteOptions, 'container'> = {
+  data: {
+    token: 'test',
+    type: 'token',
+  },
+  dryrun: false,
+  logger: NullLogger.global,
+  type: '',
+};
+
+const DRYRUN_OPTIONS = {
+  ...REMOTE_OPTIONS,
+  dryrun: true,
+};
+
 describe('github remote', () => {
   it('should create an octokit client with token auth', async () => {
-    const logger = NullLogger.global;
     const module = new RemoteModule();
     const container = Container.from(module);
     await container.configure();
@@ -18,19 +33,12 @@ describe('github remote', () => {
     const client = stub();
     module.bind<Octokit, Octokit, BaseOptions>(Octokit).toFactory(client);
 
-    const remote = await container.create(GithubRemote, {
-      data: {
-        token: 'foo',
-        type: 'token',
-      },
-      logger,
-      type: '',
-    });
+    const remote = await container.create(GithubRemote, REMOTE_OPTIONS);
     const status = await remote.connect();
 
     expect(status).to.equal(true);
     expect(client).to.have.been.calledWithMatch({
-      auth: 'foo',
+      auth: 'test',
     });
   });
 
@@ -78,7 +86,6 @@ describe('github remote', () => {
 
   describe('format body', () => {
     it('should include change details', async () => {
-      const logger = NullLogger.global;
       const module = new RemoteModule();
       const container = Container.from(module);
       await container.configure();
@@ -87,15 +94,7 @@ describe('github remote', () => {
       stub(client.issues, 'createLabel');
       module.bind(Octokit).toInstance(client);
 
-      const remote = await container.create(GithubRemote, {
-        data: {
-          token: 'test',
-          type: 'token',
-        },
-        dryrun: false,
-        logger,
-        type: '',
-      });
+      const remote = await container.create(GithubRemote, REMOTE_OPTIONS);
 
       for (const effect of [ChangeVerb.CONFLICTED, ChangeVerb.CREATED, ChangeVerb.REMOVED, ChangeVerb.REQUIRED]) {
         const body = remote.formatBody({
@@ -114,9 +113,63 @@ describe('github remote', () => {
     });
   });
 
+  describe('create comment endpoint', () => {
+    it('should create comments when dryrun=false', async () => {
+      const module = new RemoteModule();
+      const container = Container.from(module);
+      await container.configure();
+
+      const client = new Octokit();
+      const createStub = stub(client.issues, 'createComment');
+      module.bind(Octokit).toInstance(client);
+
+      const remote = await container.create(GithubRemote, REMOTE_OPTIONS);
+      const status = await remote.connect();
+      expect(status).to.equal(true);
+
+      const data = {
+        changes: [],
+        errors: [],
+        issue: '1',
+        project: '',
+      };
+      const result = await remote.createComment(data);
+
+      expect(result).to.include(data);
+      expect(createStub).to.have.callCount(1).and.been.calledWithMatch({
+        /* eslint-disable-next-line camelcase */
+        issue_number: 1,
+      });
+    });
+
+    it('should not create comments when dryrun=true', async () => {
+      const module = new RemoteModule();
+      const container = Container.from(module);
+      await container.configure();
+
+      const client = new Octokit();
+      const createStub = stub(client.issues, 'createComment');
+      module.bind(Octokit).toInstance(client);
+
+      const remote = await container.create(GithubRemote, DRYRUN_OPTIONS);
+      const status = await remote.connect();
+      expect(status).to.equal(true);
+
+      const data = {
+        changes: [],
+        errors: [],
+        issue: '1',
+        project: '',
+      };
+      const result = await remote.createComment(data);
+
+      expect(result).to.include(data);
+      expect(createStub).to.have.callCount(0);
+    });
+  });
+
   describe('create label endpoint', () => {
     it('should create labels when dryrun=false', async () => {
-      const logger = NullLogger.global;
       const module = new RemoteModule();
       const container = Container.from(module);
       await container.configure();
@@ -125,16 +178,7 @@ describe('github remote', () => {
       stub(client.issues, 'createLabel');
       module.bind(Octokit).toInstance(client);
 
-      const remote = await container.create(GithubRemote, {
-        data: {
-          token: 'test',
-          type: 'token',
-        },
-        dryrun: false,
-        logger,
-        type: '',
-      });
-
+      const remote = await container.create(GithubRemote, REMOTE_OPTIONS);
       const status = await remote.connect();
       expect(status).to.equal(true);
 
@@ -153,7 +197,6 @@ describe('github remote', () => {
     });
 
     it('should not create labels when dryrun=true', async () => {
-      const logger = NullLogger.global;
       const module = new RemoteModule();
       const container = Container.from(module);
       await container.configure();
@@ -162,16 +205,7 @@ describe('github remote', () => {
       stub(client.issues, 'createLabel');
       module.bind(Octokit).toInstance(client);
 
-      const remote = await container.create(GithubRemote, {
-        data: {
-          token: 'test',
-          type: 'token',
-        },
-        dryrun: true,
-        logger,
-        type: '',
-      });
-
+      const remote = await container.create(GithubRemote, DRYRUN_OPTIONS);
       const status = await remote.connect();
       expect(status).to.equal(true);
 
@@ -190,7 +224,6 @@ describe('github remote', () => {
 
   describe('delete label endpoint', () => {
     it('should delete labels when dryrun=false', async () => {
-      const logger = NullLogger.global;
       const module = new RemoteModule();
       const container = Container.from(module);
       await container.configure();
@@ -199,16 +232,7 @@ describe('github remote', () => {
       stub(client.issues, 'deleteLabel');
       module.bind(Octokit).toInstance(client);
 
-      const remote = await container.create(GithubRemote, {
-        data: {
-          token: 'test',
-          type: 'token',
-        },
-        dryrun: false,
-        logger,
-        type: '',
-      });
-
+      const remote = await container.create(GithubRemote, REMOTE_OPTIONS);
       const status = await remote.connect();
       expect(status).to.equal(true);
 
@@ -227,7 +251,6 @@ describe('github remote', () => {
     });
 
     it('should not delete labels when dryrun=true', async () => {
-      const logger = NullLogger.global;
       const module = new RemoteModule();
       const container = Container.from(module);
       await container.configure();
@@ -236,16 +259,7 @@ describe('github remote', () => {
       stub(client.issues, 'deleteLabel');
       module.bind(Octokit).toInstance(client);
 
-      const remote = await container.create(GithubRemote, {
-        data: {
-          token: 'test',
-          type: 'token',
-        },
-        dryrun: true,
-        logger,
-        type: '',
-      });
-
+      const remote = await container.create(GithubRemote, DRYRUN_OPTIONS);
       const status = await remote.connect();
       expect(status).to.equal(true);
 
@@ -264,7 +278,6 @@ describe('github remote', () => {
 
   describe('list issues endpoint', () => {
     it('should list issues when dryrun=*', async () => {
-      const logger = NullLogger.global;
       const module = new RemoteModule();
       const container = Container.from(module);
       await container.configure();
@@ -280,13 +293,8 @@ describe('github remote', () => {
 
       for (const dryrun of [true, false]) {
         const remote = await container.create(GithubRemote, {
-          data: {
-            token: 'test',
-            type: 'token',
-          },
+          ...REMOTE_OPTIONS,
           dryrun,
-          logger,
-          type: '',
         });
 
         const status = await remote.connect();
@@ -306,7 +314,6 @@ describe('github remote', () => {
 
   describe('list labels endpoint', () => {
     it('should list labels when dryrun=*', async () => {
-      const logger = NullLogger.global;
       const module = new RemoteModule();
       const container = Container.from(module);
       await container.configure();
@@ -322,13 +329,8 @@ describe('github remote', () => {
 
       for (const dryrun of [true, false]) {
         const remote = await container.create(GithubRemote, {
-          data: {
-            token: 'test',
-            type: 'token',
-          },
+          ...REMOTE_OPTIONS,
           dryrun,
-          logger,
-          type: '',
         });
 
         const status = await remote.connect();
@@ -343,6 +345,129 @@ describe('github remote', () => {
         expect(client.issues.listLabelsForRepo).to.have.callCount(1);
         listStub.resetHistory();
       }
+    });
+  });
+
+  describe('update issue endpoint', () => {
+    it('should update issues when dryrun=false', async () => {
+      const module = new RemoteModule();
+      const container = Container.from(module);
+      await container.configure();
+
+      const client = new Octokit();
+      const updateStub = stub(client.issues, 'setLabels');
+      module.bind(Octokit).toInstance(client);
+
+      const remote = await container.create(GithubRemote, REMOTE_OPTIONS);
+      const status = await remote.connect();
+      expect(status).to.equal(true);
+
+      const data = {
+        issue: '1',
+        labels: [],
+        name: '',
+        project: '',
+      };
+      const result = await remote.updateIssue(data);
+
+      expect(result).to.include(data);
+      expect(updateStub).to.have.callCount(1).and.been.calledWithMatch({
+        /* eslint-disable-next-line camelcase */
+        issue_number: 1,
+      });
+    });
+
+    it('should not update issues when dryrun=true', async () => {
+      const module = new RemoteModule();
+      const container = Container.from(module);
+      await container.configure();
+
+      const client = new Octokit();
+      const updateStub = stub(client.issues, 'setLabels');
+      module.bind(Octokit).toInstance(client);
+
+      const remote = await container.create(GithubRemote, DRYRUN_OPTIONS);
+      const status = await remote.connect();
+      expect(status).to.equal(true);
+
+      const data = {
+        issue: 'foo',
+        labels: [],
+        name: '',
+        project: '',
+      };
+      const result = await remote.updateIssue(data);
+
+      expect(result).to.include(data);
+      expect(updateStub).to.have.callCount(0);
+    });
+  });
+
+  describe('update label endpoint', () => {
+    it('should update labels when dryrun=false', async () => {
+      const module = new RemoteModule();
+      const container = Container.from(module);
+      await container.configure();
+
+      const client = new Octokit();
+      const updateStub = stub(client.issues, 'updateLabel').returns(Promise.resolve({
+        data: {
+          color: 'red',
+          default: false,
+          description: 'bar',
+          id: 0,
+          name: 'foo',
+          /* eslint-disable-next-line camelcase */
+          node_id: '',
+          url: '',
+        },
+        headers: {},
+        status: 0,
+        url: '',
+      }));
+      module.bind(Octokit).toInstance(client);
+
+      const remote = await container.create(GithubRemote, REMOTE_OPTIONS);
+      const status = await remote.connect();
+      expect(status).to.equal(true);
+
+      const data = {
+        color: 'red',
+        desc: 'bar',
+        name: 'foo',
+        project: '',
+      };
+      const result = await remote.updateLabel(data);
+
+      expect(result).to.include(data);
+      expect(updateStub).to.have.callCount(1).and.been.calledWithMatch({
+        name: data.name,
+      });
+    });
+
+    it('should not update labels when dryrun=true', async () => {
+      const module = new RemoteModule();
+      const container = Container.from(module);
+      await container.configure();
+
+      const client = new Octokit();
+      const updateStub = stub(client.issues, 'updateLabel');
+      module.bind(Octokit).toInstance(client);
+
+      const remote = await container.create(GithubRemote, DRYRUN_OPTIONS);
+      const status = await remote.connect();
+      expect(status).to.equal(true);
+
+      const data = {
+        color: '',
+        desc: '',
+        name: 'foo',
+        project: '',
+      };
+      const result = await remote.updateLabel(data);
+
+      expect(result).to.include(data);
+      expect(updateStub).to.have.callCount(0);
     });
   });
 });

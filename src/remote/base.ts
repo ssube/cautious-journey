@@ -13,7 +13,7 @@ export abstract class BaseRemote<TClient, TOptions extends RemoteOptions> implem
   }
 
   public abstract connect(): Promise<boolean>;
-  public abstract createComment(options: CommentUpdate): Promise<unknown>;
+  public abstract createComment(options: CommentUpdate): Promise<CommentUpdate>;
   public abstract createLabel(options: LabelUpdate): Promise<LabelUpdate>;
   public abstract deleteLabel(options: LabelQuery): Promise<LabelQuery>;
   public abstract listIssues(options: ProjectQuery): Promise<Array<IssueUpdate>>;
