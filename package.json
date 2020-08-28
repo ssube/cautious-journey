@@ -104,5 +104,12 @@
   },
   "bin": {
     "cautious-journey": "out/index.js"
+  },
+  "nyc": {
+    "extends": "@istanbuljs/nyc-config-typescript",
+    "exclude": [
+      "scripts/*",
+      "test/**"
+    ]
   }
 }
