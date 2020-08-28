@@ -24,8 +24,10 @@ export function compareItems<T>(a: Array<T>, b: Array<T>): boolean {
     return false;
   }
 
-  const aSorted = a.sort();
-  const bSorted = b.sort();
+  const aSorted = Array.from(a);
+  aSorted.sort();
+  const bSorted = Array.from(b);
+  bSorted.sort();
 
   for (let i = 0; i < aSorted.length; ++i) {
     if (aSorted[i] !== bSorted[i]) {

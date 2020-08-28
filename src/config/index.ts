@@ -79,7 +79,7 @@ export async function initConfig(path: string): Promise<ConfigData> {
     throw new InvalidArgumentError();
   }
 
-  return config as ConfigData;
+  return config;
 }
 
 export const SCHEMA_OPTIONS: Ajv.Options = {
