@@ -113,7 +113,7 @@ export function getValueName(state: StateLabel, value: StateValue): string {
  * TODO: add some sort options: high-first or low-first, case-sensitivity
  */
 export function prioritySort<TLabel extends BaseLabel>(labels: Array<TLabel>): Array<TLabel> {
-  return labels.sort((a, b) => {
+  return Array.from(labels).sort((a, b) => {
     if (a.priority === b.priority) {
       const aName = a.name.toLocaleLowerCase();
       const bName = b.name.toLocaleLowerCase();
