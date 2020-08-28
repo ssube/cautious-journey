@@ -1,4 +1,4 @@
-import { InvalidArgumentError, mustExist, NotImplementedError } from '@apextoaster/js-utils';
+import { InvalidArgumentError, mustExist } from '@apextoaster/js-utils';
 import { createAppAuth } from '@octokit/auth-app';
 import { Octokit } from '@octokit/rest';
 
@@ -108,14 +108,6 @@ export class GithubRemote extends BaseRemote<Octokit, RemoteOptions> implements 
     }
 
     return options;
-  }
-
-  public async getIssue(): Promise<Array<IssueUpdate>> {
-    throw new NotImplementedError();
-  }
-
-  public async getLabel(): Promise<Array<LabelUpdate>> {
-    throw new NotImplementedError();
   }
 
   public async listIssues(options: ProjectQuery): Promise<Array<IssueUpdate>> {

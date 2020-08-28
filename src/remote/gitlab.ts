@@ -1,4 +1,4 @@
-import { mustExist, NotImplementedError } from '@apextoaster/js-utils';
+import { mustExist } from '@apextoaster/js-utils';
 import { GetResponse } from '@gitbeaker/core/dist/types/infrastructure/RequestHelper';
 import { Bundle } from '@gitbeaker/core/dist/types/infrastructure/Utils';
 import { IssueNotes, Issues, Labels, Projects, ProjectsBundle } from '@gitbeaker/node';
@@ -68,14 +68,6 @@ export class GitlabRemote extends BaseRemote<RemoteBundle, RemoteOptions> implem
     }
 
     return options;
-  }
-
-  public async getIssue(): Promise<Array<IssueUpdate>> {
-    throw new NotImplementedError();
-  }
-
-  public async getLabel(): Promise<Array<LabelUpdate>> {
-    throw new NotImplementedError();
   }
 
   public async listIssues(options: IssueQuery): Promise<Array<IssueUpdate>> {

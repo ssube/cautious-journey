@@ -1,6 +1,6 @@
 import { doesExist, InvalidArgumentError } from '@apextoaster/js-utils';
 
-import { CommentUpdate, IssueQuery, IssueUpdate, LabelQuery, LabelUpdate, ProjectQuery, Remote, RemoteOptions } from '.';
+import { CommentUpdate, IssueUpdate, LabelQuery, LabelUpdate, ProjectQuery, Remote, RemoteOptions } from '.';
 import { ChangeVerb } from '../resolve';
 import { VERSION_INFO } from '../version';
 
@@ -16,8 +16,6 @@ export abstract class BaseRemote<TClient, TOptions extends RemoteOptions> implem
   public abstract createComment(options: CommentUpdate): Promise<unknown>;
   public abstract createLabel(options: LabelUpdate): Promise<LabelUpdate>;
   public abstract deleteLabel(options: LabelQuery): Promise<LabelQuery>;
-  public abstract getIssue(options: IssueQuery): Promise<Array<IssueUpdate>>;
-  public abstract getLabel(options: LabelQuery): Promise<Array<LabelUpdate>>;
   public abstract listIssues(options: ProjectQuery): Promise<Array<IssueUpdate>>;
   public abstract listLabels(options: ProjectQuery): Promise<Array<LabelUpdate>>;
   public abstract updateIssue(options: IssueUpdate): Promise<IssueUpdate>;
@@ -51,11 +49,11 @@ export abstract class BaseRemote<TClient, TOptions extends RemoteOptions> implem
     return lines.join('\n');
   }
 
-  protected get writeCapable(): boolean {
+  public get writeCapable(): boolean {
     return this.options.dryrun === false;
   }
 
-  protected get writeClient(): TClient {
+  public get writeClient(): TClient {
     if (doesExist(this.client)) {
       return this.client;
     } else {

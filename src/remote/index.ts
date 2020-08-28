@@ -74,16 +74,6 @@ export interface Remote {
   deleteLabel(options: LabelQuery): Promise<LabelQuery>;
 
   /**
-   * Get details of a single issue.
-   */
-  getIssue(options: IssueQuery): Promise<Array<IssueUpdate>>;
-
-  /**
-   * Get details of a single label.
-   */
-  getLabel(options: LabelQuery): Promise<Array<LabelUpdate>>;
-
-  /**
    * List all issues.
    */
   listIssues(options: ProjectQuery): Promise<Array<IssueUpdate>>;

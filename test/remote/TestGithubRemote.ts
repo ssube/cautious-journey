@@ -52,4 +52,26 @@ describe('github remote', () => {
 
     return expect(remote.connect()).to.eventually.be.rejectedWith(InvalidArgumentError);
   });
+
+  it('should not provide a write client for dry run remotes', async () => {
+    const logger = NullLogger.global;
+    const module = new RemoteModule();
+    const container = Container.from(module);
+    await container.configure();
+
+    const client = stub();
+    module.bind<Octokit, Octokit, BaseOptions>(Octokit).toFactory(client);
+
+    const remote = await container.create(GithubRemote, {
+      data: {
+        type: 'test',
+      },
+      dryrun: true,
+      logger,
+      type: '',
+    });
+
+    expect(remote.writeCapable).to.equal(false);
+    expect(() => remote.writeClient).to.throw(InvalidArgumentError);
+  });
 });

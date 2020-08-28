@@ -29,8 +29,6 @@ export declare class GitlabRemote extends BaseRemote<RemoteBundle, RemoteOptions
 |  [createComment(options)](./cautious-journey.gitlabremote.createcomment.md) |  |  |
 |  [createLabel(options)](./cautious-journey.gitlabremote.createlabel.md) |  |  |
 |  [deleteLabel(options)](./cautious-journey.gitlabremote.deletelabel.md) |  |  |
-|  [getIssue()](./cautious-journey.gitlabremote.getissue.md) |  |  |
-|  [getLabel()](./cautious-journey.gitlabremote.getlabel.md) |  |  |
 |  [listIssues(options)](./cautious-journey.gitlabremote.listissues.md) |  |  |
 |  [listLabels(options)](./cautious-journey.gitlabremote.listlabels.md) |  |  |
 |  [resolvePath(path)](./cautious-journey.gitlabremote.resolvepath.md) |  |  |
