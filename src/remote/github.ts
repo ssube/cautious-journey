@@ -16,14 +16,13 @@ export class GithubRemote extends BaseRemote<Octokit, RemoteOptions> implements 
   }
 
   public async connect(): Promise<boolean> {
-    this.options.logger.info('connecting to github');
-
     const type = mustExist(this.options.data.type);
+    this.options.logger.info({ type }, 'connecting to github');
 
     switch (type) {
       case 'app':
         this.options.logger.info('using app auth');
-        this.client = new Octokit({
+        this.client = await this.options.container.create(Octokit, {
           auth: {
             id: parseInt(mustExist(this.options.data.id), 10),
             installationId: parseInt(mustExist(this.options.data.installationId), 10),
@@ -34,7 +33,7 @@ export class GithubRemote extends BaseRemote<Octokit, RemoteOptions> implements 
         break;
       case 'token':
         this.options.logger.info('using token auth');
-        this.client = new Octokit({
+        this.client = await this.options.container.create(Octokit, {
           auth: mustExist(this.options.data.token),
         });
         break;
