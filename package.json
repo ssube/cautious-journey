@@ -60,7 +60,7 @@
     "nyc": "15.1.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "rollup": "2.26.6",
+    "rollup": "2.26.7",
     "rollup-plugin-alias": "2.2.0",
     "rollup-plugin-commonjs": "10.1.0",
     "rollup-plugin-eslint": "7.0.0",
