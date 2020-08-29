@@ -186,6 +186,6 @@ export function resolveLabels(options: ResolveInput): ResolveResult {
   return {
     changes,
     errors,
-    labels: Array.from(activeLabels),
+    labels: Array.from(activeLabels).sort(),
   };
 }
