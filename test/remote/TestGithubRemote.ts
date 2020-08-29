@@ -8,6 +8,7 @@ import { RemoteOptions } from '../../src';
 import { RemoteModule } from '../../src/module/RemoteModule';
 import { GithubRemote } from '../../src/remote/github';
 import { ChangeVerb } from '../../src/resolve';
+import { createRemoteContainer } from './helpers';
 
 const REMOTE_OPTIONS: Omit<RemoteOptions, 'container'> = {
   data: {
@@ -115,9 +116,7 @@ describe('github remote', () => {
 
   describe('create comment endpoint', () => {
     it('should create comments when dryrun=false', async () => {
-      const module = new RemoteModule();
-      const container = Container.from(module);
-      await container.configure();
+      const { container, module } = await createRemoteContainer();
 
       const client = new Octokit();
       const createStub = stub(client.issues, 'createComment');
@@ -143,9 +142,7 @@ describe('github remote', () => {
     });
 
     it('should not create comments when dryrun=true', async () => {
-      const module = new RemoteModule();
-      const container = Container.from(module);
-      await container.configure();
+      const { container, module } = await createRemoteContainer();
 
       const client = new Octokit();
       const createStub = stub(client.issues, 'createComment');
@@ -170,9 +167,7 @@ describe('github remote', () => {
 
   describe('create label endpoint', () => {
     it('should create labels when dryrun=false', async () => {
-      const module = new RemoteModule();
-      const container = Container.from(module);
-      await container.configure();
+      const { container, module } = await createRemoteContainer();
 
       const client = new Octokit();
       stub(client.issues, 'createLabel');
@@ -197,9 +192,7 @@ describe('github remote', () => {
     });
 
     it('should not create labels when dryrun=true', async () => {
-      const module = new RemoteModule();
-      const container = Container.from(module);
-      await container.configure();
+      const { container, module } = await createRemoteContainer();
 
       const client = new Octokit();
       stub(client.issues, 'createLabel');
@@ -224,9 +217,7 @@ describe('github remote', () => {
 
   describe('delete label endpoint', () => {
     it('should delete labels when dryrun=false', async () => {
-      const module = new RemoteModule();
-      const container = Container.from(module);
-      await container.configure();
+      const { container, module } = await createRemoteContainer();
 
       const client = new Octokit();
       stub(client.issues, 'deleteLabel');
@@ -251,9 +242,7 @@ describe('github remote', () => {
     });
 
     it('should not delete labels when dryrun=true', async () => {
-      const module = new RemoteModule();
-      const container = Container.from(module);
-      await container.configure();
+      const { container, module } = await createRemoteContainer();
 
       const client = new Octokit();
       stub(client.issues, 'deleteLabel');
@@ -278,9 +267,7 @@ describe('github remote', () => {
 
   describe('list issues endpoint', () => {
     it('should list issues when dryrun=*', async () => {
-      const module = new RemoteModule();
-      const container = Container.from(module);
-      await container.configure();
+      const { container, module } = await createRemoteContainer();
 
       const client = new Octokit();
       const listStub = stub(client.issues, 'listForRepo').returns(Promise.resolve({
@@ -314,9 +301,7 @@ describe('github remote', () => {
 
   describe('list labels endpoint', () => {
     it('should list labels when dryrun=*', async () => {
-      const module = new RemoteModule();
-      const container = Container.from(module);
-      await container.configure();
+      const { container, module } = await createRemoteContainer();
 
       const client = new Octokit();
       const listStub = stub(client.issues, 'listLabelsForRepo').returns(Promise.resolve({
@@ -350,9 +335,7 @@ describe('github remote', () => {
 
   describe('update issue endpoint', () => {
     it('should update issues when dryrun=false', async () => {
-      const module = new RemoteModule();
-      const container = Container.from(module);
-      await container.configure();
+      const { container, module } = await createRemoteContainer();
 
       const client = new Octokit();
       const updateStub = stub(client.issues, 'setLabels');
@@ -378,9 +361,7 @@ describe('github remote', () => {
     });
 
     it('should not update issues when dryrun=true', async () => {
-      const module = new RemoteModule();
-      const container = Container.from(module);
-      await container.configure();
+      const { container, module } = await createRemoteContainer();
 
       const client = new Octokit();
       const updateStub = stub(client.issues, 'setLabels');
@@ -405,9 +386,7 @@ describe('github remote', () => {
 
   describe('update label endpoint', () => {
     it('should update labels when dryrun=false', async () => {
-      const module = new RemoteModule();
-      const container = Container.from(module);
-      await container.configure();
+      const { container, module } = await createRemoteContainer();
 
       const client = new Octokit();
       const updateStub = stub(client.issues, 'updateLabel').returns(Promise.resolve({
@@ -446,9 +425,7 @@ describe('github remote', () => {
     });
 
     it('should not update labels when dryrun=true', async () => {
-      const module = new RemoteModule();
-      const container = Container.from(module);
-      await container.configure();
+      const { container, module } = await createRemoteContainer();
 
       const client = new Octokit();
       const updateStub = stub(client.issues, 'updateLabel');

@@ -1,11 +1,11 @@
 import { ProjectsBundle } from '@gitbeaker/node';
 import { expect } from 'chai';
-import { Container, NullLogger } from 'noicejs';
+import { NullLogger } from 'noicejs';
 import { match, stub } from 'sinon';
 
-import { RemoteModule } from '../../src/module/RemoteModule';
-import { GitlabRemote } from '../../src/remote/gitlab';
 import { RemoteOptions } from '../../src';
+import { GitlabRemote } from '../../src/remote/gitlab';
+import { createRemoteContainer } from './helpers';
 
 const REMOTE_OPTIONS: Omit<RemoteOptions, 'container'> = {
   data: {
@@ -32,9 +32,7 @@ const STUB_PROJECT = {
 describe('gitlab remote', () => {
   describe('create comment endpoint', () => {
     it('should create comments when dryrun=false', async () => {
-      const module = new RemoteModule();
-      const container = Container.from(module);
-      await container.configure();
+      const { container, module } = await createRemoteContainer();
 
       const client = new ProjectsBundle();
       stub(client.Projects, 'show').returns(Promise.resolve(STUB_PROJECT));
@@ -58,9 +56,7 @@ describe('gitlab remote', () => {
     });
 
     it('should not create comments when dryrun=true', async () => {
-      const module = new RemoteModule();
-      const container = Container.from(module);
-      await container.configure();
+      const { container, module } = await createRemoteContainer();
 
       const client = new ProjectsBundle();
       stub(client.Projects, 'show').returns(Promise.resolve(STUB_PROJECT));
@@ -86,9 +82,7 @@ describe('gitlab remote', () => {
 
   describe('create label endpoint', () => {
     it('should create labels when dryrun=false', async () => {
-      const module = new RemoteModule();
-      const container = Container.from(module);
-      await container.configure();
+      const { container, module } = await createRemoteContainer();
 
       const client = new ProjectsBundle();
       stub(client.Projects, 'show').returns(Promise.resolve(STUB_PROJECT));
@@ -112,9 +106,7 @@ describe('gitlab remote', () => {
     });
 
     it('should not create labels when dryrun=true', async () => {
-      const module = new RemoteModule();
-      const container = Container.from(module);
-      await container.configure();
+      const { container, module } = await createRemoteContainer();
 
       const client = new ProjectsBundle();
       stub(client.Projects, 'show').returns(Promise.resolve(STUB_PROJECT));
@@ -140,9 +132,7 @@ describe('gitlab remote', () => {
 
   describe('delete label endpoint', () => {
     it('should delete labels when dryrun=false', async () => {
-      const module = new RemoteModule();
-      const container = Container.from(module);
-      await container.configure();
+      const { container, module } = await createRemoteContainer();
 
       const client = new ProjectsBundle();
       stub(client.Projects, 'show').returns(Promise.resolve(STUB_PROJECT));
@@ -167,9 +157,7 @@ describe('gitlab remote', () => {
     });
 
     it('should not delete labels when dryrun=true', async () => {
-      const module = new RemoteModule();
-      const container = Container.from(module);
-      await container.configure();
+      const { container, module } = await createRemoteContainer();
 
       const client = new ProjectsBundle();
       stub(client.Projects, 'show').returns(Promise.resolve(STUB_PROJECT));
@@ -196,9 +184,7 @@ describe('gitlab remote', () => {
 
   describe('list issues endpoint', () => {
     it('should list issues when dryrun=*', async () => {
-      const module = new RemoteModule();
-      const container = Container.from(module);
-      await container.configure();
+      const { container, module } = await createRemoteContainer();
 
       const client = new ProjectsBundle();
       stub(client.Projects, 'show').returns(Promise.resolve(STUB_PROJECT));
@@ -228,9 +214,7 @@ describe('gitlab remote', () => {
 
   describe('list labels endpoint', () => {
     it('should list labels when dryrun=*', async () => {
-      const module = new RemoteModule();
-      const container = Container.from(module);
-      await container.configure();
+      const { container, module } = await createRemoteContainer();
 
       const client = new ProjectsBundle();
       stub(client.Projects, 'show').returns(Promise.resolve(STUB_PROJECT));
@@ -260,9 +244,7 @@ describe('gitlab remote', () => {
 
   describe('update issue endpoint', () => {
     it('should update issues when dryrun=false', async () => {
-      const module = new RemoteModule();
-      const container = Container.from(module);
-      await container.configure();
+      const { container, module } = await createRemoteContainer();
 
       const client = new ProjectsBundle();
       stub(client.Projects, 'show').returns(Promise.resolve(STUB_PROJECT));
@@ -286,9 +268,7 @@ describe('gitlab remote', () => {
     });
 
     it('should not update issues when dryrun=true', async () => {
-      const module = new RemoteModule();
-      const container = Container.from(module);
-      await container.configure();
+      const { container, module } = await createRemoteContainer();
 
       const client = new ProjectsBundle();
       stub(client.Projects, 'show').returns(Promise.resolve(STUB_PROJECT));
@@ -314,9 +294,7 @@ describe('gitlab remote', () => {
 
   describe('update label endpoint', () => {
     it('should update labels when dryrun=false', async () => {
-      const module = new RemoteModule();
-      const container = Container.from(module);
-      await container.configure();
+      const { container, module } = await createRemoteContainer();
 
       const client = new ProjectsBundle();
       stub(client.Projects, 'show').returns(Promise.resolve(STUB_PROJECT));
@@ -347,9 +325,7 @@ describe('gitlab remote', () => {
     });
 
     it('should not update labels when dryrun=true', async () => {
-      const module = new RemoteModule();
-      const container = Container.from(module);
-      await container.configure();
+      const { container, module } = await createRemoteContainer();
 
       const client = new ProjectsBundle();
       stub(client.Projects, 'show').returns(Promise.resolve(STUB_PROJECT));
