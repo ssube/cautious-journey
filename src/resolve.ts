@@ -196,7 +196,7 @@ export function resolveProject(options: ResolveInput): ResolveResult {
     resolveState(state, result, activeLabels);
   }
 
-  result.labels = Array.from(activeLabels);
+  result.labels = Array.from(activeLabels).sort();
 
   return result;
 }
