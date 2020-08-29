@@ -1,13 +1,13 @@
 import { expect } from 'chai';
 
-import { resolveLabels } from '../../src/resolve';
+import { resolveProject } from '../../src/resolve';
 
 const TEST_LABELS = ['foo', 'bar'];
 
 describe('resolve labels', () => {
   describe('flags with unfulfilled requires rule', () => {
     it('should be removed when required label is missing', () => {
-      const result = resolveLabels({
+      const result = resolveProject({
         flags: [{
           adds: [],
           name: 'gayle',
@@ -27,7 +27,7 @@ describe('resolve labels', () => {
 
   describe('flags with fulfilled requires rule', () => {
     it('should make no changes', () => {
-      const result = resolveLabels({
+      const result = resolveProject({
         flags: [{
           adds: [],
           name: 'gayle',
@@ -47,7 +47,7 @@ describe('resolve labels', () => {
 
   describe('flags with add rules', () => {
     it('should add the labels', () => {
-      const result = resolveLabels({
+      const result = resolveProject({
         flags: [{
           adds: [{
             name: 'linda',
@@ -67,7 +67,7 @@ describe('resolve labels', () => {
 
   describe('flags with remove rules', () => {
     it('should remove labels', () => {
-      const result = resolveLabels({
+      const result = resolveProject({
         flags: [{
           adds: [],
           name: 'bob',
