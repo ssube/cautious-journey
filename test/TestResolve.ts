@@ -33,7 +33,7 @@ describe('resolve labels', () => {
     for (const test of TEST_CASES) {
       it(`should resolve ${test.name}`, () => {
         const actualResult = resolveProject(test.input);
-        expect(actualResult).to.deep.equal(test.result);
+        expect(actualResult).to.deep.include(test.result);
       });
     }
   });
