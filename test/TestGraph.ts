@@ -1,14 +1,16 @@
 import { expect } from 'chai';
-import { match } from 'sinon';
 
 import {
   cleanName,
+  COLOR_CHANGE,
+  COLOR_LABEL,
   dotGraph,
   Edge,
   edgeStyle,
   EdgeType,
   graphChange,
   graphProject,
+  graphState,
   labelEdges,
   mergeEdges,
 } from '../src/graph';
@@ -275,7 +277,7 @@ describe('graph tools', () => {
       }, 'foo', 0);
 
       expect(graph.nodes).to.have.lengthOf(1).and.to.deep.include({
-        color: 'aaaaaa',
+        color: COLOR_CHANGE,
         name: 'foo with (bar,bin)',
       });
     });
@@ -329,6 +331,113 @@ describe('graph tools', () => {
         target: 'bar',
         type: EdgeType.FORWARD,
         verb: ChangeVerb.CREATED,
+      });
+    });
+  });
+
+  describe('graph state', () => {
+    it('should create a node for each value', () => {
+      const graph = graphState({
+        adds: [],
+        divider: '/',
+        name: 'foo',
+        priority: 1,
+        removes: [],
+        requires: [],
+        values: [{
+          adds: [],
+          becomes: [],
+          name: 'bar',
+          priority: 1,
+          removes: [],
+          requires: [],
+        }, {
+          adds: [],
+          becomes: [],
+          name: 'bin',
+          priority: 1,
+          removes: [],
+          requires: [],
+        }],
+      });
+
+      const EXPECTED_NODES = 2;
+      expect(graph.nodes).to.have.lengthOf(EXPECTED_NODES);
+    });
+
+    it('should create exhaustive edges between values', () => {
+      const value = {
+        adds: [],
+        becomes: [],
+        priority: 1,
+        removes: [],
+        requires: [],
+      };
+      const graph = graphState({
+        adds: [],
+        divider: '/',
+        name: 'foo',
+        priority: 1,
+        removes: [],
+        requires: [],
+        values: [{
+          ...value,
+          name: 'a',
+        }, {
+          ...value,
+          name: 'b',
+        }, {
+          ...value,
+          name: 'c',
+        }, {
+          ...value,
+          name: 'd',
+        }],
+      });
+
+      const EXPECTED_EDGES = 12; // not merged, so 3 from each
+      expect(graph.edges).to.have.lengthOf(EXPECTED_EDGES);
+    });
+
+    it('should include potential state changes', () => {
+      const graph = graphState({
+        adds: [],
+        divider: '/',
+        name: 'foo',
+        priority: 1,
+        removes: [],
+        requires: [],
+        values: [{
+          adds: [],
+          becomes: [{
+            adds: [{
+              name: 'new',
+            }],
+            matches: [{
+              name: 'test',
+            }],
+            removes: [],
+          }],
+          name: 'bar',
+          priority: 1,
+          removes: [],
+          requires: [],
+        }, {
+          adds: [],
+          becomes: [],
+          name: 'bin',
+          priority: 1,
+          removes: [],
+          requires: [],
+        }],
+      });
+
+      expect(graph.nodes).to.deep.include({
+        color: COLOR_CHANGE,
+        name: 'foo/bar with (test)',
+      }).and.to.include({
+        color: COLOR_LABEL,
+        name: 'foo/bin',
       });
     });
   });
