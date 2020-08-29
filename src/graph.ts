@@ -4,8 +4,8 @@ import { BaseLabel, FlagLabel, getValueName, StateChange, StateLabel } from './l
 import { ChangeVerb } from './resolve';
 import { defaultTo, defaultUntil } from './utils';
 
-const COLOR_CHANGE = 'aaaaaa';
-const COLOR_LABEL = 'cccccc';
+export const COLOR_CHANGE = 'aaaaaa';
+export const COLOR_LABEL = 'cccccc';
 
 export enum EdgeType {
   /**
