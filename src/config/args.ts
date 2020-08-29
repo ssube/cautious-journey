@@ -64,10 +64,6 @@ export function createParser(modeset: Modeback): Parser<ParsedArgs> {
       },
     })
     .completion()
-    .exitProcess(false)
-    .fail((msg: string, err: Error) => {
-      modeset(Commands.ERROR);
-    })
     .help()
     .alias('help', 'h')
     .version(VERSION_INFO.package.version)

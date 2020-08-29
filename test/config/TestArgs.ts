@@ -13,7 +13,7 @@ describe('args', () => {
       Commands.ISSUES,
       Commands.LABELS,
     ]) {
-      const args = parser.parse([command]);
+      const args = parser.parse([command, '--config', 'foo.yml']);
       expect(args).to.deep.include({
         dryrun: true,
       });
