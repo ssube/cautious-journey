@@ -1,5 +1,5 @@
 import { ResolveInput, ResolveResult } from '../../src/resolve';
-import { StateLabel } from '../../src';
+import { StateLabel, FlagLabel } from '../../src';
 
 export interface ResolveTestCase {
   input: ResolveInput;
@@ -93,6 +93,24 @@ export const SECOND_STATE_FALLBACK: StateLabel = {
   }],
 };
 
+const SIMPLE_FLAG: FlagLabel = {
+  adds: [],
+  name: 'test',
+  priority: 1,
+  removes: [],
+  requires: [],
+};
+
+const DEPENDENT_FLAG: FlagLabel = {
+  adds: [],
+  name: 'bar',
+  priority: 1,
+  removes: [],
+  requires: [{
+    name: 'test',
+  }],
+};
+
 export const TEST_CASES: Array<ResolveTestCase> = [{
   input: {
     flags: [],
@@ -107,13 +125,7 @@ export const TEST_CASES: Array<ResolveTestCase> = [{
   },
 }, {
   input: {
-    flags: [{
-      adds: [],
-      name: 'test',
-      priority: 1,
-      removes: [],
-      requires: [],
-    }],
+    flags: [SIMPLE_FLAG],
     labels: [
       'test',
     ],
@@ -158,7 +170,7 @@ export const TEST_CASES: Array<ResolveTestCase> = [{
   name: 'state single value',
   result: {
     errors: [],
-    labels: ['foo/bar', 'fin'],
+    labels: ['fin', 'foo/bar'],
   },
 }, {
   input: {
@@ -177,9 +189,54 @@ export const TEST_CASES: Array<ResolveTestCase> = [{
     labels: ['foo/bar', 'foo/bin', 'bob'],
     states: [SECOND_STATE_FALLBACK],
   },
-  name: 'second state requires present',
+  name: 'second state requires present (skip first)',
   result: {
     errors: [],
-    labels: ['foo/bar', 'bob'],
+    labels: ['bob', 'foo/bar'],
+  },
+}, {
+  input: {
+    flags: [],
+    labels: ['foo/bin', 'bob'],
+    states: [SECOND_STATE_FALLBACK],
+  },
+  name: 'second state requires present (second only)',
+  result: {
+    errors: [],
+    labels: ['bob', 'foo/bin'],
+  },
+}, {
+  input: {
+    flags: [DEPENDENT_FLAG],
+    labels: ['test', 'bar'],
+    states: [],
+  },
+  name: 'dependent flag requires present',
+  result: {
+    errors: [],
+    labels: ['bar', 'test'],
+  },
+}, {
+  input: {
+    flags: [DEPENDENT_FLAG],
+    labels: ['bar'],
+    states: [],
+  },
+  name: 'dependent flag requires missing',
+  result: {
+    errors: [],
+    labels: [],
+  },
+}, {
+  input: {
+    flags: [DEPENDENT_FLAG, SIMPLE_FLAG],
+    labels: [],
+    states: [TWO_STATE_CYCLE, SECOND_STATE_FALLBACK],
+  },
+  name: 'empty set',
+  result: {
+    changes: [],
+    errors: [],
+    labels: [],
   },
 }];

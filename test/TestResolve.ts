@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import { resolveProject } from '../src/resolve';
 import { TEST_CASES } from './resolve/cases';
 
-const TEST_LABELS = ['foo', 'bar'];
+const TEST_LABELS = ['bar', 'foo'];
 
 describe('resolve labels', () => {
   describe('with empty rule set', () => {
