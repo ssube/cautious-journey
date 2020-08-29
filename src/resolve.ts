@@ -117,7 +117,7 @@ function resolveBecomes(label: BaseLabel, anticipatedResult: ResolveResult, acti
         requires: [],
       }, anticipatedResult, activeLabels);
 
-      if (activeLabels.delete(name)) {
+      if (activeLabels.delete(label.name)) {
         anticipatedResult.changes.push({
           cause: name,
           effect: ChangeVerb.REMOVED,
