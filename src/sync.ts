@@ -5,7 +5,7 @@ import { prng } from 'seedrandom';
 import { ProjectConfig } from './config';
 import { getLabelColor, getLabelNames, getValueName } from './labels';
 import { LabelUpdate, Remote } from './remote';
-import { resolveLabels } from './resolve';
+import { resolveProject } from './resolve';
 import { compareItems, defaultTo, defaultUntil } from './utils';
 
 export interface SyncOptions {
@@ -28,7 +28,7 @@ export async function syncIssueLabels(options: SyncOptions): Promise<unknown> {
   for (const issue of issues) {
     logger.info({ issue }, 'project issue');
 
-    const { changes, errors, labels } = resolveLabels({
+    const { changes, errors, labels } = resolveProject({
       flags: project.flags,
       labels: issue.labels,
       states: project.states,

@@ -4,7 +4,7 @@ export { ChangeSet, FlagLabel, StateLabel, StateValue } from './labels';
 export { Remote, RemoteOptions } from './remote';
 export { GithubRemote } from './remote/github';
 export { GitlabRemote } from './remote/gitlab';
-export { ResolveInput, ResolveResult, resolveLabels } from './resolve';
+export { ResolveInput, ResolveResult, resolveProject } from './resolve';
 export { syncIssueLabels, SyncOptions, syncProjectLabels } from './sync';
 
 const STATUS_ERROR = 1;

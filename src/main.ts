@@ -16,7 +16,7 @@ export { FlagLabel, StateLabel } from './labels';
 export { Remote, RemoteOptions } from './remote';
 export { GithubRemote } from './remote/github';
 export { GitlabRemote } from './remote/gitlab';
-export { resolveLabels } from './resolve';
+export { resolveProject } from './resolve';
 export { syncIssueLabels, syncProjectLabels } from './sync';
 
 const ARGS_START = 2;
