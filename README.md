@@ -1,6 +1,11 @@
 # Cautious Journey
 
-Label manager and state machine, for Github and Gitlab.
+<p align="center">
+  <img align="center" src="docs/logo.png">
+</p>
+<p align="center">
+ Label manager and state machine, for Github and Gitlab.
+</p>
 
 ## Features
 
