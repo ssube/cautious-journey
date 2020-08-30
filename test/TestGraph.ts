@@ -58,7 +58,7 @@ describe('graph tools', () => {
     });
   });
 
-  describe('graph labels', () => {
+  describe('graph project', () => {
     it('should create nodes for each label', () => {
       const graph = graphProject({
         flags: [{
@@ -78,6 +78,33 @@ describe('graph tools', () => {
         color: 'aabbcc',
         name: 'foo',
       });
+    });
+
+    it('should create children for each state', () => {
+      const graph = graphProject({
+        flags: [],
+        name: '',
+        states: [{
+          adds: [],
+          divider: '/',
+          name: 'foo',
+          priority: 1,
+          removes: [],
+          requires: [],
+          values: [],
+        }, {
+          adds: [],
+          divider: '/',
+          name: 'bar',
+          priority: 1,
+          removes: [],
+          requires: [],
+          values: [],
+        }],
+      });
+
+      const EXPECTED_CHILDREN = 2;
+      expect(graph.children).to.have.lengthOf(EXPECTED_CHILDREN);
     });
 
     it('should create edges for each change rule');
