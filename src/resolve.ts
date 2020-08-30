@@ -119,14 +119,16 @@ function resolveBecomes(label: BaseLabel, anticipatedResult: ResolveResult, acti
 
       if (activeLabels.delete(label.name)) {
         anticipatedResult.changes.push({
-          cause: name,
+          cause: label.name,
           effect: ChangeVerb.REMOVED,
-          label: name,
+          label: label.name,
         });
       }
+
       return true;
     }
   }
+
   return false;
 }
 
@@ -142,6 +144,7 @@ function resolveState(state: StateLabel, anticipatedResult: ResolveResult, activ
   const sortedValues = prioritySort(state.values);
   for (const value of sortedValues) {
     const name = getValueName(state, value);
+
     if (!activeLabels.has(name)) {
       continue;
     }
