@@ -6,8 +6,23 @@ import { createStubInstance } from 'sinon';
 import { Commands, ParsedArgs } from '../src/config/args';
 import { GithubRemote, mainProject, Remote, RemoteOptions, STATUS_FAILURE, STATUS_SUCCESS } from '../src/main';
 import { RemoteModule } from '../src/module/RemoteModule';
+import { ProjectConfig } from '../src/config';
 
 const TEST_REMOTE = 'test-remote';
+const TEST_PROJECT: ProjectConfig = {
+  colors: [],
+  comment: false,
+  flags: [],
+  initial: [],
+  name: 'bar',
+  remote: {
+    data: {},
+    dryrun: true,
+    logger: NullLogger.global,
+    type: TEST_REMOTE,
+  },
+  states: [],
+};
 
 describe('main app', () => {
   it('should parse command line arguments');
@@ -30,21 +45,7 @@ describe('main app', () => {
     const container = Container.from(module);
     await container.configure();
 
-    const status = await mainProject(args, container, logger, mode, {
-      colors: [],
-      comment: false,
-      flags: [],
-      initial: [],
-      name: '',
-      remote: {
-        data: {},
-        dryrun: true,
-        logger,
-        type: TEST_REMOTE,
-      },
-      states: [],
-    });
-
+    const status = await mainProject(args, container, logger, mode, TEST_PROJECT);
     expect(status).to.equal(STATUS_SUCCESS);
   });
 
@@ -65,21 +66,7 @@ describe('main app', () => {
     const container = Container.from(module);
     await container.configure();
 
-    const status = await mainProject(args, container, logger, mode, {
-      colors: [],
-      comment: false,
-      flags: [],
-      initial: [],
-      name: '',
-      remote: {
-        data: {},
-        dryrun: true,
-        logger,
-        type: TEST_REMOTE,
-      },
-      states: [],
-    });
-
+    const status = await mainProject(args, container, logger, mode, TEST_PROJECT);
     expect(status).to.equal(STATUS_FAILURE);
   });
 
@@ -101,21 +88,7 @@ describe('main app', () => {
     const container = Container.from(module);
     await container.configure();
 
-    const status = await mainProject(args, container, logger, mode, {
-      colors: [],
-      comment: false,
-      flags: [],
-      initial: [],
-      name: 'bar',
-      remote: {
-        data: {},
-        dryrun: true,
-        logger,
-        type: TEST_REMOTE,
-      },
-      states: [],
-    });
-
+    const status = await mainProject(args, container, logger, mode, TEST_PROJECT);
     expect(status).to.equal(STATUS_SUCCESS);
     expect(remote.connect).to.have.callCount(0);
   });
