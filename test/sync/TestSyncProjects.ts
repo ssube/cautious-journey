@@ -1,11 +1,43 @@
+import { InvalidArgumentError } from '@apextoaster/js-utils';
 import { expect } from 'chai';
-import { Container } from 'noicejs';
+import { Container, NullLogger } from 'noicejs';
 import { alea } from 'seedrandom';
-import { match, spy, stub } from 'sinon';
+import { createStubInstance, match, spy, stub } from 'sinon';
 
 import { BunyanLogger } from '../../src/logger/bunyan';
 import { GithubRemote } from '../../src/remote/github';
 import { syncProjectLabels, updateLabel } from '../../src/sync';
+import { FlagLabel, StateLabel } from '../../src';
+
+const TEST_FLAG: FlagLabel = {
+  adds: [],
+  color: 'aabbcc',
+  desc: '',
+  name: 'foo',
+  priority: 1,
+  removes: [],
+  requires: [],
+};
+
+const TEST_STATE: StateLabel = {
+  adds: [],
+  color: '',
+  desc: '',
+  divider: '/',
+  name: 'foo',
+  priority: 1,
+  removes: [],
+  requires: [],
+  values: [{
+    adds: [],
+    becomes: [],
+    color: 'aabbcc',
+    name: 'bar',
+    priority: 1,
+    removes: [],
+    requires: [],
+  }],
+};
 
 describe('project sync', () => {
   describe('all labels', () => {
@@ -33,13 +65,7 @@ describe('project sync', () => {
             'ff0000',
           ],
           comment: true,
-          flags: [{
-            adds: [],
-            name: 'foo',
-            priority: 1,
-            removes: [],
-            requires: [],
-          }],
+          flags: [TEST_FLAG],
           name: '',
           remote: remoteConfig,
           states: [],
@@ -85,15 +111,7 @@ describe('project sync', () => {
         project: {
           colors: [],
           comment: true,
-          flags: [{
-            adds: [],
-            color: '',
-            desc: '',
-            name: '',
-            priority: 1,
-            removes: [],
-            requires: [],
-          }],
+          flags: [TEST_FLAG],
           name: '',
           remote: remoteConfig,
           states: [],
@@ -132,24 +150,7 @@ describe('project sync', () => {
           flags: [],
           name: '',
           remote: remoteConfig,
-          states: [{
-            adds: [],
-            color: '',
-            desc: '',
-            divider: '/',
-            name: 'foo',
-            priority: 1,
-            removes: [],
-            requires: [],
-            values: [{
-              adds: [],
-              becomes: [],
-              name: 'bar',
-              priority: 1,
-              removes: [],
-              requires: [],
-            }],
-          }],
+          states: [TEST_STATE],
         },
         random: alea(),
         remote,
@@ -216,5 +217,68 @@ describe('project sync', () => {
 
   describe('create label', () => {
     it('should create label');
+  });
+
+  describe('update label', () => {
+    it('should update flags');
+    it('should update states', async () => {
+      const logger = NullLogger.global;
+      const remote = createStubInstance(GithubRemote);
+
+      await updateLabel({
+        logger,
+        project: {
+          colors: [],
+          comment: false,
+          flags: [],
+          name: '',
+          remote: {
+            data: {},
+            dryrun: false,
+            logger,
+            type: '',
+          },
+          states: [TEST_STATE],
+        },
+        random: alea(),
+        remote,
+      }, {
+        color: '',
+        desc: '',
+        name: 'foo/bar',
+        project: '',
+      });
+
+      expect(remote.updateLabel).to.have.been.calledWithMatch({
+        name: 'foo/bar',
+      });
+    });
+
+    it('should throw on labels that do not exist', async () => {
+      const logger = NullLogger.global;
+      await expect(updateLabel({
+        logger,
+        project: {
+          colors: [],
+          comment: false,
+          flags: [],
+          name: '',
+          remote: {
+            data: {},
+            dryrun: false,
+            logger,
+            type: '',
+          },
+          states: [],
+        },
+        random: alea(),
+        remote: createStubInstance(GithubRemote),
+      }, {
+        color: '',
+        desc: '',
+        name: '',
+        project: '',
+      })).to.eventually.be.rejectedWith(InvalidArgumentError);
+    });
   });
 });

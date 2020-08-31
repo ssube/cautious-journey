@@ -1,9 +1,8 @@
-import { InvalidArgumentError } from '@apextoaster/js-utils';
-import { createSchema } from '@apextoaster/js-yaml-schema';
-import { createConfig, loadFile } from '@apextoaster/js-config';
+import { createConfig } from '@apextoaster/js-config';
+import { IncludeOptions } from '@apextoaster/js-yaml-schema';
 import Ajv from 'ajv';
 import { existsSync, readFileSync, realpathSync } from 'fs';
-import { DEFAULT_SAFE_SCHEMA, safeLoad } from 'js-yaml';
+import { DEFAULT_SAFE_SCHEMA } from 'js-yaml';
 import { LogLevel } from 'noicejs';
 import { join } from 'path';
 
@@ -63,16 +62,8 @@ export const CONFIG_SCHEMA_KEY = 'cautious-journey#/definitions/config';
 /**
  * Load the config from files.
  */
-export async function initConfig(path: string): Promise<ConfigData> {
-  const include = {
-    exists: existsSync,
-    join,
-    read: readFileSync,
-    resolve: realpathSync,
-    schema: DEFAULT_SAFE_SCHEMA,
-  };
-
-  const validator = new Ajv(SCHEMA_OPTIONS);
+export async function initConfig(path: string, include = SCHEMA_OPTIONS): Promise<ConfigData> {
+  const validator = new Ajv(AJV_OPTIONS);
   validator.addSchema(SCHEMA_DATA, 'cautious-journey');
 
   const config = createConfig<ConfigData>({
@@ -95,7 +86,7 @@ export async function initConfig(path: string): Promise<ConfigData> {
   return config.getData();
 }
 
-export const SCHEMA_OPTIONS: Ajv.Options = {
+export const AJV_OPTIONS: Ajv.Options = {
   allErrors: true,
   coerceTypes: 'array',
   missingRefs: 'fail',
@@ -103,4 +94,12 @@ export const SCHEMA_OPTIONS: Ajv.Options = {
   schemaId: 'auto',
   useDefaults: true,
   verbose: true,
+};
+
+export const SCHEMA_OPTIONS: IncludeOptions = {
+  exists: existsSync,
+  join,
+  read: readFileSync,
+  resolve: realpathSync,
+  schema: DEFAULT_SAFE_SCHEMA,
 };

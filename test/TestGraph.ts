@@ -126,12 +126,20 @@ describe('graph tools', () => {
 
   describe('edge style', () => {
     it('should color edges', () => {
-      expect(edgeStyle({
-        source: 'foo',
-        target: 'bar',
-        type: EdgeType.BOTH,
-        verb: ChangeVerb.CREATED,
-      })).to.include('color=');
+      for (const verb of [
+        ChangeVerb.BECAME,
+        ChangeVerb.CONFLICTED,
+        ChangeVerb.CREATED,
+        ChangeVerb.REMOVED,
+        ChangeVerb.REQUIRED,
+      ]) {
+        expect(edgeStyle({
+          source: 'foo',
+          target: 'bar',
+          type: EdgeType.BOTH,
+          verb,
+        })).to.include('color=');
+      }
     });
   });
 
