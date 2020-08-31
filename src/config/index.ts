@@ -1,5 +1,6 @@
 import { InvalidArgumentError } from '@apextoaster/js-utils';
 import { createSchema } from '@apextoaster/js-yaml-schema';
+import { createConfig, loadFile } from '@apextoaster/js-config';
 import Ajv from 'ajv';
 import { existsSync, readFileSync, realpathSync } from 'fs';
 import { DEFAULT_SAFE_SCHEMA, safeLoad } from 'js-yaml';
@@ -57,29 +58,41 @@ export interface ConfigData {
   projects: Array<ProjectConfig>;
 }
 
+export const CONFIG_SCHEMA_KEY = 'cautious-journey#/definitions/config';
+
 /**
  * Load the config from files.
  */
 export async function initConfig(path: string): Promise<ConfigData> {
-  const schema = createSchema({
-    include: {
-      exists: existsSync,
-      join,
-      read: readFileSync,
-      resolve: realpathSync,
-      schema: DEFAULT_SAFE_SCHEMA,
-    }
-  });
-  const rawConfig = readFileSync(path, {
-    encoding: 'utf-8',
-  });
-  const config = safeLoad(rawConfig, { schema });
+  const include = {
+    exists: existsSync,
+    join,
+    read: readFileSync,
+    resolve: realpathSync,
+    schema: DEFAULT_SAFE_SCHEMA,
+  };
 
-  if (!validateConfig(config)) {
-    throw new InvalidArgumentError();
-  }
+  const validator = new Ajv(SCHEMA_OPTIONS);
+  validator.addSchema(SCHEMA_DATA, 'cautious-journey');
 
-  return config;
+  const config = createConfig<ConfigData>({
+    config: {
+      key: CONFIG_SCHEMA_KEY,
+      sources: [{
+        include,
+        name: '.',
+        paths: [path],
+        type: 'file',
+      }],
+    },
+    process,
+    schema: {
+      include,
+    },
+    validator,
+  });
+
+  return config.getData();
 }
 
 export const SCHEMA_OPTIONS: Ajv.Options = {
@@ -91,16 +104,3 @@ export const SCHEMA_OPTIONS: Ajv.Options = {
   useDefaults: true,
   verbose: true,
 };
-
-export function validateConfig(it: unknown): it is ConfigData {
-  const ajv = new Ajv(SCHEMA_OPTIONS);
-  ajv.addSchema(SCHEMA_DATA, 'cautious-journey');
-
-  if (ajv.validate('cautious-journey#/definitions/config', it) === true) {
-    return true;
-  } else {
-    /* eslint-disable-next-line */
-    console.error('invalid config', ajv.errors, it);
-    return false;
-  }
-}
