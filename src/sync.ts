@@ -30,6 +30,7 @@ export async function syncIssueLabels(options: SyncOptions): Promise<unknown> {
 
     const { changes, errors, labels } = resolveProject({
       flags: project.flags,
+      initial: project.initial,
       labels: issue.labels,
       states: project.states,
     });

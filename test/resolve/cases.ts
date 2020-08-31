@@ -114,6 +114,7 @@ const DEPENDENT_FLAG: FlagLabel = {
 export const TEST_CASES: Array<ResolveTestCase> = [{
   input: {
     flags: [],
+    initial: [],
     labels: [],
     states: [],
   },
@@ -126,6 +127,7 @@ export const TEST_CASES: Array<ResolveTestCase> = [{
 }, {
   input: {
     flags: [SIMPLE_FLAG],
+    initial: [],
     labels: [
       'test',
     ],
@@ -142,6 +144,7 @@ export const TEST_CASES: Array<ResolveTestCase> = [{
 }, {
   input: {
     flags: [],
+    initial: [],
     labels: ['foo/bar', 'next'],
     states: [TWO_STATE_CYCLE],
   },
@@ -153,6 +156,7 @@ export const TEST_CASES: Array<ResolveTestCase> = [{
 }, {
   input: {
     flags: [],
+    initial: [],
     labels: ['foo/bar', 'next', 'bob'],
     states: [TWO_STATE_CYCLE],
   },
@@ -164,6 +168,7 @@ export const TEST_CASES: Array<ResolveTestCase> = [{
 }, {
   input: {
     flags: [],
+    initial: [],
     labels: ['foo/bar', 'foo/bin'],
     states: [TWO_STATE_CYCLE],
   },
@@ -175,6 +180,7 @@ export const TEST_CASES: Array<ResolveTestCase> = [{
 }, {
   input: {
     flags: [],
+    initial: [],
     labels: ['foo/bar', 'foo/bin'],
     states: [SECOND_STATE_FALLBACK],
   },
@@ -186,6 +192,7 @@ export const TEST_CASES: Array<ResolveTestCase> = [{
 }, {
   input: {
     flags: [],
+    initial: [],
     labels: ['foo/bar', 'foo/bin', 'bob'],
     states: [SECOND_STATE_FALLBACK],
   },
@@ -197,6 +204,7 @@ export const TEST_CASES: Array<ResolveTestCase> = [{
 }, {
   input: {
     flags: [],
+    initial: [],
     labels: ['foo/bin', 'bob'],
     states: [SECOND_STATE_FALLBACK],
   },
@@ -208,6 +216,7 @@ export const TEST_CASES: Array<ResolveTestCase> = [{
 }, {
   input: {
     flags: [DEPENDENT_FLAG],
+    initial: [],
     labels: ['test', 'bar'],
     states: [],
   },
@@ -219,6 +228,7 @@ export const TEST_CASES: Array<ResolveTestCase> = [{
 }, {
   input: {
     flags: [DEPENDENT_FLAG],
+    initial: [],
     labels: ['bar'],
     states: [],
   },
@@ -230,6 +240,7 @@ export const TEST_CASES: Array<ResolveTestCase> = [{
 }, {
   input: {
     flags: [DEPENDENT_FLAG, SIMPLE_FLAG],
+    initial: [],
     labels: [],
     states: [TWO_STATE_CYCLE, SECOND_STATE_FALLBACK],
   },

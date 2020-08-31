@@ -34,6 +34,7 @@ describe('main app', () => {
       colors: [],
       comment: false,
       flags: [],
+      initial: [],
       name: '',
       remote: {
         data: {},
@@ -68,6 +69,7 @@ describe('main app', () => {
       colors: [],
       comment: false,
       flags: [],
+      initial: [],
       name: '',
       remote: {
         data: {},
@@ -103,6 +105,7 @@ describe('main app', () => {
       colors: [],
       comment: false,
       flags: [],
+      initial: [],
       name: 'bar',
       remote: {
         data: {},

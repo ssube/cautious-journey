@@ -97,7 +97,12 @@ describe('github remote', () => {
 
       const remote = await container.create(GithubRemote, REMOTE_OPTIONS);
 
-      for (const effect of [ChangeVerb.CONFLICTED, ChangeVerb.CREATED, ChangeVerb.REMOVED, ChangeVerb.REQUIRED]) {
+      for (const effect of [
+        ChangeVerb.CONFLICTED,
+        ChangeVerb.CREATED,
+        ChangeVerb.REMOVED,
+        ChangeVerb.REQUIRED,
+      ]) {
         const body = remote.formatBody({
           changes: [{
             cause: 'foo',
@@ -112,6 +117,32 @@ describe('github remote', () => {
         expect(body).to.include('bar').and.include('foo');
       }
     });
+
+    it('should include initial labels', async () => {
+      const module = new RemoteModule();
+      const container = Container.from(module);
+      await container.configure();
+
+      const client = new Octokit();
+      stub(client.issues, 'createLabel');
+      module.bind(Octokit).toInstance(client);
+
+      const remote = await container.create(GithubRemote, REMOTE_OPTIONS);
+
+      const body = remote.formatBody({
+        changes: [{
+          cause: 'foo',
+          effect: ChangeVerb.INITIAL,
+          label: 'bar',
+        }],
+        errors: [],
+        issue: '',
+        project: '',
+      });
+
+      expect(body).to.include('bar').and.include('initial');
+    });
+
   });
 
   describe('create comment endpoint', () => {

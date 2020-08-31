@@ -2,8 +2,6 @@ import { expect } from 'chai';
 
 import { resolveProject } from '../../src/resolve';
 
-const TEST_LABELS = ['foo', 'bar'];
-
 describe('resolve labels', () => {
   describe('flags with unfulfilled requires rule', () => {
     it('should be removed when required label is missing', () => {
@@ -17,6 +15,7 @@ describe('resolve labels', () => {
             name: 'linda',
           }],
         }],
+        initial: [],
         labels: ['gayle'],
         states: [],
       });
@@ -37,6 +36,7 @@ describe('resolve labels', () => {
             name: 'linda',
           }],
         }],
+        initial: [],
         labels: ['gayle', 'linda'],
         states: [],
       });
@@ -57,6 +57,7 @@ describe('resolve labels', () => {
           removes: [],
           requires: [],
         }],
+        initial: [],
         labels: ['bob'],
         states: [],
       });
@@ -77,6 +78,7 @@ describe('resolve labels', () => {
           }],
           requires: [],
         }],
+        initial: [],
         labels: ['bob', 'hugo'],
         states: [],
       });

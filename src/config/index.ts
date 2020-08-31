@@ -33,6 +33,8 @@ export interface ProjectConfig {
    */
   flags: Array<FlagLabel>;
 
+  initial: Array<string>;
+
   /**
    * Project name or path.
    */

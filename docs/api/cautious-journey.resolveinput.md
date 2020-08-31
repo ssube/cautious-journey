@@ -17,6 +17,7 @@ export interface ResolveInput
 |  Property | Type | Description |
 |  --- | --- | --- |
 |  [flags](./cautious-journey.resolveinput.flags.md) | Array&lt;[FlagLabel](./cautious-journey.flaglabel.md)<!-- -->&gt; |  |
+|  [initial](./cautious-journey.resolveinput.initial.md) | Array&lt;string&gt; |  |
 |  [labels](./cautious-journey.resolveinput.labels.md) | Array&lt;string&gt; |  |
 |  [states](./cautious-journey.resolveinput.states.md) | Array&lt;[StateLabel](./cautious-journey.statelabel.md)<!-- -->&gt; |  |
 

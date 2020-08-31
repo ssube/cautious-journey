@@ -10,6 +10,7 @@ export enum ChangeVerb {
   BECAME = 'became',
   CONFLICTED = 'conflicted',
   CREATED = 'created',
+  INITIAL = 'initial',
   REMOVED = 'removed',
   REQUIRED = 'required',
 }
@@ -44,6 +45,7 @@ export interface ErrorRecord {
  */
 export interface ResolveInput {
   flags: Array<FlagLabel>;
+  initial: Array<string>;
   labels: Array<string>;
   states: Array<StateLabel>;
 }
@@ -187,19 +189,33 @@ export function resolveProject(options: ResolveInput): ResolveResult {
     errors: [],
     labels: [],
   };
-  const activeLabels = new Set(options.labels);
 
-  const sortedFlags = prioritySort(options.flags);
-  for (const flag of sortedFlags) {
-    resolveBaseLabel(flag, result, activeLabels);
+  if (options.labels.length === 0) {
+    result.labels.push(...options.initial);
+
+    for (const i of options.initial) {
+      result.changes.push({
+        cause: '',
+        effect: ChangeVerb.INITIAL,
+        label: i,
+      });
+    }
+  } else {
+    const activeLabels = new Set(options.labels);
+
+    const sortedFlags = prioritySort(options.flags);
+    for (const flag of sortedFlags) {
+      resolveBaseLabel(flag, result, activeLabels);
+    }
+
+    const sortedStates = prioritySort(options.states);
+    for (const state of sortedStates) {
+      resolveState(state, result, activeLabels);
+    }
+
+    result.labels.push(...activeLabels);
   }
 
-  const sortedStates = prioritySort(options.states);
-  for (const state of sortedStates) {
-    resolveState(state, result, activeLabels);
-  }
-
-  result.labels = Array.from(activeLabels).sort();
-
+  result.labels.sort();
   return result;
 }

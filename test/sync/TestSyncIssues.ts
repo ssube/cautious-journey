@@ -46,6 +46,7 @@ describe('issue sync', () => {
             name: 'yep',
           }],
         }],
+        initial: [],
         name: 'foo',
         remote: remoteData,
         states: [],

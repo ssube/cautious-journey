@@ -121,6 +121,7 @@ definitions:
       - colors
       - comment
       - flags
+      - initial
       - name
       - remote
       - states
@@ -137,6 +138,11 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/flag-label"
+        default: []
+      initial:
+        type: array
+        items:
+          type: string
         default: []
       name:
         type: string

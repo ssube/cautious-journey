@@ -34,6 +34,9 @@ export abstract class BaseRemote<TClient, TOptions extends RemoteOptions> implem
         case ChangeVerb.CREATED:
           lines.push(`- \`${change.label}\` was created by \`${change.cause}\`.`);
           break;
+        case ChangeVerb.INITIAL:
+          lines.push(`- \`${change.label}\` is an initial label.`);
+          break;
         case ChangeVerb.REMOVED:
           lines.push(`- \`${change.label}\` was removed by \`${change.cause}\`.`);
           break;
