@@ -328,10 +328,10 @@
   resolved "https://artifacts.apextoaster.com/repository/group-npm/@microsoft/tsdoc/-/tsdoc-0.12.19.tgz#2173ccb92469aaf62031fa9499d21b16d07f9b57"
   integrity sha512-IpgPxHrNxZiMNUSXqR1l/gePKPkfAmIKoDRP9hp7OwjU29ZR8WCJsOJ8iBKgw0Qk+pFwR+8Y1cy8ImLY6e9m4A==
 
-"@octokit/auth-app@2.4.14":
-  version "2.4.14"
-  resolved "https://registry.yarnpkg.com/@octokit/auth-app/-/auth-app-2.4.14.tgz#c99aa2bfb38b4e3d20991cd7afcf34eae675ddcd"
-  integrity sha512-1D1+8VFZpgbQdaePVWll3qb7mpKazu15xtZ17xzLjbfGFUcB4ddp/nHvDtfIWTMWrx92Iaz+5FGLCLVi8p4WOg==
+"@octokit/auth-app@2.4.15":
+  version "2.4.15"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/@octokit/auth-app/-/auth-app-2.4.15.tgz#c36439bd5317df597fdb5294d8637d4d2633364b"
+  integrity sha512-rUijFdDfqR0G0hKKFl2BvOLFGY6Y3RWLxNt6jO7DiM1HaylLojcVlgIBwFxSjJ0ayiDXoVFrWjR9gh0DyOAFdQ==
   dependencies:
     "@octokit/request" "^5.3.0"
     "@octokit/request-error" "^2.0.0"
