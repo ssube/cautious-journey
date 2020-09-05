@@ -225,19 +225,16 @@
                 "allowForLoopAfterthoughts": true
             }
         ],
-        "no-redeclare": "error",
+        "no-redeclare": "off",
         "no-restricted-syntax": [
             "error",
             "ForInStatement"
         ],
         "no-return-await": "error",
         "no-sequences": "error",
-        "no-shadow": [
-            "error",
-            {
-                "hoist": "all"
-            }
-        ],
+	"no-shadow": "off",
+	"@typescript-eslint/no-redeclare": ["error"],
+	"@typescript-eslint/no-shadow": ["error"],
         "no-sparse-arrays": "error",
         "no-template-curly-in-string": "error",
         "no-throw-literal": "error",
