@@ -1,6 +1,7 @@
 {
 	"names": [
 		"@gitbeaker/node",
+		"@octokit",
 		"async_hooks",
 		"chai",
 		"dtrace-provider",
