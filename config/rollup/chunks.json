@@ -27,8 +27,7 @@
       "match": [
         "commonjs-external",
         "commonjsHelpers",
-        "node-resolve:",
-        "virtual:"
+        "node-resolve:"
       ]
     },
     {
@@ -38,6 +37,13 @@
         "/rules/"
       ],
       "match": []
+    },
+    {
+      "name": "virtual",
+      "includes": [],
+      "match": [
+        "virtual:"
+      ]
     }
   ]
 }
