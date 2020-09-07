@@ -41,7 +41,7 @@ const bundle = {
 		chunkFileNames: '[name].js',
 		entryFileNames: 'entry-[name].js',
 		exports: 'named',
-		format: 'module',
+		format: flag_browser ? 'module' : 'cjs',
 		minifyInternalExports: false,
 		sourcemap: true,
 	},
