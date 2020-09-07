@@ -33,6 +33,13 @@ module.exports = {
         'exports.isYargsInstance = exports.rebase = exports.Yargs = void 0;': '/* removed Yargs nonsense */',
       },
     }),
+    (flag_browser ? replace({
+      delimiters: ['', ''],
+      values: {
+        'var runtimeEnv;': 'var runtimeEnv = "browser";',
+        'var global = getGlobal();': '/* var removed */;',
+      },
+    }) : undefined),
     re({
       patterns: [{
         test: /import (\{.+\}) from "react";/,

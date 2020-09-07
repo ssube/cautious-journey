@@ -26,14 +26,14 @@ function chunkMap(map, debug = false) {
 
     if (name.length === 30 && name.match(/^[a-f0-9]+$/)) {
       if (debug) {
-        console.info('generated chunk name', chunk, name);
+        console.info('generated chunk name', name);
       }
 
       return 'vendor';
     }
 
     if (debug) {
-      console.info('name does not match any chunk', chunk, name);
+      console.info('name does not match any chunk', name);
     }
 
     return 'unknown';

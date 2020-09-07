@@ -64,13 +64,13 @@ const bundle = {
 		...plugins,
 		resolve({
 			browser: flag_browser,
-			preferBuiltins: true,
+			preferBuiltins: !flag_browser,
 		}),
 		commonjs(),
-		polyfills({
+		(flag_browser ? polyfills({
 			buffer: false,
 			process: true,
-		}),
+		}) : undefined),
 		eslint({
 			configFile: join('.', 'config', 'eslint.json'),
 			exclude: [
