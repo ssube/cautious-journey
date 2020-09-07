@@ -7,14 +7,14 @@ import { Commands, createParser, ParsedArgs } from './config/args';
 import { dotGraph, graphProject } from './graph';
 import { BunyanLogger } from './logger/bunyan';
 import { RemoteModule } from './module/RemoteModule';
-import { createMarkup, createSchema } from './platform';
+import { createMarkup, getSchemaOptions } from './platform';
 import { Remote, RemoteOptions } from './remote';
 import { syncIssueLabels, SyncOptions, syncProjectLabels } from './sync';
 import { defaultUntil } from './utils';
 import { VERSION_INFO } from './version';
 
 export { FlagLabel, StateLabel } from './labels';
-export { createMarkup, createSchema, readFile } from './platform';
+export { createMarkup, getSchemaOptions } from './platform';
 export { Remote, RemoteOptions } from './remote';
 export { GithubRemote } from './remote/github';
 export { GitlabRemote } from './remote/gitlab';
@@ -27,7 +27,7 @@ export const STATUS_FAILURE = 1;
 export const STATUS_SUCCESS = 0;
 
 export async function main(argv: Array<string>): Promise<number> {
-  const schema = createSchema();
+  const schema = getSchemaOptions();
 
   if (argv[0] === 'html') {
     createMarkup(schema);
@@ -37,7 +37,7 @@ export async function main(argv: Array<string>): Promise<number> {
   let mode = Commands.UNKNOWN as Commands;
   const parser = createParser((argMode) => mode = argMode as Commands);
   const args = parser.parse(argv.slice(ARGS_START));
-  const config = await initConfig(args.config);
+  const config = (await initConfig(args.config)).getData();
   const logger = BunyanLogger.create(config.logger);
 
   logger.info({

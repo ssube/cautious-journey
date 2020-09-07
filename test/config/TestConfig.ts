@@ -22,7 +22,9 @@ projects: []
         schema: DEFAULT_SAFE_SCHEMA,
       };
 
-      const config = await initConfig(path, include);
+      const config = (await initConfig(path, {
+        include,
+      })).getData();
       expect(include.read).to.have.been.calledWith(path, match.object);
       expect(config.logger.name).to.equal('test');
     });
@@ -39,7 +41,9 @@ projects: {}
         schema: DEFAULT_SAFE_SCHEMA,
       };
 
-      await expect(initConfig('./invalid.yml', include)).to.eventually.be.rejectedWith(Error);
+      await expect(initConfig('./invalid.yml', {
+        include,
+      })).to.eventually.be.rejectedWith(Error);
     });
 
     it('should throw on missing paths', async () => {
@@ -54,7 +58,9 @@ projects: {}
         schema: DEFAULT_SAFE_SCHEMA,
       };
 
-      await expect(initConfig('.fake', include)).to.eventually.be.rejectedWith(Error);
+      await expect(initConfig('.fake', {
+        include,
+      })).to.eventually.be.rejectedWith(Error);
     });
   });
 });

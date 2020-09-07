@@ -1,15 +1,18 @@
-import { doesExist, mustExist, NotFoundError } from '@apextoaster/js-utils';
-import { createSchema as realSchema } from '@apextoaster/js-yaml-schema';
-import { DEFAULT_SAFE_SCHEMA, Schema } from 'js-yaml';
+import { doesExist, mustExist, NotFoundError, NotImplementedError } from '@apextoaster/js-utils';
+import { createSchema, SchemaOptions } from '@apextoaster/js-yaml-schema';
+import { DEFAULT_SAFE_SCHEMA } from 'js-yaml';
 import { observable } from 'mobx';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { TextJourney } from '../component/TextJourney';
 
+export function createUsage() {
+  throw new NotImplementedError('argument parser is not implemented for browser target');
+}
 
-export function createSchema(): Schema {
-  return realSchema({
+export function getSchemaOptions(): SchemaOptions {
+  return {
     include: {
       exists: (path: string) => doesExist(document.getElementById(path)),
       join: (...path: Array<string>) => path.join('-'),
@@ -17,7 +20,7 @@ export function createSchema(): Schema {
       resolve: (path: string) => `data-${path}`,
       schema: DEFAULT_SAFE_SCHEMA,
     }
-  });
+  };
 }
 
 export function readFile(path: string): string {
@@ -29,7 +32,8 @@ export function readFile(path: string): string {
   }
 }
 
-export function createMarkup(schema: Schema): void {
+export function createMarkup(options: SchemaOptions): void {
+  const schema = createSchema(options);
   const state = observable({
     config: `# this field accepts YAML config
 projects:

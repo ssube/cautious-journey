@@ -1,10 +1,10 @@
-import { InvalidArgumentError } from '@apextoaster/js-utils';
+import { InvalidArgumentError, isNil } from '@apextoaster/js-utils';
 import { safeDump, safeLoad, Schema } from 'js-yaml';
 import { observer } from 'mobx-react';
 import React from 'react';
 
-import { validateConfig } from '../config';
-import { resolveLabels } from '../resolve';
+import { ConfigData, CONFIG_SCHEMA_KEY, createValidator, initConfig } from '../config';
+import { resolveProject } from '../resolve';
 
 /* eslint-disable no-console */
 
@@ -48,24 +48,38 @@ export class TextJourney extends React.Component<TextJourneyProps> {
     this.props.state.labels = e.target.value;
   }
 
-  public onResolve(e: unknown) {
+  public async onResolve(e: unknown) {
     console.log('text journey resolve button clicked', e);
 
     try {
       // parse the demo-input value using the config schema
-      const config = safeLoad(this.props.state.config, {
+      const data = safeLoad(this.props.state.config, {
         schema: this.props.schema,
       });
 
-      if (!validateConfig(config)) {
-        throw new InvalidArgumentError('input must be a config object');
+      if (isNil(data) || typeof data === 'string') {
+        throw new InvalidArgumentError('data must be an object');
       }
+
+      const schema = createValidator();
+      const result = schema.validate(CONFIG_SCHEMA_KEY, data);
+      if (result !== true) {
+        if (Array.isArray(schema.errors)) {
+          this.props.state.output = JSON.stringify(schema.errors);
+        } else {
+          this.props.state.output = 'schema failed without errors';
+        }
+      }
+
+      // TODO: shouldn't need a cast, but schema.validate only guards for object
+      const config = data as ConfigData;
 
       // calculate expected labels
       const results = [];
       for (const project of config.projects) {
-        const result = resolveLabels({
+        const result = resolveProject({
           flags: project.flags,
+          initial: [],
           labels: this.props.state.labels.split(','),
           states: project.states,
         });

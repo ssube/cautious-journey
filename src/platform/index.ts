@@ -1,14 +1,18 @@
 import { NotImplementedError } from '@apextoaster/js-utils';
+import { SchemaOptions } from '@apextoaster/js-yaml-schema';
 import { Schema } from 'js-yaml';
+import { usage } from 'yargs';
+
+const SHIM_ERROR = 'load a platform-specific handler';
 
 export function createMarkup(schema: Schema): void {
-  throw new NotImplementedError('load a platform-specific handler');
+  throw new NotImplementedError(SHIM_ERROR);
 }
 
-export function createSchema(): Schema {
-  throw new NotImplementedError('load a platform-specific handler');
+export function createUsage(): typeof usage {
+  throw new NotImplementedError(SHIM_ERROR);
 }
 
-export function readFile(path: string): string {
-  throw new NotImplementedError('load a platform-specific handler');
+export function getSchemaOptions(): SchemaOptions {
+  throw new NotImplementedError(SHIM_ERROR);
 }

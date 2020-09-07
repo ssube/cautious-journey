@@ -1,6 +1,5 @@
 {
 	"names": [
-		"@gitbeaker/node",
 		"@octokit",
 		"async_hooks",
 		"chai",

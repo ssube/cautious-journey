@@ -7,13 +7,14 @@ import yaml from '@rollup/plugin-yaml';
 import { join } from 'path';
 import { eslint } from 'rollup-plugin-eslint';
 import serve from 'rollup-plugin-serve';
-import { terser } from 'rollup-plugin-terser';
 import typescript from 'rollup-plugin-typescript2';
 import visualizer from 'rollup-plugin-visualizer';
+import polyfills from 'rollup-plugin-node-polyfills';
 
 const { chunkMap } = require('./map.js');
 const { plugins } = require('./project.js');
 
+const flag_browser = process.env['NODE_TARGET'] === 'browser';
 const flag_debug = process.env['DEBUG'] === 'TRUE';
 const flag_devel = process.env['NODE_ENV'] === 'production';
 const flag_serve = flag_devel || process.env['SERVE'] === 'TRUE';
@@ -40,7 +41,7 @@ const bundle = {
 		chunkFileNames: '[name].js',
 		entryFileNames: 'entry-[name].js',
 		exports: 'named',
-		format: 'cjs',
+		format: 'module',
 		minifyInternalExports: false,
 		sourcemap: true,
 	},
@@ -62,9 +63,14 @@ const bundle = {
 		}),
 		...plugins,
 		resolve({
+			browser: flag_browser,
 			preferBuiltins: true,
 		}),
 		commonjs(),
+		polyfills({
+			buffer: false,
+			process: true,
+		}),
 		eslint({
 			configFile: join('.', 'config', 'eslint.json'),
 			exclude: [

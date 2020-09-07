@@ -226,7 +226,7 @@
     reflect-metadata "^0.1.12"
     tslib "^1.8.1"
 
-"@gitbeaker/browser@23.5.0":
+"@gitbeaker/browser@^23.5.0":
   version "23.5.0"
   resolved "https://artifacts.apextoaster.com/repository/group-npm/@gitbeaker/browser/-/browser-23.5.0.tgz#f97156955e0cc6d2a903f6deef694aaef1458c85"
   integrity sha512-mqgYaLPTbkawKagAoUv2eVLT2+dEwhtaGko43UC6vWgBPKldDftQli9QsMaSjFO270PXA/l4ALZ0CTf/9GYXiA==
@@ -3630,6 +3630,13 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
+magic-string@^0.16.0:
+  version "0.16.0"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/magic-string/-/magic-string-0.16.0.tgz#970ebb0da7193301285fb1aa650f39bdd81eb45a"
+  integrity sha1-lw67DacZMwEoX7GqZQ85vdgetFo=
+  dependencies:
+    vlq "^0.2.1"
+
 magic-string@^0.25.2, magic-string@^0.25.3, magic-string@^0.25.5, magic-string@^0.25.7:
   version "0.25.7"
   resolved "https://artifacts.apextoaster.com/repository/group-npm/magic-string/-/magic-string-0.25.7.tgz#3f497d6fd34c669c6798dcb821f2ef31f5445051"
@@ -4888,6 +4895,14 @@ rollup-plugin-node-resolve@5.2.0:
     resolve "^1.11.1"
     rollup-pluginutils "^2.8.1"
 
+rollup-plugin-re@^1.0.7:
+  version "1.0.7"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/rollup-plugin-re/-/rollup-plugin-re-1.0.7.tgz#fe174704ed59cda84caf02bd013b582e6fdaa4f6"
+  integrity sha1-/hdHBO1ZzahMrwK9ATtYLm/apPY=
+  dependencies:
+    magic-string "^0.16.0"
+    rollup-pluginutils "^2.0.1"
+
 rollup-plugin-replace@2.2.0:
   version "2.2.0"
   resolved "https://artifacts.apextoaster.com/repository/group-npm/rollup-plugin-replace/-/rollup-plugin-replace-2.2.0.tgz#f41ae5372e11e7a217cde349c8b5d5fd115e70e3"
@@ -5856,6 +5871,11 @@ verror@1.10.0:
     assert-plus "^1.0.0"
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
+
+vlq@^0.2.1:
+  version "0.2.3"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/vlq/-/vlq-0.2.3.tgz#8f3e4328cf63b1540c0d67e1b2778386f8975b26"
+  integrity sha512-DRibZL6DsNhIgYQ+wNdWDL2SL3bKPlVrRiBqV5yuMm++op8W4kGFtaQfCs4KEJn0wBZcHVHJ3eoywX8983k1ow==
 
 w3c-hr-time@^1.0.2:
   version "1.0.2"

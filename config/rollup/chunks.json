@@ -22,7 +22,8 @@
     {
       "name": "vendor",
       "includes": [
-        "node_modules/"
+        "node_modules/",
+	"src/platform/path"
       ],
       "match": [
         "commonjs-external",

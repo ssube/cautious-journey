@@ -1,12 +1,10 @@
-import { createConfig } from '@apextoaster/js-config';
-import { IncludeOptions } from '@apextoaster/js-yaml-schema';
+import { Config, createConfig } from '@apextoaster/js-config';
 import Ajv from 'ajv';
-import { existsSync, readFileSync, realpathSync } from 'fs';
-import { DEFAULT_SAFE_SCHEMA } from 'js-yaml';
 import { LogLevel } from 'noicejs';
-import { join } from 'path';
+import process from 'process';
 
 import { FlagLabel, StateLabel } from '../labels';
+import { getSchemaOptions } from '../platform';
 import { RemoteOptions } from '../remote';
 import * as SCHEMA_DATA from './schema.yml';
 
@@ -59,35 +57,6 @@ export interface ConfigData {
   projects: Array<ProjectConfig>;
 }
 
-export const CONFIG_SCHEMA_KEY = 'cautious-journey#/definitions/config';
-
-/**
- * Load the config from files.
- */
-export async function initConfig(path: string, include = SCHEMA_OPTIONS): Promise<ConfigData> {
-  const validator = new Ajv(AJV_OPTIONS);
-  validator.addSchema(SCHEMA_DATA, 'cautious-journey');
-
-  const config = createConfig<ConfigData>({
-    config: {
-      key: CONFIG_SCHEMA_KEY,
-      sources: [{
-        include,
-        name: '.',
-        paths: [path],
-        type: 'file',
-      }],
-    },
-    process,
-    schema: {
-      include,
-    },
-    validator,
-  });
-
-  return config.getData();
-}
-
 export const AJV_OPTIONS: Ajv.Options = {
   allErrors: true,
   coerceTypes: 'array',
@@ -98,10 +67,32 @@ export const AJV_OPTIONS: Ajv.Options = {
   verbose: true,
 };
 
-export const SCHEMA_OPTIONS: IncludeOptions = {
-  exists: existsSync,
-  join,
-  read: readFileSync,
-  resolve: realpathSync,
-  schema: DEFAULT_SAFE_SCHEMA,
-};
+export const CONFIG_SCHEMA_KEY = 'cautious-journey#/definitions/config';
+
+export function createValidator() {
+  const validator = new Ajv(AJV_OPTIONS);
+  validator.addSchema(SCHEMA_DATA, 'cautious-journey');
+
+  return validator;
+}
+
+/**
+ * Load the config from files.
+ */
+export async function initConfig(path: string, schema = getSchemaOptions()): Promise<Config<ConfigData>> {
+  const validator = createValidator();
+  return createConfig<ConfigData>({
+    config: {
+      key: CONFIG_SCHEMA_KEY,
+      sources: [{
+        include: schema.include,
+        name: '.',
+        paths: [path],
+        type: 'file',
+      }],
+    },
+    process,
+    schema,
+    validator,
+  });
+}
