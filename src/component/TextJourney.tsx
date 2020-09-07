@@ -3,7 +3,7 @@ import { safeDump, safeLoad, Schema } from 'js-yaml';
 import { observer } from 'mobx-react';
 import React from 'react';
 
-import { ConfigData, CONFIG_SCHEMA_KEY, createValidator, initConfig } from '../config';
+import { CONFIG_SCHEMA_KEY, ConfigData, createValidator } from '../config';
 import { resolveProject } from '../resolve';
 
 /* eslint-disable no-console */

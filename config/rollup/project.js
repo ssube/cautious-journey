@@ -1,6 +1,5 @@
 const { join } = require('path');
 const alias = require('rollup-plugin-alias');
-const polyfills = require('rollup-plugin-node-polyfills');
 const re = require('rollup-plugin-re');
 const replace = require('@rollup/plugin-replace');
 
