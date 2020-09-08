@@ -50,6 +50,14 @@ feat(labels): set flux capacitance per label
 fix(sync): stop erasing all labels by accident
 ```
 
+If `git commit` complains about a missing `husky` command, run `yarn` first to install dependencies and set up
+the husky commit hooks:
+
+```shell
+> git commit -m 'fix(test): cover the frobulators'
+error Command "husky-run" not found.
+```
+
 ### Deploying Releases
 
 TODO
