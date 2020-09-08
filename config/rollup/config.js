@@ -61,16 +61,13 @@ const bundle = {
 				PACKAGE_VERSION: metadata.version,
 			},
 		}),
-		...plugins,
+		...plugins.pre,
 		resolve({
 			browser: flag_browser,
 			preferBuiltins: !flag_browser,
 		}),
 		commonjs(),
-		(flag_browser ? polyfills({
-			buffer: false,
-			process: true,
-		}) : undefined),
+		...plugins.post,
 		eslint({
 			configFile: join('.', 'config', 'eslint.json'),
 			exclude: [
