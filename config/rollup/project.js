@@ -1,8 +1,9 @@
 const { join } = require('path');
 const alias = require('rollup-plugin-alias');
+const polyfills = require('rollup-plugin-node-polyfills');
 const re = require('rollup-plugin-re');
 const replace = require('@rollup/plugin-replace');
-const polyfills = require('rollup-plugin-node-polyfills');
+const styles = require('rollup-plugin-styles');
 
 const flag_browser = process.env['NODE_TARGET'] === 'browser';
 const rootPath = process.env['ROOT_PATH'];
@@ -64,6 +65,9 @@ module.exports = {
       }),
     ],
     post: [
+      (flag_browser ? styles({
+        // ?
+      }) : undefined),
       (flag_browser ? polyfills({
         buffer: false,
         process: true,

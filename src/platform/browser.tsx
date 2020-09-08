@@ -5,6 +5,7 @@ import { observable } from 'mobx';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import '../component/base.scss';
 import { TextJourney } from '../component/TextJourney';
 
 export function createUsage() {

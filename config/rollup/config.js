@@ -9,7 +9,6 @@ import { eslint } from 'rollup-plugin-eslint';
 import serve from 'rollup-plugin-serve';
 import typescript from 'rollup-plugin-typescript2';
 import visualizer from 'rollup-plugin-visualizer';
-import polyfills from 'rollup-plugin-node-polyfills';
 
 const { chunkMap } = require('./map.js');
 const { plugins } = require('./project.js');
