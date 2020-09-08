@@ -2,6 +2,9 @@ ci: build test
 
 RUN_CONFIG ?= $(HOME)/.cautious-journey.yml
 
+build-browser:
+	SERVE=TRUE NODE_TARGET=browser make build
+
 run-help:
 	node --require esm ./out/index.js --help
 
