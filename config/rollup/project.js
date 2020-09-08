@@ -26,6 +26,7 @@ module.exports = {
         entries: {
           './platform': join(rootPath, 'src', 'platform', flag_browser ? 'browser.tsx' : 'cli.ts'),
           '../platform': join(rootPath, 'src', 'platform', flag_browser ? 'browser.tsx' : 'cli.ts'),
+          '../src/platform': join(rootPath, 'src', 'platform', flag_browser ? 'browser.tsx' : 'cli.ts'),
         },
       }),
       replace({
