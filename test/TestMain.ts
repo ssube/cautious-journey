@@ -3,10 +3,10 @@ import { expect } from 'chai';
 import { Container, NullLogger } from 'noicejs';
 import { createStubInstance } from 'sinon';
 
-import { Commands, ParsedArgs } from '../src/config/args';
-import { GithubRemote, mainProject, Remote, RemoteOptions, STATUS_FAILURE, STATUS_SUCCESS } from '../src/main';
-import { RemoteModule } from '../src/module/RemoteModule';
 import { ProjectConfig } from '../src/config';
+import { Commands, ParsedArgs } from '../src/config/args';
+import { GithubRemote, main, mainProject, Remote, RemoteOptions, STATUS_FAILURE, STATUS_SUCCESS } from '../src/main';
+import { RemoteModule } from '../src/module/RemoteModule';
 
 const TEST_REMOTE = 'test-remote';
 const TEST_PROJECT: ProjectConfig = {
@@ -25,7 +25,16 @@ const TEST_PROJECT: ProjectConfig = {
 };
 
 describe('main app', () => {
-  it('should parse command line arguments');
+  it('should parse command line arguments', async () => {
+    await expect(main([
+      'node',
+      'script',
+      'graph-labels',
+      '--config',
+      './docs/config.yml',
+    ])).to.eventually.equal(0);
+  });
+
   it('should load config from file');
 
   it('should create a remote', async () => {
@@ -91,5 +100,9 @@ describe('main app', () => {
     const status = await mainProject(args, container, logger, mode, TEST_PROJECT);
     expect(status).to.equal(STATUS_SUCCESS);
     expect(remote.connect).to.have.callCount(0);
+  });
+
+  it('should create markup and exit', async () => {
+    await expect(main(['html'])).to.eventually.be.rejectedWith(NotImplementedError); // not impl for cli
   });
 });

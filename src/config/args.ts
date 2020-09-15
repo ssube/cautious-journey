@@ -1,5 +1,4 @@
-import { usage } from 'yargs';
-
+import { createUsage } from '../platform';
 import { VERSION_INFO } from '../version';
 
 export enum Commands {
@@ -23,6 +22,7 @@ export interface ParsedArgs {
 type Modeback = (mode: string) => void;
 
 export function createParser(modeset: Modeback): Parser<ParsedArgs> {
+  const usage = createUsage();
   /* eslint-disable-next-line sonarjs/prefer-immediate-return */
   const parser = usage(`Usage: ${VERSION_INFO.package.name} <mode> [options]`)
     .scriptName(VERSION_INFO.package.name)

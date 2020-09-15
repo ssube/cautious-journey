@@ -3,14 +3,14 @@
     {
       "name": "index",
       "includes": [
-        "/src/index"
+        "cautious-journey/src/index"
       ],
       "match": []
     },
     {
       "name": "test",
       "includes": [
-        "/test/"
+        "cautious-journey/test/"
       ],
       "match": [
         "node_modules/chai",
@@ -22,7 +22,8 @@
     {
       "name": "vendor",
       "includes": [
-        "node_modules/"
+        "node_modules/",
+        "src/platform/path"
       ],
       "match": [
         "commonjs-external",
