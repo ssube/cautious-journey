@@ -37,7 +37,7 @@
     "@types/react": "16.9.49",
     "@types/react-dom": "16.9.8",
     "@types/seedrandom": "2.4.28",
-    "@types/sinon-chai": "3.2.4",
+    "@types/sinon-chai": "3.2.5",
     "@types/source-map-support": "0.5.3",
     "@types/yargs": "15.0.7",
     "@typescript-eslint/eslint-plugin": "4.2.0",
