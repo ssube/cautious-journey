@@ -15,7 +15,7 @@
     "@apextoaster/js-utils": "0.2.1",
     "@apextoaster/js-yaml-schema": "0.4.0-3",
     "@gitbeaker/browser": "23.5.0",
-    "@gitbeaker/core": "23.5.0",
+    "@gitbeaker/core": "24.3.0",
     "@gitbeaker/node": "23.5.0",
     "@istanbuljs/nyc-config-typescript": "1.0.1",
     "@microsoft/api-documenter": "7.9.12",
