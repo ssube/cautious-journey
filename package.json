@@ -55,7 +55,7 @@
     "eslint-plugin-no-null": "1.0.2",
     "eslint-plugin-sonarjs": "0.5.0",
     "esm": "3.2.25",
-    "husky": "4.3.0",
+    "husky": "4.3.5",
     "jsdom": "16.4.0",
     "jsdom-global": "3.0.2",
     "lodash": "4.17.20",
