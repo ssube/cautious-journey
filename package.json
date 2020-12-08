@@ -20,7 +20,7 @@
     "@istanbuljs/nyc-config-typescript": "1.0.1",
     "@microsoft/api-documenter": "7.9.16",
     "@microsoft/api-extractor": "7.11.0",
-    "@octokit/auth-app": "2.7.0",
+    "@octokit/auth-app": "2.10.4",
     "@octokit/rest": "18.0.6",
     "@rollup/plugin-commonjs": "15.1.0",
     "@rollup/plugin-json": "4.1.0",
