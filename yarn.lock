@@ -226,13 +226,13 @@
     reflect-metadata "^0.1.12"
     tslib "^1.8.1"
 
-"@gitbeaker/browser@23.5.0":
-  version "23.5.0"
-  resolved "https://registry.yarnpkg.com/@gitbeaker/browser/-/browser-23.5.0.tgz#f97156955e0cc6d2a903f6deef694aaef1458c85"
-  integrity sha512-mqgYaLPTbkawKagAoUv2eVLT2+dEwhtaGko43UC6vWgBPKldDftQli9QsMaSjFO270PXA/l4ALZ0CTf/9GYXiA==
+"@gitbeaker/browser@23.7.0":
+  version "23.7.0"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/@gitbeaker/browser/-/browser-23.7.0.tgz#5d2b64953d4da56c17d65267bc0f5cf452ed560e"
+  integrity sha512-tOF95uKM3ubpMU11REZrdvztOOMp+3m/1Dt9Ez4GrCm2xg53ruGaEp7rx5HR9nNYMKJxA/GakhD+Ax1FXKnAtA==
   dependencies:
-    "@gitbeaker/core" "^23.5.0"
-    "@gitbeaker/requester-utils" "^23.5.0"
+    "@gitbeaker/core" "^23.7.0"
+    "@gitbeaker/requester-utils" "^23.7.0"
     ky "^0.23.0"
 
 "@gitbeaker/core@23.5.0", "@gitbeaker/core@^23.5.0":
@@ -241,6 +241,16 @@
   integrity sha512-5geLk7SxAttABBJZxfuSp72lSYWRyRId583vGCpKB6ISkoDhP+vJxdE6ypmtOJPV4CaSRZhluAGAZd968pi9ng==
   dependencies:
     "@gitbeaker/requester-utils" "^23.5.0"
+    form-data "^3.0.0"
+    li "^1.3.0"
+    xcase "^2.0.1"
+
+"@gitbeaker/core@^23.7.0":
+  version "23.7.0"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/@gitbeaker/core/-/core-23.7.0.tgz#9d0599aa849abfa4c360a0c7ddae875ad54f195d"
+  integrity sha512-f41uccuuGX+NCS40+GWlvRmiF7fpMOlvW21hWVyV7W3+h648Rp1kWsAk7/x2ekjXInKAxmp3esrs9z0SKvOXKA==
+  dependencies:
+    "@gitbeaker/requester-utils" "^23.7.0"
     form-data "^3.0.0"
     li "^1.3.0"
     xcase "^2.0.1"
@@ -261,6 +271,15 @@
   integrity sha512-MdmInOO4unkApvtbv6PnIpDYXosgZgClSOqbxF5S4aJRCZVTJ6oPjMoNP8luhyT9xQeknpKxn9Iv8psEh7IC1Q==
   dependencies:
     query-string "^6.12.1"
+    xcase "^2.0.1"
+
+"@gitbeaker/requester-utils@^23.7.0":
+  version "23.7.0"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/@gitbeaker/requester-utils/-/requester-utils-23.7.0.tgz#80016ad6f7caec6ee37e59464daa11b4e8e65727"
+  integrity sha512-VKCoUQf5iUNdk9T/wXTHt1WoZSX2b6Qxq3dWii7wiiwnMyMV/KHe7lAkIZOlS/8X8L0CKmesGkt8ZsRbh7Vi9Q==
+  dependencies:
+    form-data "^3.0.0"
+    query-string "^6.13.3"
     xcase "^2.0.1"
 
 "@istanbuljs/load-nyc-config@^1.0.0":
@@ -4527,6 +4546,15 @@ query-string@^6.12.1:
   version "6.13.1"
   resolved "https://artifacts.apextoaster.com/repository/group-npm/query-string/-/query-string-6.13.1.tgz#d913ccfce3b4b3a713989fe6d39466d92e71ccad"
   integrity sha512-RfoButmcK+yCta1+FuU8REvisx1oEzhMKwhLUNcepQTPGcNMp1sIqjnfCtfnvGSQZQEhaBHvccujtWoUV3TTbA==
+  dependencies:
+    decode-uri-component "^0.2.0"
+    split-on-first "^1.0.0"
+    strict-uri-encode "^2.0.0"
+
+query-string@^6.13.3:
+  version "6.13.7"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/query-string/-/query-string-6.13.7.tgz#af53802ff6ed56f3345f92d40a056f93681026ee"
+  integrity sha512-CsGs8ZYb39zu0WLkeOhe0NMePqgYdAuCqxOYKDR5LVCytDZYMGx3Bb+xypvQvPHVPijRXB0HZNFllCzHRe4gEA==
   dependencies:
     decode-uri-component "^0.2.0"
     split-on-first "^1.0.0"
