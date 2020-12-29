@@ -10,6 +10,7 @@ import { GithubRemote } from '../../src/remote/github';
 import { ChangeVerb } from '../../src/resolve';
 import { createRemoteContainer } from './helpers';
 
+const REMOTE_STATUS = 200;
 const REMOTE_OPTIONS: Omit<RemoteOptions, 'container'> = {
   data: {
     token: 'test',
@@ -304,7 +305,7 @@ describe('github remote', () => {
       const listStub = stub(client.issues, 'listForRepo').returns(Promise.resolve({
         data: [],
         headers: {},
-        status: 0,
+        status: REMOTE_STATUS,
         url: '',
       }));
       module.bind(Octokit).toInstance(client);
@@ -338,7 +339,7 @@ describe('github remote', () => {
       const listStub = stub(client.issues, 'listLabelsForRepo').returns(Promise.resolve({
         data: [],
         headers: {},
-        status: 0,
+        status: REMOTE_STATUS,
         url: '',
       }));
       module.bind(Octokit).toInstance(client);
@@ -432,7 +433,7 @@ describe('github remote', () => {
           url: '',
         },
         headers: {},
-        status: 0,
+        status: REMOTE_STATUS,
         url: '',
       }));
       module.bind(Octokit).toInstance(client);
