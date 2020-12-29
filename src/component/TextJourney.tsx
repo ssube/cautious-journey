@@ -62,8 +62,8 @@ export class TextJourney extends React.Component<TextJourneyProps> {
       }
 
       const schema = createValidator();
-      const result = schema.validate(CONFIG_SCHEMA_KEY, data);
-      if (result !== true) {
+      const valid = schema.validate(CONFIG_SCHEMA_KEY, data);
+      if (valid !== true) {
         if (Array.isArray(schema.errors)) {
           this.props.state.output = JSON.stringify(schema.errors);
         } else {
