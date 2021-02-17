@@ -3983,10 +3983,10 @@ mobx-react@7.1.0:
   dependencies:
     mobx-react-lite "^3.2.0"
 
-mobx@6.1.5:
-  version "6.1.5"
-  resolved "https://artifacts.apextoaster.com/repository/group-npm/mobx/-/mobx-6.1.5.tgz#bef273670c520eb67d09938812de525ad7be4c9f"
-  integrity sha512-BsVAHEk/Ty+6BmCis0CUvA7E9u5aJpUkdRM91YwBt4lVha4heDLjRT43z2pqENeFuVZPfA1RRaf7sRcqRB2i4Q==
+mobx@6.1.7:
+  version "6.1.7"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/mobx/-/mobx-6.1.7.tgz#009c65f6909ee89ab42dd4b058577739f0d899df"
+  integrity sha512-2iIgg2o0jd/bWAK/9KHJ1uwKHGowKyaTUM4qarJ0qGdLskYcB3sJevjjV7t7jW0WVjItz6BBlPNiZ14oHTpvMg==
 
 mocha@8.2.1:
   version "8.2.1"
