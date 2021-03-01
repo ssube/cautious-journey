@@ -59,7 +59,7 @@
     "jsdom": "16.4.0",
     "jsdom-global": "3.0.2",
     "lodash": "4.17.20",
-    "mobx": "6.1.5",
+    "mobx": "6.1.8",
     "mobx-react": "7.1.0",
     "mocha": "8.2.1",
     "noicejs": "3.1.0",
