@@ -58,7 +58,7 @@
     "husky": "4.3.8",
     "jsdom": "16.4.0",
     "jsdom-global": "3.0.2",
-    "lodash": "4.17.20",
+    "lodash": "4.17.21",
     "mobx": "6.1.5",
     "mobx-react": "7.1.0",
     "mocha": "8.2.1",
