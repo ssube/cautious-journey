@@ -1,6 +1,6 @@
 import { IncludeOptions } from '@apextoaster/js-yaml-schema';
 import { expect } from 'chai';
-import { DEFAULT_SAFE_SCHEMA } from 'js-yaml';
+import { DEFAULT_SCHEMA } from 'js-yaml';
 import { match, stub } from 'sinon';
 
 import { initConfig } from '../../src/config';
@@ -19,7 +19,7 @@ logger:
 projects: []
         `),
         resolve: stub(),
-        schema: DEFAULT_SAFE_SCHEMA,
+        schema: DEFAULT_SCHEMA,
       };
 
       const config = await initConfig(path, include);
@@ -36,7 +36,7 @@ logger: []
 projects: {}
         `),
         resolve: stub(),
-        schema: DEFAULT_SAFE_SCHEMA,
+        schema: DEFAULT_SCHEMA,
       };
 
       await expect(initConfig('./invalid.yml', include)).to.eventually.be.rejectedWith(Error);
@@ -51,7 +51,7 @@ projects: {}
         join: stub().returnsArg(0),
         read: stub().throws(err),
         resolve: stub(),
-        schema: DEFAULT_SAFE_SCHEMA,
+        schema: DEFAULT_SCHEMA,
       };
 
       await expect(initConfig('.fake', include)).to.eventually.be.rejectedWith(Error);

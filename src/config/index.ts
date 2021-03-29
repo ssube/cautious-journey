@@ -2,7 +2,7 @@ import { createConfig } from '@apextoaster/js-config';
 import { IncludeOptions } from '@apextoaster/js-yaml-schema';
 import Ajv from 'ajv';
 import { existsSync, readFileSync, realpathSync } from 'fs';
-import { DEFAULT_SAFE_SCHEMA } from 'js-yaml';
+import { DEFAULT_SCHEMA } from 'js-yaml';
 import { LogLevel } from 'noicejs';
 import { join } from 'path';
 
@@ -103,5 +103,5 @@ export const SCHEMA_OPTIONS: IncludeOptions = {
   join,
   read: readFileSync,
   resolve: realpathSync,
-  schema: DEFAULT_SAFE_SCHEMA,
+  schema: DEFAULT_SCHEMA,
 };
