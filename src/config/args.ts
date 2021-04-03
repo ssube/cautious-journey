@@ -1,7 +1,6 @@
-import { VERSION_INFO } from '../version';
+import { usage } from 'yargs';
 
-/* eslint-disable-next-line @typescript-eslint/no-var-requires */
-const yargs = require('yargs');
+import { VERSION_INFO } from '../version';
 
 export enum Commands {
   UNKNOWN = 'unknown',
@@ -25,7 +24,7 @@ type Modeback = (mode: string) => void;
 
 export function createParser(modeset: Modeback): Parser<ParsedArgs> {
   /* eslint-disable-next-line sonarjs/prefer-immediate-return */
-  const parser = yargs.usage(`Usage: ${VERSION_INFO.package.name} <mode> [options]`)
+  const parser = usage(`Usage: ${VERSION_INFO.package.name} <mode> [options]`)
     .scriptName(VERSION_INFO.package.name)
     .command({
       command: Commands.GRAPH,
