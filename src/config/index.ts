@@ -72,7 +72,6 @@ export async function initConfig(path: string, include = SCHEMA_OPTIONS): Promis
     config: {
       key: CONFIG_SCHEMA_KEY,
       sources: [{
-        include,
         name: '.',
         paths: [path],
         type: 'file',
