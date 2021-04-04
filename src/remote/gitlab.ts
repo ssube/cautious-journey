@@ -1,21 +1,20 @@
 import { mustExist } from '@apextoaster/js-utils';
-import { GetResponse } from '@gitbeaker/core/dist/types/infrastructure/RequestHelper';
-import { Bundle } from '@gitbeaker/core/dist/types/infrastructure/Utils';
+import { BundleType } from '@gitbeaker/core/dist/types/infrastructure/Utils';
 import { IssueNotes, Issues, Labels, Projects, ProjectsBundle } from '@gitbeaker/node';
 
 import { CommentUpdate, IssueUpdate, LabelUpdate, ProjectQuery, Remote, RemoteOptions } from '.';
 import { BaseRemote } from './base';
 
 // gitbeaker exports the bundle types as const, breaking typeof
-type RemoteBundle = InstanceType<Bundle<{
+type RemoteBundle = InstanceType<BundleType<{
   Issues: typeof Issues;
   IssueNotes: typeof IssueNotes;
   Labels: typeof Labels;
   Projects: typeof Projects;
 }, 'Issues' | 'IssueNotes' | 'Labels' | 'Projects'>>;
 
-export function unwrapResponse<T>(resp: GetResponse): T {
-  return (resp as unknown) as T;
+export function unwrapResponse<T>(resp: unknown): T {
+  return resp as T;
 }
 
 /**
