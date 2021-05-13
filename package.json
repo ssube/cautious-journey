@@ -18,7 +18,7 @@
     "@gitbeaker/core": "23.7.0",
     "@gitbeaker/node": "23.7.0",
     "@istanbuljs/nyc-config-typescript": "1.0.1",
-    "@microsoft/api-documenter": "7.13.6",
+    "@microsoft/api-documenter": "7.13.8",
     "@microsoft/api-extractor": "7.15.1",
     "@octokit/auth-app": "3.3.0",
     "@octokit/rest": "18.5.2",
