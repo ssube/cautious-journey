@@ -36,7 +36,7 @@
     "@types/lodash": "4.14.170",
     "@types/mocha": "8.2.2",
     "@types/react": "17.0.11",
-    "@types/react-dom": "17.0.7",
+    "@types/react-dom": "17.0.8",
     "@types/seedrandom": "2.4.29",
     "@types/sinon": "10.0.2",
     "@types/sinon-chai": "3.2.5",
