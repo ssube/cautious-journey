@@ -32,7 +32,7 @@
     "@types/bunyan": "1.8.7",
     "@types/chai": "4.2.21",
     "@types/chai-as-promised": "7.1.4",
-    "@types/js-yaml": "4.0.1",
+    "@types/js-yaml": "4.0.2",
     "@types/lodash": "4.14.170",
     "@types/mocha": "8.2.3",
     "@types/react": "17.0.11",
