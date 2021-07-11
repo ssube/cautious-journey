@@ -364,10 +364,10 @@
     "@nodelib/fs.scandir" "2.1.3"
     fastq "^1.6.0"
 
-"@octokit/auth-app@3.5.0":
-  version "3.5.0"
-  resolved "https://artifacts.apextoaster.com/repository/group-npm/@octokit/auth-app/-/auth-app-3.5.0.tgz#e12647fd0a4b344ad5e371bcd6d37e836563fc31"
-  integrity sha512-U62Ys2qeViLcLRjbwEjfo2wk7bDA5IcRuUJKbhtSDNhZheV227zRPfeCcazbfArY5XDDFvTFZppV3eXLQotMzQ==
+"@octokit/auth-app@3.5.3":
+  version "3.5.3"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/@octokit/auth-app/-/auth-app-3.5.3.tgz#078a552b04141c8e0933989ab6bf8125961742d7"
+  integrity sha512-KB5pZCQ3lN9U47+dTAPlyzQO4bFwaaJClnMI2vOYJC0HPm7mGxZ1m/xG7Tk2rn6g07Ei6n06vYoWvuuuHYkXNA==
   dependencies:
     "@octokit/auth-oauth-app" "^4.3.0"
     "@octokit/auth-oauth-user" "^1.2.3"
