@@ -978,10 +978,10 @@
   resolved "https://artifacts.apextoaster.com/repository/group-npm/@types/scheduler/-/scheduler-0.16.1.tgz#18845205e86ff0038517aab7a18a62a6b9f71275"
   integrity sha512-EaCxbanVeyxDRTQBkdLb3Bvl/HK7PBK6UJjsSixB0iHKoWxE5uu2Q/DgtpOhPIojN0Zl1whvOd7PoHs2P0s5eA==
 
-"@types/seedrandom@2.4.29":
-  version "2.4.29"
-  resolved "https://artifacts.apextoaster.com/repository/group-npm/@types/seedrandom/-/seedrandom-2.4.29.tgz#09917443c50832730a7fab8d7f014b5926859dc7"
-  integrity sha512-nSjRNBaE9y5Zzv6CCwDWH6DVC0E+g8/1Nu7LOSntusxQaHZOv9GJ7rrnS5G1dSGd2k1Ovvg5+JJG6idjuGtpDA==
+"@types/seedrandom@2.4.30":
+  version "2.4.30"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/@types/seedrandom/-/seedrandom-2.4.30.tgz#d2efe425869b84163c2d56e779dddadb9372cbfa"
+  integrity sha512-AnxLHewubLVzoF/A4qdxBGHCKifw8cY32iro3DQX9TPcetE95zBeVt3jnsvtvAUf1vwzMfwzp4t/L2yqPlnjkQ==
 
 "@types/sinon-chai@3.2.5":
   version "3.2.5"
