@@ -2,20 +2,15 @@
 # yarn lockfile v1
 
 
-"@apextoaster/js-config@0.2.0-3":
-  version "0.2.0-3"
-  resolved "https://artifacts.apextoaster.com/repository/group-npm/@apextoaster/js-config/-/js-config-0.2.0-3.tgz#077b9916fcf6541af038ddb9bd585026c4c4c08a"
-  integrity sha512-mcsbrWmKJ0tTcsX0v0BU4+VMlvQKsZ+A6zCUcD7rxyTu43w5+gbx8M94mMpA1hhCkC9Q12aKUl+8vgqXhUCOmw==
-
 "@apextoaster/js-utils@0.3.0":
   version "0.3.0"
   resolved "https://artifacts.apextoaster.com/repository/group-npm/@apextoaster/js-utils/-/js-utils-0.3.0.tgz#c592732d22c95c9df6b97447da641047b4f69e01"
   integrity sha512-CUJk4N/69XtiLMz4KFR9kXIvX2tqCqeqGd6Pa+LQ1u0iGD7IOZVJej0Dkr2qFeWwsPamS+XwwSvs8JV02m8/FA==
 
-"@apextoaster/js-yaml-schema@0.4.0-4":
-  version "0.4.0-4"
-  resolved "https://artifacts.apextoaster.com/repository/group-npm/@apextoaster/js-yaml-schema/-/js-yaml-schema-0.4.0-4.tgz#fe9aa034f94a395b8c7eb62b638883a8bc6cbe7d"
-  integrity sha512-StRuVWApi4O5esIoEeMfYIImK821OcMTiJ2siihQKJgXAc/HDWuAEeq0K0DgZBZP0lHjEuFOheeDNHeCLNH/fA==
+"@apextoaster/js-yaml-schema@0.4.0":
+  version "0.4.0"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/@apextoaster/js-yaml-schema/-/js-yaml-schema-0.4.0.tgz#6008bb90bbe958a5a645e2224317d14e8dcfa3b9"
+  integrity sha512-On4e0AytT6lpXIw9nHMYbHNyzRLNORzZwcETm4CssfGWRzF3FEzyLhSLfvX7ZNK+Z7l/pntVxiYWZu0S3Vv6Yw==
 
 "@babel/code-frame@7.12.11":
   version "7.12.11"
@@ -2709,6 +2704,11 @@ fs-extra@~7.0.1:
     jsonfile "^4.0.0"
     universalify "^0.1.0"
 
+fs-monkey@1.0.3:
+  version "1.0.3"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/fs-monkey/-/fs-monkey-1.0.3.tgz#ae3ac92d53bb328efe0e9a1d9541f6ad8d48e2d3"
+  integrity sha512-cybjIfiiE+pTWicSCLFHSrXZ6EilF30oh91FDP9S2B051prEa7QWfrVTQm10/dDpswBDXZugPa1Ogu8Yh+HV0Q==
+
 fs.realpath@^1.0.0:
   version "1.0.0"
   resolved "https://artifacts.apextoaster.com/repository/group-npm/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
@@ -3926,6 +3926,13 @@ matched@^5.0.0:
   dependencies:
     glob "^7.1.6"
     picomatch "^2.2.1"
+
+memfs@^3.2.2:
+  version "3.2.2"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/memfs/-/memfs-3.2.2.tgz#5de461389d596e3f23d48bb7c2afb6161f4df40e"
+  integrity sha512-RE0CwmIM3CEvpcdK3rZ19BC4E6hv9kADkMN5rPduRak58cNArWLi/9jFLsa4rhsjfVxMP3v0jO7FHXq7SvFY5Q==
+  dependencies:
+    fs-monkey "1.0.3"
 
 meow@^3.3.0:
   version "3.7.0"

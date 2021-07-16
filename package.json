@@ -11,9 +11,8 @@
   "author": "ssube",
   "license": "MIT",
   "devDependencies": {
-    "@apextoaster/js-config": "0.2.0-3",
     "@apextoaster/js-utils": "0.3.0",
-    "@apextoaster/js-yaml-schema": "0.4.0-4",
+    "@apextoaster/js-yaml-schema": "0.4.0",
     "@gitbeaker/browser": "23.7.0",
     "@gitbeaker/core": "23.7.0",
     "@gitbeaker/node": "23.7.0",
@@ -60,6 +59,7 @@
     "jsdom": "16.6.0",
     "jsdom-global": "3.0.2",
     "lodash": "4.17.21",
+    "memfs": "^3.2.2",
     "mobx": "6.3.2",
     "mobx-react": "7.2.0",
     "mocha": "8.4.0",

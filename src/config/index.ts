@@ -1,14 +1,31 @@
-import { createConfig } from '@apextoaster/js-config';
-import { IncludeOptions } from '@apextoaster/js-yaml-schema';
+import { createSchema } from '@apextoaster/js-yaml-schema';
 import Ajv from 'ajv';
-import { existsSync, readFileSync, realpathSync } from 'fs';
-import { DEFAULT_SCHEMA } from 'js-yaml';
+import { promises } from 'fs';
+import { load } from 'js-yaml';
 import { LogLevel } from 'noicejs';
-import { join } from 'path';
 
 import { FlagLabel, StateLabel } from '../labels';
 import { RemoteOptions } from '../remote';
 import * as SCHEMA_DATA from './schema.yml';
+
+let { readFile } = promises;
+
+export const FILE_ENCODING = 'utf-8';
+
+export type Filesystem = Pick<typeof promises, 'readFile'>;
+
+/**
+ * Hook for tests to override the fs fns.
+ */
+export function setFs(fs: Filesystem) {
+  const originalRead = readFile;
+
+  readFile = fs.readFile;
+
+  return () => {
+    readFile = originalRead;
+  };
+}
 
 export interface LoggerConfig {
   level: LogLevel;
@@ -64,27 +81,24 @@ export const CONFIG_SCHEMA_KEY = 'cautious-journey#/definitions/config';
 /**
  * Load the config from files.
  */
-export async function initConfig(path: string, include = SCHEMA_OPTIONS): Promise<ConfigData> {
+export async function initConfig(path: string): Promise<ConfigData> {
+  const schema = createSchema({});
   const validator = new Ajv(AJV_OPTIONS);
   validator.addSchema(SCHEMA_DATA, 'cautious-journey');
 
-  const config = createConfig<ConfigData>({
-    config: {
-      key: CONFIG_SCHEMA_KEY,
-      sources: [{
-        name: '.',
-        paths: [path],
-        type: 'file',
-      }],
-    },
-    process,
-    schema: {
-      include,
-    },
-    validator,
+  const data = await readFile(path, {
+    encoding: 'utf8',
   });
 
-  return config.getData();
+  const config = load(data, {
+    schema,
+  });
+
+  if (validator.validate(CONFIG_SCHEMA_KEY, config) === true) {
+    return config as ConfigData;
+  } else {
+    throw new Error('invalid config data');
+  }
 }
 
 export const AJV_OPTIONS: Ajv.Options = {
@@ -95,12 +109,4 @@ export const AJV_OPTIONS: Ajv.Options = {
   schemaId: 'auto',
   useDefaults: true,
   verbose: true,
-};
-
-export const SCHEMA_OPTIONS: IncludeOptions = {
-  exists: existsSync,
-  join,
-  read: readFileSync,
-  resolve: realpathSync,
-  schema: DEFAULT_SCHEMA,
 };
