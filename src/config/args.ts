@@ -20,7 +20,6 @@ export interface ParsedArgs {
 export function parseArgs(args: Array<string>): ParsedArgs {
   let mode = Commands.UNKNOWN;
 
-  /* eslint-disable-next-line sonarjs/prefer-immediate-return */
   const parser = yargs(args)
     .usage(`Usage: ${VERSION_INFO.package.name} <mode> [options]`)
     .scriptName(VERSION_INFO.package.name)

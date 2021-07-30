@@ -34,9 +34,9 @@ describe('main app', () => {
     const args: ParsedArgs = {
       config: '',
       dryrun: true,
+      mode: Commands.GRAPH,
     };
     const logger = NullLogger.global;
-    const mode = Commands.GRAPH;
 
     const remote = createStubInstance(GithubRemote);
     remote.connect.returns(Promise.resolve(true));
@@ -47,7 +47,7 @@ describe('main app', () => {
     const container = Container.from(module);
     await container.configure();
 
-    const status = await mainProject(args, container, logger, mode, TEST_PROJECT);
+    const status = await mainProject(args, container, logger, args.mode, TEST_PROJECT);
     expect(status).to.equal(STATUS_SUCCESS);
   });
 
@@ -55,9 +55,9 @@ describe('main app', () => {
     const args: ParsedArgs = {
       config: '',
       dryrun: true,
+      mode: Commands.GRAPH,
     };
     const logger = NullLogger.global;
-    const mode = Commands.GRAPH;
 
     const remote = createStubInstance(GithubRemote);
     remote.connect.returns(Promise.resolve(false));
@@ -68,7 +68,7 @@ describe('main app', () => {
     const container = Container.from(module);
     await container.configure();
 
-    const status = await mainProject(args, container, logger, mode, TEST_PROJECT);
+    const status = await mainProject(args, container, logger, args.mode, TEST_PROJECT);
     expect(status).to.equal(STATUS_FAILURE);
   });
 
@@ -76,10 +76,10 @@ describe('main app', () => {
     const args: ParsedArgs = {
       config: '',
       dryrun: true,
+      mode: Commands.GRAPH,
       project: ['foo']
     };
     const logger = NullLogger.global;
-    const mode = Commands.GRAPH;
 
     const remote = createStubInstance(GithubRemote);
     remote.connect.throws(new NotImplementedError());
@@ -90,7 +90,7 @@ describe('main app', () => {
     const container = Container.from(module);
     await container.configure();
 
-    const status = await mainProject(args, container, logger, mode, TEST_PROJECT);
+    const status = await mainProject(args, container, logger, args.mode, TEST_PROJECT);
     expect(status).to.equal(STATUS_SUCCESS);
     expect(remote.connect).to.have.callCount(0);
   });
