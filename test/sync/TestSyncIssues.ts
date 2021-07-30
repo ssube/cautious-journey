@@ -1,10 +1,12 @@
 import { expect } from 'chai';
 import { Container, NullLogger } from 'noicejs';
 import { alea } from 'seedrandom';
-import { stub } from 'sinon';
+import sinon from 'sinon';
 
 import { GithubRemote } from '../../src/remote/github';
 import { syncIssueLabels } from '../../src/sync';
+
+const { stub } = sinon;
 
 describe('issue sync', () => {
   it('should resolve each issue', async () => {

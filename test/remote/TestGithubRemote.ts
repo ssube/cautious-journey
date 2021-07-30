@@ -2,13 +2,15 @@ import { InvalidArgumentError } from '@apextoaster/js-utils';
 import { Octokit } from '@octokit/rest';
 import { expect } from 'chai';
 import { BaseOptions, Container, NullLogger } from 'noicejs';
-import { stub } from 'sinon';
+import sinon from 'sinon';
 
 import { RemoteOptions } from '../../src';
 import { RemoteModule } from '../../src/module/RemoteModule';
 import { GithubRemote } from '../../src/remote/github';
 import { ChangeVerb } from '../../src/resolve';
 import { createRemoteContainer } from './helpers';
+
+const { stub } = sinon;
 
 const REMOTE_STATUS = 200;
 const REMOTE_OPTIONS: Omit<RemoteOptions, 'container'> = {

@@ -2,12 +2,14 @@ import { InvalidArgumentError } from '@apextoaster/js-utils';
 import { expect } from 'chai';
 import { Container, NullLogger } from 'noicejs';
 import { alea } from 'seedrandom';
-import { createStubInstance, match, spy, stub } from 'sinon';
+import sinon from 'sinon';
 
 import { BunyanLogger } from '../../src/logger/bunyan';
 import { GithubRemote } from '../../src/remote/github';
 import { syncProjectLabels, updateLabel } from '../../src/sync';
 import { FlagLabel, StateLabel } from '../../src';
+
+const { createStubInstance, match, spy, stub } = sinon;
 
 const TEST_FLAG: FlagLabel = {
   adds: [],

@@ -13,7 +13,7 @@ module.exports = {
     }),
     alias({
       entries: {
-        'yargs': join('.', 'node_modules', 'yargs', 'index.cjs'),
+        // 'yargs': join('.', 'node_modules', 'yargs', 'index.mjs'),
       },
     }),
   ],

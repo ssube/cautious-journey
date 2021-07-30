@@ -3,7 +3,7 @@ import { Container, Logger } from 'noicejs';
 import { alea } from 'seedrandom';
 
 import { initConfig, ProjectConfig } from './config';
-import { Commands, createParser, ParsedArgs } from './config/args';
+import { Commands, parseArgs, ParsedArgs } from './config/args';
 import { dotGraph, graphProject } from './graph';
 import { BunyanLogger } from './logger/bunyan';
 import { RemoteModule } from './module/RemoteModule';
@@ -25,12 +25,11 @@ export const STATUS_FAILURE = 1;
 export const STATUS_SUCCESS = 0;
 
 export async function main(argv: Array<string>): Promise<number> {
-  let mode = Commands.UNKNOWN as Commands;
-  const parser = createParser((argMode) => mode = argMode as Commands);
-  const args = parser.parse(argv.slice(ARGS_START));
+  const args = parseArgs(argv.slice(ARGS_START));
   const config = await initConfig(args.config);
   const logger = BunyanLogger.create(config.logger);
 
+  const { mode } = args;
   logger.info({
     mode,
     version: VERSION_INFO,

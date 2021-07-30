@@ -1,11 +1,13 @@
 import { ProjectsBundle } from '@gitbeaker/node';
 import { expect } from 'chai';
 import { NullLogger } from 'noicejs';
-import { match, stub } from 'sinon';
+import sinon from 'sinon';
 
 import { RemoteOptions } from '../../src';
 import { GitlabRemote } from '../../src/remote/gitlab';
 import { createRemoteContainer } from './helpers';
+
+const { match, stub } = sinon;
 
 const REMOTE_OPTIONS: Omit<RemoteOptions, 'container'> = {
   data: {

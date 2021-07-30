@@ -1,12 +1,14 @@
 import { NotImplementedError } from '@apextoaster/js-utils';
 import { expect } from 'chai';
 import { Container, NullLogger } from 'noicejs';
-import { createStubInstance } from 'sinon';
+import sinon from 'sinon';
 
 import { Commands, ParsedArgs } from '../src/config/args';
 import { GithubRemote, mainProject, Remote, RemoteOptions, STATUS_FAILURE, STATUS_SUCCESS } from '../src/main';
 import { RemoteModule } from '../src/module/RemoteModule';
 import { ProjectConfig } from '../src/config';
+
+const { createStubInstance } = sinon;
 
 const TEST_REMOTE = 'test-remote';
 const TEST_PROJECT: ProjectConfig = {

@@ -10,8 +10,8 @@ import serve from 'rollup-plugin-serve';
 import { terser } from 'rollup-plugin-terser';
 import typescript from 'rollup-plugin-typescript2';
 
-const { chunkMap } = require('./map.js');
-const { plugins } = require('./project.js');
+const { chunkMap } = require('./map.cjs');
+const { plugins } = require('./project.cjs');
 
 const flag_debug = process.env['DEBUG'] === 'TRUE';
 const flag_devel = process.env['NODE_ENV'] === 'production';
@@ -39,7 +39,7 @@ const bundle = {
 		chunkFileNames: '[name].js',
 		entryFileNames: 'entry-[name].js',
 		exports: 'named',
-		format: 'cjs',
+		format: 'module',
 		minifyInternalExports: false,
 		sourcemap: true,
 	},

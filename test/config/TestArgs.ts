@@ -1,24 +1,22 @@
 import { expect } from 'chai';
-import { stub } from 'sinon';
+import sinon from 'sinon';
 
-import { Commands, createParser } from '../../src/config/args';
+import { Commands, parseArgs } from '../../src/config/args';
+
+const { stub } = sinon;
 
 describe('args', () => {
   it('should set command mode', () => {
-    const modeStub = stub();
-    const parser = createParser(modeStub);
-
     for (const command of [
       Commands.GRAPH,
       Commands.ISSUES,
       Commands.LABELS,
     ]) {
-      const args = parser.parse([command, '--config', 'foo.yml']);
+      const args = parseArgs([command, '--config', 'foo.yml']);
       expect(args).to.deep.include({
         dryrun: true,
+        mode: command,
       });
-      expect(modeStub).to.have.been.calledWith(command);
-      modeStub.resetHistory();
     }
   });
 });
