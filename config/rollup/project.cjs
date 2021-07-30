@@ -11,10 +11,5 @@ module.exports = {
         'universal-github-app-jwt': join('.', 'node_modules', 'universal-github-app-jwt', 'dist-node', 'index.js'),
       },
     }),
-    alias({
-      entries: {
-        // 'yargs': join('.', 'node_modules', 'yargs', 'index.mjs'),
-      },
-    }),
   ],
 };
