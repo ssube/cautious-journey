@@ -1,5 +1,9 @@
 import { doesExist, mustExist, Optional } from '@apextoaster/js-utils';
-import { prng } from 'seedrandom';
+
+export interface RandomGenerator {
+  double(): number;
+  int32(): number;
+}
 
 export function defaultTo<T>(a: Optional<T>, b: T): T {
   if (doesExist(a)) {
@@ -14,7 +18,7 @@ export function defaultUntil<T>(...items: Array<Optional<T>>): T {
   return mustExist(result);
 }
 
-export function randomItem<T>(items: Array<T>, source: prng): T {
+export function randomItem<T>(items: Array<T>, source: RandomGenerator): T {
   const idx = Math.abs(source.int32()) % items.length;
   return items[idx];
 }

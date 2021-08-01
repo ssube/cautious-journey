@@ -1,17 +1,16 @@
 import { doesExist, InvalidArgumentError, mustExist } from '@apextoaster/js-utils';
 import { Logger } from 'noicejs';
-import { prng } from 'seedrandom';
 
 import { ProjectConfig } from './config';
 import { getLabelColor, getLabelNames, getValueName } from './labels';
 import { LabelUpdate, Remote } from './remote';
 import { resolveProject } from './resolve';
-import { compareItems, defaultTo, defaultUntil } from './utils';
+import { compareItems, defaultTo, defaultUntil, RandomGenerator } from './utils';
 
 export interface SyncOptions {
   logger: Logger;
   project: ProjectConfig;
-  random: prng;
+  random: RandomGenerator;
   remote: Remote;
 }
 

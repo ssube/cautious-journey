@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-random: prng;
+random: RandomGenerator;
 ```
