@@ -16,6 +16,6 @@ export interface SyncOptions
 |  --- | --- | --- |
 |  [logger](./cautious-journey.syncoptions.logger.md) | Logger |  |
 |  [project](./cautious-journey.syncoptions.project.md) | ProjectConfig |  |
-|  [random](./cautious-journey.syncoptions.random.md) | prng |  |
+|  [random](./cautious-journey.syncoptions.random.md) | RandomGenerator |  |
 |  [remote](./cautious-journey.syncoptions.remote.md) | [Remote](./cautious-journey.remote.md) |  |
 

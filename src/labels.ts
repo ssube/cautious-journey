@@ -1,7 +1,6 @@
 import { doesExist } from '@apextoaster/js-utils';
-import { prng } from 'seedrandom';
 
-import { randomItem } from './utils';
+import { RandomGenerator, randomItem } from './utils';
 
 /**
  * A reference to another label.
@@ -128,9 +127,9 @@ export function prioritySort<TLabel extends BaseLabel>(labels: Array<TLabel>): A
 /**
  * Pick a label color, preferring the label data if set, falling back to a randomly selected color.
  */
-export function getLabelColor(colors: Array<string>, random: prng, flag: FlagLabel): string;
-export function getLabelColor(colors: Array<string>, random: prng, state: StateLabel, value: StateValue): string;
-export function getLabelColor(colors: Array<string>, random: prng, label: BaseLabel, value?: StateValue): string {
+export function getLabelColor(colors: Array<string>, random: RandomGenerator, flag: FlagLabel): string;
+export function getLabelColor(colors: Array<string>, random: RandomGenerator, state: StateLabel, value: StateValue): string;
+export function getLabelColor(colors: Array<string>, random: RandomGenerator, label: BaseLabel, value?: StateValue): string {
   if (doesExist(value) && doesExist(value.color) && value.color !== '') {
     return value.color;
   }
