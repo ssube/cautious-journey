@@ -60,42 +60,45 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@gitbeaker/browser@23.7.0":
-  version "23.7.0"
-  resolved "https://artifacts.apextoaster.com/repository/group-npm/@gitbeaker/browser/-/browser-23.7.0.tgz#5d2b64953d4da56c17d65267bc0f5cf452ed560e"
-  integrity sha512-tOF95uKM3ubpMU11REZrdvztOOMp+3m/1Dt9Ez4GrCm2xg53ruGaEp7rx5HR9nNYMKJxA/GakhD+Ax1FXKnAtA==
+"@gitbeaker/browser@32.1.0":
+  version "32.1.0"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/@gitbeaker/browser/-/browser-32.1.0.tgz#5da7d4e0375bee0541193b7a0f4b40fa1bdefe00"
+  integrity sha512-fzkHzlsZEdQi7zAQ67I75EbOnYGmAsnng/3xciqum88q8vISmL3zENznxNS8k9VVjdBzbKwI9ApyBY0uaFM+rg==
   dependencies:
-    "@gitbeaker/core" "^23.7.0"
-    "@gitbeaker/requester-utils" "^23.7.0"
-    ky "^0.23.0"
+    "@gitbeaker/core" "^32.1.0"
+    "@gitbeaker/requester-utils" "^32.1.0"
+    delay "^5.0.0"
+    ky "0.28.5"
 
-"@gitbeaker/core@23.7.0", "@gitbeaker/core@^23.7.0":
-  version "23.7.0"
-  resolved "https://artifacts.apextoaster.com/repository/group-npm/@gitbeaker/core/-/core-23.7.0.tgz#9d0599aa849abfa4c360a0c7ddae875ad54f195d"
-  integrity sha512-f41uccuuGX+NCS40+GWlvRmiF7fpMOlvW21hWVyV7W3+h648Rp1kWsAk7/x2ekjXInKAxmp3esrs9z0SKvOXKA==
+"@gitbeaker/core@32.1.0", "@gitbeaker/core@^32.1.0":
+  version "32.1.0"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/@gitbeaker/core/-/core-32.1.0.tgz#bb7ac887a283286f20be11639ab59d29709dbae6"
+  integrity sha512-rFv+PeZ2cVVWeqTyUGF/fzYXQDDxsGO7KiUr5YvtGeTgBH1eykRmpFPZPwuSDNDDsDomSm29ss+m8ezPw9rBsA==
   dependencies:
-    "@gitbeaker/requester-utils" "^23.7.0"
-    form-data "^3.0.0"
+    "@gitbeaker/requester-utils" "^32.1.0"
+    form-data "^4.0.0"
     li "^1.3.0"
+    query-string "^7.0.0"
     xcase "^2.0.1"
 
-"@gitbeaker/node@23.7.0":
-  version "23.7.0"
-  resolved "https://artifacts.apextoaster.com/repository/group-npm/@gitbeaker/node/-/node-23.7.0.tgz#58d59bdc889c8cfd79e753da8894e2ada9c40ddf"
-  integrity sha512-FoSLwoo5UIqLUOmosQgI5ALsBhoRoqXnC/wWOHGiLIFuPeL3ulYdNsfqFxBS1L4SgxYOrXeKH5/bPSrzszUxRg==
+"@gitbeaker/node@32.1.0":
+  version "32.1.0"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/@gitbeaker/node/-/node-32.1.0.tgz#2a59a09b49856ee82e837acd9aaef0702e131a4b"
+  integrity sha512-Ci3DMrWY+Azr8oEBZSgY2NUw9hvT1AUy6riCNt/nW09iRxb6TIeQ1N4IcAX9LBKyEMwdOSxLHahmRMJfnyhrMg==
   dependencies:
-    "@gitbeaker/core" "^23.7.0"
-    "@gitbeaker/requester-utils" "^23.7.0"
-    got "^11.7.0"
+    "@gitbeaker/core" "^32.1.0"
+    "@gitbeaker/requester-utils" "^32.1.0"
+    delay "^5.0.0"
+    got "^11.8.2"
     xcase "^2.0.1"
 
-"@gitbeaker/requester-utils@^23.7.0":
-  version "23.7.0"
-  resolved "https://artifacts.apextoaster.com/repository/group-npm/@gitbeaker/requester-utils/-/requester-utils-23.7.0.tgz#80016ad6f7caec6ee37e59464daa11b4e8e65727"
-  integrity sha512-VKCoUQf5iUNdk9T/wXTHt1WoZSX2b6Qxq3dWii7wiiwnMyMV/KHe7lAkIZOlS/8X8L0CKmesGkt8ZsRbh7Vi9Q==
+"@gitbeaker/requester-utils@^32.1.0":
+  version "32.1.0"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/@gitbeaker/requester-utils/-/requester-utils-32.1.0.tgz#d87ea414e748e010a7d8d6a751aafbe55bfdad9e"
+  integrity sha512-q3M80nVCumK3TSD112v+e+n2bvzjRS3pdmOp+asYmHt4ni5t28A518D4qSN3ce+0TpLDB3LPKm0KDRfxkkuaPA==
   dependencies:
-    form-data "^3.0.0"
-    query-string "^6.13.3"
+    form-data "^4.0.0"
+    query-string "^7.0.0"
     xcase "^2.0.1"
 
 "@humanwhocodes/config-array@^0.5.0":
@@ -1826,6 +1829,11 @@ define-properties@^1.1.3:
   dependencies:
     object-keys "^1.0.12"
 
+delay@^5.0.0:
+  version "5.0.0"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/delay/-/delay-5.0.0.tgz#137045ef1b96e5071060dd5be60bf9334436bd1d"
+  integrity sha512-ReEBKkIfe4ya47wlPYf/gu5ib6yUG0/Aez0JQZQz94kiWtRQvZIQbTiehsnwHvLSWJnQdhVeqYue7Id1dKr0qw==
+
 delayed-stream@~1.0.0:
   version "1.0.0"
   resolved "https://artifacts.apextoaster.com/repository/group-npm/delayed-stream/-/delayed-stream-1.0.0.tgz#df3ae199acadfb7d440aaae0b29e2272b24ec619"
@@ -2477,6 +2485,15 @@ form-data@^3.0.0:
     combined-stream "^1.0.8"
     mime-types "^2.1.12"
 
+form-data@^4.0.0:
+  version "4.0.0"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/form-data/-/form-data-4.0.0.tgz#93919daeaf361ee529584b9b31664dc12c9fa452"
+  integrity sha512-ETEklSGi5t0QMZuiXoA/Q6vcnxcLQP5vdugSpuAyi6SVGi2clPPp+xgEhuMaHC+zGgn31Kd235W35f7Hykkaww==
+  dependencies:
+    asynckit "^0.4.0"
+    combined-stream "^1.0.8"
+    mime-types "^2.1.12"
+
 fs-access@^1.0.1:
   version "1.0.1"
   resolved "https://artifacts.apextoaster.com/repository/group-npm/fs-access/-/fs-access-1.0.1.tgz#d6a87f262271cefebec30c553407fb995da8777a"
@@ -2713,7 +2730,7 @@ globby@^11.0.3:
     merge2 "^1.3.0"
     slash "^3.0.0"
 
-got@^11.7.0:
+got@^11.8.2:
   version "11.8.2"
   resolved "https://artifacts.apextoaster.com/repository/group-npm/got/-/got-11.8.2.tgz#7abb3959ea28c31f3576f1576c1effce23f33599"
   integrity sha512-D0QywKgIe30ODs+fm8wMZiAcZjypcCodPNuMz5H9Mny7RJ+IjJ10BdmGW7OM7fHXP+O7r6ZwapQ/YQmMSvB0UQ==
@@ -3386,10 +3403,10 @@ kind-of@^6.0.3:
   resolved "https://artifacts.apextoaster.com/repository/group-npm/kind-of/-/kind-of-6.0.3.tgz#07c05034a6c349fa06e24fa35aa76db4580ce4dd"
   integrity sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==
 
-ky@^0.23.0:
-  version "0.23.0"
-  resolved "https://artifacts.apextoaster.com/repository/group-npm/ky/-/ky-0.23.0.tgz#54c2f3fa9003d591cb2f368384e6c84795a92e64"
-  integrity sha512-+t2CbQsLmpN3HeYPBxN+VbZqBOd86njF3cvnueC77pJKVHRjiMI0Ac+pfkB8e17Bw1dGHbMk9hrHst9Bw7ndgw==
+ky@0.28.5:
+  version "0.28.5"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/ky/-/ky-0.28.5.tgz#4b7ada24fb0440c3898406f3a4986abe60ba213e"
+  integrity sha512-O5gg9kF4MeyfSw+YkgPAafOPwEUU6xcdGEJKUJmKpIPbLzk3oxUtY4OdBNekG7mawofzkyZ/ZHuR9ev5uZZdAA==
 
 levn@^0.3.0, levn@~0.3.0:
   version "0.3.0"
@@ -4329,10 +4346,10 @@ q@^1.5.1:
   resolved "https://artifacts.apextoaster.com/repository/group-npm/q/-/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
   integrity sha1-fjL3W0E4EpHQRhHxvxQQmsAGUdc=
 
-query-string@^6.13.3:
-  version "6.14.1"
-  resolved "https://artifacts.apextoaster.com/repository/group-npm/query-string/-/query-string-6.14.1.tgz#7ac2dca46da7f309449ba0f86b1fd28255b0c86a"
-  integrity sha512-XDxAeVmpfu1/6IjyT/gXHOl+S0vQ9owggJ30hhWKdHAsNPOcasn5o9BW0eejZqL2e4vMjhAxoW3jVHcD6mbcYw==
+query-string@^7.0.0:
+  version "7.0.1"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/query-string/-/query-string-7.0.1.tgz#45bd149cf586aaa582dffc7ec7a8ad97dd02f75d"
+  integrity sha512-uIw3iRvHnk9to1blJCG3BTc+Ro56CBowJXKmNNAm3RulvPBzWLRqKSiiDk+IplJhsydwtuNMHi8UGQFcCLVfkA==
   dependencies:
     decode-uri-component "^0.2.0"
     filter-obj "^1.1.0"
