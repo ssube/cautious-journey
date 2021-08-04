@@ -1,5 +1,6 @@
 import { mustExist } from '@apextoaster/js-utils';
 import { Gitlab } from '@gitbeaker/node';
+import { BaseOptions } from 'noicejs';
 
 import { CommentUpdate, IssueUpdate, LabelUpdate, ProjectQuery, Remote, RemoteOptions } from '.';
 import { BaseRemote } from './base';
@@ -13,7 +14,7 @@ const client = new Gitlab({});
 
 export const INJECT_GITLAB = Symbol('inject-gitlab');
 
-export interface GitlabOptions {
+export interface GitlabOptions extends BaseOptions {
   host: string;
   token: string;
 }

@@ -15,9 +15,10 @@ export class RemoteModule extends Module {
   }
 
   @Provides(INJECT_GITLAB)
-  public async createGitlab(options: GitlabOptions, ...others: Array<unknown>) {
-    /* eslint-disable-next-line */
-    console.log('inject', options, others);
-    return new Gitlab(options);
+  public async createGitlab(options: GitlabOptions) {
+    return new Gitlab({
+      host: options.host,
+      token: options.token,
+    });
   }
 }
