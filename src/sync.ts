@@ -20,39 +20,46 @@ export interface SyncOptions {
  */
 export async function syncIssueLabels(options: SyncOptions): Promise<unknown> {
   const { logger, project, remote } = options;
-  const issues = await remote.listIssues({
-    project: project.name,
-  });
 
-  for (const issue of issues) {
-    logger.info({ issue }, 'project issue');
+  logger.debug({ project }, 'syncing issue labels for project');
 
-    const { changes, errors, labels } = resolveProject({
-      flags: project.flags,
-      initial: project.initial,
-      labels: issue.labels,
-      states: project.states,
+  try {
+    const issues = await remote.listIssues({
+      project: project.name,
     });
 
-    logger.debug({ changes, errors, issue, labels }, 'resolved labels');
+    for (const issue of issues) {
+      logger.info({ issue }, 'project issue');
 
-    // TODO: prompt user if they want to update this particular issue
-    const sameLabels = compareItems(issue.labels, labels) || changes.length === 0;
-    if (sameLabels === false && errors.length === 0) {
-      logger.info({ changes, errors, issue, labels }, 'updating issue');
-      await remote.updateIssue({
-        ...issue,
-        labels,
+      const { changes, errors, labels } = resolveProject({
+        flags: project.flags,
+        initial: project.initial,
+        labels: issue.labels,
+        states: project.states,
       });
 
-      if (project.comment) {
-        await remote.createComment({
+      logger.debug({ changes, errors, issue, labels }, 'resolved labels');
+
+      // TODO: prompt user if they want to update this particular issue
+      const sameLabels = compareItems(issue.labels, labels) || changes.length === 0;
+      if (sameLabels === false && errors.length === 0) {
+        logger.info({ changes, errors, issue, labels }, 'updating issue');
+        await remote.updateIssue({
           ...issue,
-          changes,
-          errors,
+          labels,
         });
+
+        if (project.comment) {
+          await remote.createComment({
+            ...issue,
+            changes,
+            errors,
+          });
+        }
       }
     }
+  } catch (err) {
+    logger.error(err, 'error syncing issue labels');
   }
 
   return undefined;
@@ -61,40 +68,46 @@ export async function syncIssueLabels(options: SyncOptions): Promise<unknown> {
 export async function syncProjectLabels(options: SyncOptions): Promise<unknown> {
   const { logger, project, remote } = options;
 
-  const labels = await remote.listLabels({
-    project: project.name,
-  });
+  logger.debug({ project }, 'syncing project labels');
 
-  const present = new Set(labels.map((l) => l.name));
-  const desired = getLabelNames(project.flags, project.states);
-  const combined = new Set([...desired, ...present]);
+  try {
+    const labels = await remote.listLabels({
+      project: project.name,
+    });
 
-  for (const label of combined) {
-    const exists = present.has(label);
-    const expected = desired.has(label);
+    const present = new Set(labels.map((l) => l.name));
+    const desired = getLabelNames(project.flags, project.states);
+    const combined = new Set([...desired, ...present]);
 
-    logger.info({
-      exists,
-      expected,
-      label,
-    }, 'label');
+    for (const label of combined) {
+      const exists = present.has(label);
+      const expected = desired.has(label);
 
-    if (exists) {
-      if (expected) {
-        const data = mustExist(labels.find((l) => l.name === label));
-        await updateLabel(options, data);
+      logger.info({
+        exists,
+        expected,
+        label,
+      }, 'label');
+
+      if (exists) {
+        if (expected) {
+          const data = mustExist(labels.find((l) => l.name === label));
+          await updateLabel(options, data);
+        } else {
+          logger.warn({ label }, 'remove label');
+          await deleteLabel(options, label);
+        }
       } else {
-        logger.warn({ label }, 'remove label');
-        await deleteLabel(options, label);
-      }
-    } else {
-      if (expected) {
-        logger.info({ label }, 'create label');
-        await createLabel(options, label);
-      } else {
-        // skip
+        if (expected) {
+          logger.info({ label }, 'create label');
+          await createLabel(options, label);
+        } else {
+          // skip
+        }
       }
     }
+  } catch (err) {
+    logger.error(err, 'error syncing project labels');
   }
 
   return undefined;
