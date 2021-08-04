@@ -1,13 +1,13 @@
-import { ProjectsBundle } from '@gitbeaker/node';
+import { Gitlab, Types } from '@gitbeaker/node';
 import { expect } from 'chai';
 import { NullLogger } from 'noicejs';
 import sinon from 'sinon';
 
 import { RemoteOptions } from '../../src';
-import { GitlabRemote } from '../../src/remote/gitlab';
+import { GitlabRemote, INJECT_GITLAB } from '../../src/remote/gitlab';
 import { createRemoteContainer } from './helpers';
 
-const { match, stub } = sinon;
+const { stub } = sinon;
 
 const REMOTE_OPTIONS: Omit<RemoteOptions, 'container'> = {
   data: {
@@ -24,22 +24,31 @@ const DRYRUN_OPTIONS = {
   dryrun: true,
 };
 
-const STUB_PROJECT = {
-  id: '',
+const STUB_PROJECT: Types.ProjectExtendedSchema = {
+  id: 0,
   namespace: {
-    id: '',
+    id: 0,
+    name: '',
+    path: '',
+    kind: '',
+    /* eslint-disable-next-line camelcase */
+    full_path: '',
+    /* eslint-disable-next-line camelcase */
+    avatar_url: '',
+    /* eslint-disable-next-line camelcase */
+    web_url: '',
   },
-};
+} as Types.ProjectExtendedSchema;
 
 describe('gitlab remote', () => {
   describe('create comment endpoint', () => {
     it('should create comments when dryrun=false', async () => {
       const { container, module } = await createRemoteContainer();
 
-      const client = new ProjectsBundle();
+      const client = new Gitlab({});
       stub(client.Projects, 'show').returns(Promise.resolve(STUB_PROJECT));
       const createStub = stub(client.IssueNotes, 'create');
-      module.bind(ProjectsBundle).toInstance(client);
+      module.bind(INJECT_GITLAB).toInstance(client);
 
       const remote = await container.create(GitlabRemote, REMOTE_OPTIONS);
       const status = await remote.connect();
@@ -54,16 +63,16 @@ describe('gitlab remote', () => {
       const result = await remote.createComment(data);
 
       expect(result).to.include(data);
-      expect(createStub).to.have.callCount(1).and.been.calledWithMatch(match.string, 1);
+      expect(createStub).to.have.callCount(1).and.been.calledWithMatch(0, 1);
     });
 
     it('should not create comments when dryrun=true', async () => {
       const { container, module } = await createRemoteContainer();
 
-      const client = new ProjectsBundle();
+      const client = new Gitlab({});
       stub(client.Projects, 'show').returns(Promise.resolve(STUB_PROJECT));
       const createStub = stub(client.IssueNotes, 'create');
-      module.bind(ProjectsBundle).toInstance(client);
+      module.bind(INJECT_GITLAB).toInstance(client);
 
       const remote = await container.create(GitlabRemote, DRYRUN_OPTIONS);
       const status = await remote.connect();
@@ -86,10 +95,10 @@ describe('gitlab remote', () => {
     it('should create labels when dryrun=false', async () => {
       const { container, module } = await createRemoteContainer();
 
-      const client = new ProjectsBundle();
+      const client = new Gitlab({});
       stub(client.Projects, 'show').returns(Promise.resolve(STUB_PROJECT));
       const createStub = stub(client.Labels, 'create');
-      module.bind(ProjectsBundle).toInstance(client);
+      module.bind(INJECT_GITLAB).toInstance(client);
 
       const remote = await container.create(GitlabRemote, REMOTE_OPTIONS);
       const status = await remote.connect();
@@ -104,16 +113,16 @@ describe('gitlab remote', () => {
       const result = await remote.createLabel(data);
 
       expect(result).to.include(data);
-      expect(createStub).to.have.callCount(1).and.been.calledWithMatch(match.string, 'foo');
+      expect(createStub).to.have.callCount(1).and.been.calledWithMatch(0, 'foo');
     });
 
     it('should not create labels when dryrun=true', async () => {
       const { container, module } = await createRemoteContainer();
 
-      const client = new ProjectsBundle();
+      const client = new Gitlab({});
       stub(client.Projects, 'show').returns(Promise.resolve(STUB_PROJECT));
       const createStub = stub(client.Labels, 'create');
-      module.bind(ProjectsBundle).toInstance(client);
+      module.bind(INJECT_GITLAB).toInstance(client);
 
       const remote = await container.create(GitlabRemote, DRYRUN_OPTIONS);
       const status = await remote.connect();
@@ -136,10 +145,10 @@ describe('gitlab remote', () => {
     it('should delete labels when dryrun=false', async () => {
       const { container, module } = await createRemoteContainer();
 
-      const client = new ProjectsBundle();
+      const client = new Gitlab({});
       stub(client.Projects, 'show').returns(Promise.resolve(STUB_PROJECT));
       const removeStub = stub(client.Labels, 'remove');
-      module.bind(ProjectsBundle).toInstance(client);
+      module.bind(INJECT_GITLAB).toInstance(client);
 
       const remote = await container.create(GitlabRemote, REMOTE_OPTIONS);
 
@@ -155,16 +164,16 @@ describe('gitlab remote', () => {
       const result = await remote.deleteLabel(data);
 
       expect(result).to.include(data);
-      expect(removeStub).to.have.callCount(1).and.been.calledWithMatch(match.string, 'foo');
+      expect(removeStub).to.have.callCount(1).and.been.calledWithMatch(0, 'foo');
     });
 
     it('should not delete labels when dryrun=true', async () => {
       const { container, module } = await createRemoteContainer();
 
-      const client = new ProjectsBundle();
+      const client = new Gitlab({});
       stub(client.Projects, 'show').returns(Promise.resolve(STUB_PROJECT));
       const removeStub = stub(client.Labels, 'remove');
-      module.bind(ProjectsBundle).toInstance(client);
+      module.bind(INJECT_GITLAB).toInstance(client);
 
       const remote = await container.create(GitlabRemote, DRYRUN_OPTIONS);
 
@@ -188,10 +197,10 @@ describe('gitlab remote', () => {
     it('should list issues when dryrun=*', async () => {
       const { container, module } = await createRemoteContainer();
 
-      const client = new ProjectsBundle();
+      const client = new Gitlab({});
       stub(client.Projects, 'show').returns(Promise.resolve(STUB_PROJECT));
       const listStub = stub(client.Issues, 'all').returns(Promise.resolve([]));
-      module.bind(ProjectsBundle).toInstance(client);
+      module.bind(INJECT_GITLAB).toInstance(client);
 
       for (const dryrun of [true, false]) {
         const remote = await container.create(GitlabRemote, {
@@ -218,10 +227,10 @@ describe('gitlab remote', () => {
     it('should list labels when dryrun=*', async () => {
       const { container, module } = await createRemoteContainer();
 
-      const client = new ProjectsBundle();
+      const client = new Gitlab({});
       stub(client.Projects, 'show').returns(Promise.resolve(STUB_PROJECT));
       const listStub = stub(client.Labels, 'all').returns(Promise.resolve([]));
-      module.bind(ProjectsBundle).toInstance(client);
+      module.bind(INJECT_GITLAB).toInstance(client);
 
       for (const dryrun of [true, false]) {
         const remote = await container.create(GitlabRemote, {
@@ -248,10 +257,10 @@ describe('gitlab remote', () => {
     it('should update issues when dryrun=false', async () => {
       const { container, module } = await createRemoteContainer();
 
-      const client = new ProjectsBundle();
+      const client = new Gitlab({});
       stub(client.Projects, 'show').returns(Promise.resolve(STUB_PROJECT));
       const updateStub = stub(client.Issues, 'edit');
-      module.bind(ProjectsBundle).toInstance(client);
+      module.bind(INJECT_GITLAB).toInstance(client);
 
       const remote = await container.create(GitlabRemote, REMOTE_OPTIONS);
       const status = await remote.connect();
@@ -266,16 +275,16 @@ describe('gitlab remote', () => {
       const result = await remote.updateIssue(data);
 
       expect(result).to.include(data);
-      expect(updateStub).to.have.callCount(1).and.been.calledWithMatch(match.string, 1);
+      expect(updateStub).to.have.callCount(1).and.been.calledWithMatch(0, 1);
     });
 
     it('should not update issues when dryrun=true', async () => {
       const { container, module } = await createRemoteContainer();
 
-      const client = new ProjectsBundle();
+      const client = new Gitlab({});
       stub(client.Projects, 'show').returns(Promise.resolve(STUB_PROJECT));
       const updateStub = stub(client.Issues, 'edit');
-      module.bind(ProjectsBundle).toInstance(client);
+      module.bind(INJECT_GITLAB).toInstance(client);
 
       const remote = await container.create(GitlabRemote, DRYRUN_OPTIONS);
       const status = await remote.connect();
@@ -298,7 +307,7 @@ describe('gitlab remote', () => {
     it('should update labels when dryrun=false', async () => {
       const { container, module } = await createRemoteContainer();
 
-      const client = new ProjectsBundle();
+      const client = new Gitlab({});
       stub(client.Projects, 'show').returns(Promise.resolve(STUB_PROJECT));
       const updateStub = stub(client.Labels, 'edit').returns(Promise.resolve({
         color: 'red',
@@ -307,8 +316,17 @@ describe('gitlab remote', () => {
         id: 0,
         name: 'foo',
         url: '',
+        /* eslint-disable camelcase */
+        text_color: '',
+        description_html: '',
+        open_issues_count: 0,
+        closed_issues_count: 0,
+        open_merge_requests_count: 0,
+        subscribed: false,
+        priority: 0,
+        is_project_label: false,
       }));
-      module.bind(ProjectsBundle).toInstance(client);
+      module.bind(INJECT_GITLAB).toInstance(client);
 
       const remote = await container.create(GitlabRemote, REMOTE_OPTIONS);
       const status = await remote.connect();
@@ -323,16 +341,16 @@ describe('gitlab remote', () => {
       const result = await remote.updateLabel(data);
 
       expect(result).to.include(data);
-      expect(updateStub).to.have.callCount(1).and.been.calledWithMatch(match.string, 'foo');
+      expect(updateStub).to.have.callCount(1).and.been.calledWithMatch(0, 'foo');
     });
 
     it('should not update labels when dryrun=true', async () => {
       const { container, module } = await createRemoteContainer();
 
-      const client = new ProjectsBundle();
+      const client = new Gitlab({});
       stub(client.Projects, 'show').returns(Promise.resolve(STUB_PROJECT));
       const updateStub = stub(client.Labels, 'edit');
-      module.bind(ProjectsBundle).toInstance(client);
+      module.bind(INJECT_GITLAB).toInstance(client);
 
       const remote = await container.create(GitlabRemote, DRYRUN_OPTIONS);
       const status = await remote.connect();

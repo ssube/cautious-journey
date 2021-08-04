@@ -1,26 +1,27 @@
 import { mustExist } from '@apextoaster/js-utils';
-import { BundleType } from '@gitbeaker/core/dist/types/infrastructure/Utils';
-import { IssueNotes, Issues, Labels, Projects, ProjectsBundle } from '@gitbeaker/node';
+import { Gitlab } from '@gitbeaker/node';
 
 import { CommentUpdate, IssueUpdate, LabelUpdate, ProjectQuery, Remote, RemoteOptions } from '.';
 import { BaseRemote } from './base';
-
-// gitbeaker exports the bundle types as const, breaking typeof
-type RemoteBundle = InstanceType<BundleType<{
-  Issues: typeof Issues;
-  IssueNotes: typeof IssueNotes;
-  Labels: typeof Labels;
-  Projects: typeof Projects;
-}, 'Issues' | 'IssueNotes' | 'Labels' | 'Projects'>>;
 
 export function unwrapResponse<T>(resp: unknown): T {
   return resp as T;
 }
 
+// TODO: find this type without instantiating a client
+const client = new Gitlab({});
+
+export const INJECT_GITLAB = Symbol('inject-gitlab');
+
+export interface GitlabOptions {
+  host: string;
+  token: string;
+}
+
 /**
  * Gitlab API implementation of the `Remote` contract.
  */
-export class GitlabRemote extends BaseRemote<RemoteBundle, RemoteOptions> implements Remote {
+export class GitlabRemote extends BaseRemote<typeof client, RemoteOptions> implements Remote {
   constructor(options: RemoteOptions) {
     super(options);
 
@@ -28,7 +29,7 @@ export class GitlabRemote extends BaseRemote<RemoteBundle, RemoteOptions> implem
   }
 
   public async connect(): Promise<boolean> {
-    this.client = await this.options.container.create(ProjectsBundle, {
+    this.client = await this.options.container.create(INJECT_GITLAB, {
       host: this.options.data.host,
       token: mustExist(this.options.data.token),
     });

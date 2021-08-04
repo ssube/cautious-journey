@@ -108,22 +108,6 @@ build-image: ## build a docker image
 build-page: configure
 	cp -v $(SOURCE_PATH)/index.html $(TARGET_PATH)/index.html
 
-deploy:
-	aws s3 sync \
-		--exclude 'README.md' \
-		--exclude '*.tmx' \
-		--exclude '*.tsx' \
-		$(ROOT_PATH)/resources s3://$(DEPLOY_BUCKET)
-	aws s3 sync \
-		--exclude '*' \
-		--include '*.js' \
-		--include 'index.html' \
-		--exclude 'cache' \
-		--exclude 'coverage' \
-		--exclude 'test.*' \
-		--exclude 'entry-*' \
-		$(TARGET_PATH) s3://$(DEPLOY_BUCKET)
-
 test: ## run mocha unit tests
 test: test-check
 
