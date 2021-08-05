@@ -1,5 +1,3 @@
-require('jsdom-global')();
-
 const sourceMapSupport = require('source-map-support');
 sourceMapSupport.install({
   environment: 'node',
@@ -13,5 +11,3 @@ const chaiSinon = require('sinon-chai');
 
 chai.use(chaiPromise);
 chai.use(chaiSinon);
-
-window.URL.createObjectURL = function () { };

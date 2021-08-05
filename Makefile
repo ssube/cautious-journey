@@ -92,7 +92,7 @@ todo:
 
 # Build targets
 build: ## builds, bundles, and tests the application
-build: build-page build-bundle build-docs
+build: build-bundle build-docs
 
 build-bundle: node_modules
 	$(NODE_BIN)/rollup --config $(CONFIG_PATH)/rollup/config.js
@@ -104,9 +104,6 @@ build-docs: ## generate html docs
 
 build-image: ## build a docker image
 	$(SCRIPT_PATH)/docker-build.sh --push
-
-build-page: configure
-	cp -v $(SOURCE_PATH)/index.html $(TARGET_PATH)/index.html
 
 test: ## run mocha unit tests
 test: test-check
