@@ -9,9 +9,9 @@ Gitlab API implementation of the `Remote` contract.
 <b>Signature:</b>
 
 ```typescript
-export declare class GitlabRemote extends BaseRemote<typeof client, RemoteOptions> implements Remote 
+export declare class GitlabRemote extends BaseRemote<GitlabType, RemoteOptions> implements Remote 
 ```
-<b>Extends:</b> BaseRemote&lt;typeof client, [RemoteOptions](./cautious-journey.remoteoptions.md)<!-- -->&gt;
+<b>Extends:</b> BaseRemote&lt;GitlabType, [RemoteOptions](./cautious-journey.remoteoptions.md)<!-- -->&gt;
 
 <b>Implements:</b> [Remote](./cautious-journey.remote.md)
 

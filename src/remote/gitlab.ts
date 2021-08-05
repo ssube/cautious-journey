@@ -15,7 +15,7 @@ export interface GitlabOptions extends BaseOptions {
 /**
  * Gitlab API implementation of the `Remote` contract.
  */
-export class GitlabRemote extends BaseRemote<GitlabType<false>, RemoteOptions> implements Remote {
+export class GitlabRemote extends BaseRemote<GitlabType, RemoteOptions> implements Remote {
   constructor(options: RemoteOptions) {
     super(options);
 
