@@ -1,12 +1,9 @@
 import { mustExist } from '@apextoaster/js-utils';
-import { Gitlab } from '@gitbeaker/node';
+import { Gitlab as GitlabType } from '@gitbeaker/core';
 import { BaseOptions } from 'noicejs';
 
 import { CommentUpdate, IssueUpdate, LabelUpdate, ProjectQuery, Remote, RemoteOptions } from '.';
 import { BaseRemote } from './base';
-
-// TODO: find this type without instantiating a client
-const client = new Gitlab({});
 
 export const INJECT_GITLAB = Symbol('inject-gitlab');
 
@@ -18,7 +15,7 @@ export interface GitlabOptions extends BaseOptions {
 /**
  * Gitlab API implementation of the `Remote` contract.
  */
-export class GitlabRemote extends BaseRemote<typeof client, RemoteOptions> implements Remote {
+export class GitlabRemote extends BaseRemote<GitlabType<false>, RemoteOptions> implements Remote {
   constructor(options: RemoteOptions) {
     super(options);
 
