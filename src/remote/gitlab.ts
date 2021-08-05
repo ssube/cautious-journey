@@ -5,10 +5,6 @@ import { BaseOptions } from 'noicejs';
 import { CommentUpdate, IssueUpdate, LabelUpdate, ProjectQuery, Remote, RemoteOptions } from '.';
 import { BaseRemote } from './base';
 
-export function unwrapResponse<T>(resp: unknown): T {
-  return resp as T;
-}
-
 // TODO: find this type without instantiating a client
 const client = new Gitlab({});
 
@@ -73,11 +69,13 @@ export class GitlabRemote extends BaseRemote<typeof client, RemoteOptions> imple
 
   public async listIssues(options: ProjectQuery): Promise<Array<IssueUpdate>> {
     const project = await this.resolvePath(options.project);
-    const data = unwrapResponse<Array<GitlabIssue>>(await mustExist(this.client).Issues.all({
-      ...project,
-    }));
+    const data = await mustExist(this.client).Issues.all(project);
 
-    return data.map((issue) => ({
+    // TODO: the compiler has trouble with the types of data items and shows them as empty
+    // when they should be something based on Array<Types.IssueSchema>
+
+    /* eslint-disable-next-line */
+    return data.map((issue: any) => ({
       issue: issue.iid.toString(),
       labels: issue.labels,
       name: issue.title,
@@ -87,7 +85,7 @@ export class GitlabRemote extends BaseRemote<typeof client, RemoteOptions> imple
 
   public async listLabels(options: ProjectQuery): Promise<Array<LabelUpdate>> {
     const project = await this.resolvePath(options.project);
-    const data = unwrapResponse<Array<GitlabLabel>>(await mustExist(this.client).Labels.all(project.projectId));
+    const data = await mustExist(this.client).Labels.all(project.projectId);
 
     return data.map((label) => ({
       color: label.color.replace(/^#/, ''),
@@ -126,7 +124,7 @@ export class GitlabRemote extends BaseRemote<typeof client, RemoteOptions> imple
     groupId: number;
     projectId: number;
   }> {
-    const project = unwrapResponse<GitlabProject>(await mustExist(this.client).Projects.show(path));
+    const project = await mustExist(this.client).Projects.show(path);
 
     return {
       groupId: project.namespace.id,
