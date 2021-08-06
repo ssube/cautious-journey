@@ -1,15 +1,16 @@
 FROM docker.artifacts.apextoaster.com/library/node:16
 
 # dependencies: log filtering
-RUN apk add --update jq \
- && rm -rf /var/cache/apk/* \
+RUN apt-get update -y \
+ && apt-get install -y jq \
+ && rm -rf /var/lib/apt/lists/* \
  && yarn global add bunyan
 
 ENV PATH="${PATH}:$(yarn global bin)"
 WORKDIR /cautious-journey
 
 # copy config, which changes rarely
-COPY docs/config-docker.yml /root/.cautious-journey.yml
+COPY docs/config.yml /root/.cautious-journey.yml
 
 # copy package first, to invalidate other layers when version changes
 COPY package.json /cautious-journey/package.json
@@ -22,8 +23,6 @@ COPY out/index.js /cautious-journey/out/index.js
 
 # set up as global cli tool
 RUN yarn global add file:$(pwd)
-
-COPY rules /cautious-journey/rules
 
 ENTRYPOINT [ "node", "/cautious-journey/out/index.js" ]
 CMD [ "--help" ]
