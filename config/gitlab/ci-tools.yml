@@ -53,6 +53,7 @@
     DOCKER_HOST: tcp://localhost:2376
     DOCKER_TLS_CERTDIR: "/shared/docker"
     DOCKER_TLS_VERIFY: 1
+    IMAGE_ROOT: "${CI_PROJECT_DIR}"
 
 .build-node:
   image: docker.artifacts.apextoaster.com/apextoaster/node:16.6
