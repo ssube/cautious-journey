@@ -1,27 +1,46 @@
 #! /bin/bash
 
-IMAGE_PUSH="${1:---skip}"
-IMAGE_DEFAULT="${2:---skip}"
+set -euxo pipefail
 
-IMAGE_NAME="${CI_PROJECT_PATH}"
-IMAGE_TAG="$(echo "${CI_COMMIT_TAG:-${CI_COMMIT_REF_SLUG}}" | sed -r 's/[^-_a-zA-Z0-9\\.]/-/g')"
+cd ${IMAGE_ROOT}
+export IMAGE_TAG="${IMAGE_NAME}:${IMAGE_VERSION}-${CI_COMMIT_REF_SLUG}"
 
-IMAGE_SHORT="${IMAGE_NAME}:${IMAGE_TAG}"
-IMAGE_FULL="${IMAGE_NAME}:${IMAGE_TAG}-${IMAGE_ARCH}"
+# pull the previous image from the same branch or master to leverage its layers
+docker pull docker.artifacts.apextoaster.com/${IMAGE_TAG} || \
+  docker pull docker.artifacts.apextoaster.com/"${IMAGE_NAME}:${IMAGE_VERSION}-master" || \
+  true  # no existing image is not an error
 
-echo "Building image: ${IMAGE_FULL}"
+# build and test a new image
+docker build -t ${IMAGE_TAG} .
+docker run --rm -v $(pwd):/tests:ro --entrypoint /usr/local/bin/goss ${IMAGE_TAG} --gossfile /tests/Gossfile.yml validate
 
-docker build -f "Dockerfile.${IMAGE_ARCH}" -t "${IMAGE_FULL}" .
+# prepare to push
+function push_image() {
+  local PUSH_TAG="${1:-${IMAGE_TAG}}"
 
-if [[ "${IMAGE_PUSH}" == "--push" ]];
-then
-  echo "Pushing image: ${IMAGE_FULL}"
-  docker push "${IMAGE_FULL}"
-fi
+  docker push ${PUSH_TAG} || true
+  docker tag ${PUSH_TAG} docker-push.artifacts.apextoaster.com/${PUSH_TAG}
+  docker push docker-push.artifacts.apextoaster.com/${PUSH_TAG}
 
-if [[ "${IMAGE_DEFAULT}" == "--default" ]];
-then
-  echo "Pushing image (default architecture): ${IMAGE_SHORT}"
-  docker tag "${IMAGE_FULL}" "${IMAGE_SHORT}"
-  docker push "${IMAGE_SHORT}"
-fi
+  if [[ "${CI_COMMIT_REF_SLUG}" == "master" ]];
+  then
+    docker tag ${PUSH_TAG} ${IMAGE_NAME}:${IMAGE_VERSION}
+    docker push ${IMAGE_NAME}:${IMAGE_VERSION}
+
+    docker tag ${IMAGE_NAME}:${IMAGE_VERSION} docker-push.artifacts.apextoaster.com/${IMAGE_NAME}:${IMAGE_VERSION}
+    docker push docker-push.artifacts.apextoaster.com/${IMAGE_NAME}:${IMAGE_VERSION}
+  fi
+}
+
+# push under the normal tag
+push_image "${IMAGE_TAG}"
+
+# push under each alt tag
+for alt_name in "${IMAGE_ALT:-}";
+do
+  [[ -z "${alt_name}" ]] && continue
+
+  ALT_TAG="${alt_name}:${IMAGE_VERSION}-${CI_COMMIT_REF_SLUG}"
+  docker tag ${IMAGE_TAG} ${ALT_TAG}
+  push_image "${ALT_TAG}"
+done
