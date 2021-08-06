@@ -41,7 +41,7 @@ for alt_name in "${IMAGE_ALT:-}";
 do
   [[ -z "${alt_name}" ]] && continue
 
-  ALT_TAG="${alt_name}:${IMAGE_VERSION}-${CI_COMMIT_REF_SLUG}"
+  ALT_TAG="${alt_name}:${IMAGE_VERSION}-${CLEAN_TAG}"
   docker tag ${IMAGE_TAG} ${ALT_TAG}
   push_image "${ALT_TAG}"
 done
