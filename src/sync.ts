@@ -92,6 +92,7 @@ export async function syncProjectLabels(options: SyncOptions): Promise<unknown> 
       if (exists) {
         if (expected) {
           const data = mustExist(labels.find((l) => l.name === label));
+          logger.info({ data, label }, 'update label');
           await updateLabel(options, data);
         } else {
           logger.warn({ label }, 'remove label');
@@ -103,6 +104,7 @@ export async function syncProjectLabels(options: SyncOptions): Promise<unknown> 
           await createLabel(options, label);
         } else {
           // skip
+          logger.debug({ label }, 'label exists');
         }
       }
     }

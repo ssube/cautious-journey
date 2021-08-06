@@ -1,4 +1,4 @@
-import { InvalidArgumentError } from '@apextoaster/js-utils';
+import { InvalidArgumentError, NotImplementedError } from '@apextoaster/js-utils';
 import { expect } from 'chai';
 import { Container, NullLogger } from 'noicejs';
 import { alea } from 'seedrandom';
@@ -208,6 +208,41 @@ describe('project sync', () => {
       expect(listStub).to.have.callCount(1);
       expect(createStub).to.have.callCount(0);
       expect(deleteStub).to.have.callCount(1);
+    });
+
+    it('should handle error from the remote', async () => {
+      const container = Container.from();
+      await container.configure();
+
+      const logger = BunyanLogger.create({
+        name: 'test',
+      });
+      const remoteConfig = {
+        data: {},
+        dryrun: true,
+        logger,
+        type: '',
+      };
+      const remote = await container.create(GithubRemote, remoteConfig);
+      const listStub = stub(remote, 'listLabels').rejects(NotImplementedError);
+
+      const result = await syncProjectLabels({
+        logger,
+        project: {
+          colors: [],
+          comment: true,
+          flags: [TEST_FLAG],
+          initial: [],
+          name: '',
+          remote: remoteConfig,
+          states: [],
+        },
+        random: alea(),
+        remote,
+      });
+
+      expect(listStub).to.have.callCount(1);
+      expect(result).to.equal(undefined);
     });
   });
 
