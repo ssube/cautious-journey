@@ -3,7 +3,9 @@
 set -euxo pipefail
 
 cd ${IMAGE_ROOT}
-export IMAGE_TAG="${IMAGE_NAME}:${IMAGE_VERSION}-${CI_COMMIT_REF_SLUG}"
+
+export CLEAN_TAG="$(echo "${CI_COMMIT_TAG:-${CI_COMMIT_REF_SLUG}}" | sed -r 's/[^-_a-zA-Z0-9\\.]/-/g')"
+export IMAGE_TAG="${IMAGE_NAME}:${IMAGE_VERSION}-${CLEAN_TAG}"
 
 # pull the previous image from the same branch or master to leverage its layers
 docker pull docker.artifacts.apextoaster.com/${IMAGE_TAG} || \
@@ -12,7 +14,6 @@ docker pull docker.artifacts.apextoaster.com/${IMAGE_TAG} || \
 
 # build and test a new image
 docker build -t ${IMAGE_TAG} .
-docker run --rm -v $(pwd):/tests:ro --entrypoint /usr/local/bin/goss ${IMAGE_TAG} --gossfile /tests/Gossfile.yml validate
 
 # prepare to push
 function push_image() {
