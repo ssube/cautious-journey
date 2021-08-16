@@ -60,42 +60,43 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@gitbeaker/browser@32.1.0":
-  version "32.1.0"
-  resolved "https://artifacts.apextoaster.com/repository/group-npm/@gitbeaker/browser/-/browser-32.1.0.tgz#5da7d4e0375bee0541193b7a0f4b40fa1bdefe00"
-  integrity sha512-fzkHzlsZEdQi7zAQ67I75EbOnYGmAsnng/3xciqum88q8vISmL3zENznxNS8k9VVjdBzbKwI9ApyBY0uaFM+rg==
+"@gitbeaker/browser@32.1.2":
+  version "32.1.2"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/@gitbeaker/browser/-/browser-32.1.2.tgz#9fe6145673eb336dfeab8e2192be7a901b281182"
+  integrity sha512-eTDyY8XVZrgjd5dGIw+D0ypJuqljlXZcq2QkUoMEZA5Z0S3GzRldGe+4Ohjb8EG1TQIdMRh4ABMR9p1AeDcqKA==
   dependencies:
-    "@gitbeaker/core" "^32.1.0"
-    "@gitbeaker/requester-utils" "^32.1.0"
+    "@gitbeaker/core" "^32.1.2"
+    "@gitbeaker/requester-utils" "^32.1.2"
     delay "^5.0.0"
     ky "0.28.5"
 
-"@gitbeaker/core@32.1.0", "@gitbeaker/core@^32.1.0":
-  version "32.1.0"
-  resolved "https://artifacts.apextoaster.com/repository/group-npm/@gitbeaker/core/-/core-32.1.0.tgz#bb7ac887a283286f20be11639ab59d29709dbae6"
-  integrity sha512-rFv+PeZ2cVVWeqTyUGF/fzYXQDDxsGO7KiUr5YvtGeTgBH1eykRmpFPZPwuSDNDDsDomSm29ss+m8ezPw9rBsA==
+"@gitbeaker/core@32.1.2", "@gitbeaker/core@^32.1.2":
+  version "32.1.2"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/@gitbeaker/core/-/core-32.1.2.tgz#b27e506557d28a53ec9a35c8532f48b77b7577ba"
+  integrity sha512-xeTqY6x8wvrY+aC+300xgJmvRdsOu5ZiAqMvrhY3wEyTedOxLolsFV2VbWlpyq2IVTiwDAbImpz1wi8xhr7PUw==
   dependencies:
-    "@gitbeaker/requester-utils" "^32.1.0"
+    "@gitbeaker/requester-utils" "^32.1.2"
     form-data "^4.0.0"
     li "^1.3.0"
+    mime-types "^2.1.32"
     query-string "^7.0.0"
     xcase "^2.0.1"
 
-"@gitbeaker/node@32.1.0":
-  version "32.1.0"
-  resolved "https://artifacts.apextoaster.com/repository/group-npm/@gitbeaker/node/-/node-32.1.0.tgz#2a59a09b49856ee82e837acd9aaef0702e131a4b"
-  integrity sha512-Ci3DMrWY+Azr8oEBZSgY2NUw9hvT1AUy6riCNt/nW09iRxb6TIeQ1N4IcAX9LBKyEMwdOSxLHahmRMJfnyhrMg==
+"@gitbeaker/node@32.1.2":
+  version "32.1.2"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/@gitbeaker/node/-/node-32.1.2.tgz#201bd1d568508416740c5e53992571979c65b9bd"
+  integrity sha512-dVeJG3AE30WaRLPi6y0fSg2d9SNMuOlxukdnZBGBQuKh2S4anqj+0HXmrA4SEu+u0QniDkHKjCEoG9Re1+8NMA==
   dependencies:
-    "@gitbeaker/core" "^32.1.0"
-    "@gitbeaker/requester-utils" "^32.1.0"
+    "@gitbeaker/core" "^32.1.2"
+    "@gitbeaker/requester-utils" "^32.1.2"
     delay "^5.0.0"
     got "^11.8.2"
     xcase "^2.0.1"
 
-"@gitbeaker/requester-utils@^32.1.0":
-  version "32.1.0"
-  resolved "https://artifacts.apextoaster.com/repository/group-npm/@gitbeaker/requester-utils/-/requester-utils-32.1.0.tgz#d87ea414e748e010a7d8d6a751aafbe55bfdad9e"
-  integrity sha512-q3M80nVCumK3TSD112v+e+n2bvzjRS3pdmOp+asYmHt4ni5t28A518D4qSN3ce+0TpLDB3LPKm0KDRfxkkuaPA==
+"@gitbeaker/requester-utils@^32.1.2":
+  version "32.1.2"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/@gitbeaker/requester-utils/-/requester-utils-32.1.2.tgz#cdb2b7c8fd6b705b7ba265397b3ab05d2b378a97"
+  integrity sha512-uhZ2gKbpXcAyf1vT3U4v5wO+Fh0BJYJVfEBmNglilcoGAQFnkC6cVkxV3TZrXePud+lTshMdAEJlSO7cv8ETlg==
   dependencies:
     form-data "^4.0.0"
     query-string "^7.0.0"
@@ -3512,12 +3513,24 @@ mime-db@1.44.0:
   resolved "https://artifacts.apextoaster.com/repository/group-npm/mime-db/-/mime-db-1.44.0.tgz#fa11c5eb0aca1334b4233cb4d52f10c5a6272f92"
   integrity sha512-/NOTfLrsPBVeH7YtFPgsVWveuL+4SjjYxaQ1xtM1KMFj7HdxlBlxeyNLzhyJVx7r4rZGJAZ/6lkKCitSc/Nmpg==
 
+mime-db@1.49.0:
+  version "1.49.0"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/mime-db/-/mime-db-1.49.0.tgz#f3dfde60c99e9cf3bc9701d687778f537001cbed"
+  integrity sha512-CIc8j9URtOVApSFCQIF+VBkX1RwXp/oMMOrqdyXSBXq5RWNEsRfyj1kiRnQgmNXmHxPoFIxOroKA3zcU9P+nAA==
+
 mime-types@^2.1.12:
   version "2.1.27"
   resolved "https://artifacts.apextoaster.com/repository/group-npm/mime-types/-/mime-types-2.1.27.tgz#47949f98e279ea53119f5722e0f34e529bec009f"
   integrity sha512-JIhqnCasI9yD+SsmkquHBxTSEuZdQX5BuQnS2Vc7puQQQ+8yiP5AY5uWhpdv4YL4VM5c6iliiYWPgJ/nJQLp7w==
   dependencies:
     mime-db "1.44.0"
+
+mime-types@^2.1.32:
+  version "2.1.32"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/mime-types/-/mime-types-2.1.32.tgz#1d00e89e7de7fe02008db61001d9e02852670fd5"
+  integrity sha512-hJGaVS4G4c9TSMYh2n6SQAGrC4RnfU+daP8G7cSCmaqNjiOoUY0VHCMS42pxnQmVF1GWwFhbHWn3RIxCqTmZ9A==
+  dependencies:
+    mime-db "1.49.0"
 
 mime@>=2.4.6:
   version "2.4.6"
