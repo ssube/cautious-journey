@@ -87,7 +87,7 @@
     }
   },
   "dependencies": {
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^3.0.0"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
