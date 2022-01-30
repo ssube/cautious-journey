@@ -110,6 +110,14 @@ export class GithubRemote extends BaseRemote<Octokit, RemoteOptions> implements 
     return options;
   }
 
+  public labelName(label: string | { name?: string }): string {
+    if (typeof label === 'string') {
+      return label;
+    } else {
+      return mustExist(label.name);
+    }
+  }
+
   public async listIssues(options: ProjectQuery): Promise<Array<IssueUpdate>> {
     const path = await this.resolvePath(options.project);
 
@@ -119,7 +127,7 @@ export class GithubRemote extends BaseRemote<Octokit, RemoteOptions> implements 
     for (const issue of repo.data) {
       issues.push({
         issue: issue.number.toString(),
-        labels: issue.labels.map((l) => l.name).filter(doesExist),
+        labels: issue.labels.map((l) => this.labelName(l)).filter(doesExist),
         name: issue.title,
         project: options.project,
       });
