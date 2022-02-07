@@ -59,12 +59,17 @@ export async function syncIssueLabels(options: SyncOptions): Promise<unknown> {
       }
     }
   } catch (err) {
-    logger.error(err, 'error syncing issue labels');
+    if (err instanceof Error) {
+      logger.error(err, 'error syncing issue labels');
+    } else {
+      logger.error('unknown error syncing issue labels');
+    }
   }
 
   return undefined;
 }
 
+/* eslint-disable-next-line sonarjs/cognitive-complexity */
 export async function syncProjectLabels(options: SyncOptions): Promise<unknown> {
   const { logger, project, remote } = options;
 
@@ -109,7 +114,11 @@ export async function syncProjectLabels(options: SyncOptions): Promise<unknown> 
       }
     }
   } catch (err) {
-    logger.error(err, 'error syncing project labels');
+    if (err instanceof Error) {
+      logger.error(err, 'error syncing project labels');
+    } else {
+      logger.error('unknown error syncing project labels');
+    }
   }
 
   return undefined;
