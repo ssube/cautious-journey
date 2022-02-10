@@ -35,7 +35,7 @@
     "@types/chai-as-promised": "7.1.4",
     "@types/js-yaml": "4.0.5",
     "@types/mocha": "9.1.0",
-    "@types/seedrandom": "3.0.1",
+    "@types/seedrandom": "3.0.2",
     "@types/sinon": "10.0.11",
     "@types/sinon-chai": "3.2.8",
     "@types/source-map-support": "0.5.4",
