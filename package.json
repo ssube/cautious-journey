@@ -22,7 +22,7 @@
     "@microsoft/api-documenter": "7.17.12",
     "@microsoft/api-extractor": "7.23.1",
     "@octokit/auth-app": "4.0.7",
-    "@octokit/rest": "18.12.0",
+    "@octokit/rest": "19.0.5",
     "@rollup/plugin-alias": "3.1.9",
     "@rollup/plugin-commonjs": "22.0.0",
     "@rollup/plugin-json": "4.1.0",
