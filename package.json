@@ -56,7 +56,7 @@
     "eslint-plugin-sonarjs": "0.13.0",
     "esm": "3.2.25",
     "js-yaml": "4.1.0",
-    "memfs": "3.4.1",
+    "memfs": "3.4.12",
     "mocha": "10.0.0",
     "noicejs": "4.0.0",
     "rollup": "2.72.1",
