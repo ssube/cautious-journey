@@ -9,5 +9,5 @@ Individual labels: the equivalent of a checkbox.
 <b>Signature:</b>
 
 ```typescript
-export declare type FlagLabel = BaseLabel;
+export type FlagLabel = BaseLabel;
 ```
