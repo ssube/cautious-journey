@@ -11,7 +11,7 @@ Github/Octokit API implementation of the `Remote` contract.
 ```typescript
 export declare class GithubRemote extends BaseRemote<Octokit, RemoteOptions> implements Remote 
 ```
-<b>Extends:</b> BaseRemote&lt;Octokit, [RemoteOptions](./cautious-journey.remoteoptions.md)<!-- -->&gt;
+<b>Extends:</b> BaseRemote&lt;Octokit, [RemoteOptions](./cautious-journey.remoteoptions.md)
 
 <b>Implements:</b> [Remote](./cautious-journey.remote.md)
 

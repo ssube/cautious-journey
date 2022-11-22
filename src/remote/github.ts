@@ -1,4 +1,4 @@
-import { doesExist, InvalidArgumentError, mustCoalesce, mustExist } from '@apextoaster/js-utils';
+import { doesExist, InvalidArgumentError, mustDefault, mustExist } from '@apextoaster/js-utils';
 import { createAppAuth } from '@octokit/auth-app';
 import { Octokit } from '@octokit/rest';
 
@@ -145,7 +145,7 @@ export class GithubRemote extends BaseRemote<Octokit, RemoteOptions> implements 
     for (const label of repo.data) {
       labels.push({
         color: label.color,
-        desc: mustCoalesce(label.description, ''),
+        desc: mustDefault(label.description, ''),
         name: label.name,
         project: options.project,
       });
@@ -186,7 +186,7 @@ export class GithubRemote extends BaseRemote<Octokit, RemoteOptions> implements 
 
       return {
         color: data.data.color,
-        desc: mustCoalesce(data.data.description, ''),
+        desc: mustDefault(data.data.description, ''),
         name: data.data.name,
         project: options.project,
       };
