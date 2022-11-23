@@ -1,18 +1,15 @@
 import { expect } from 'chai';
-import sinon from 'sinon';
 
 import { Commands, parseArgs } from '../../src/config/args';
 
-const { stub } = sinon;
-
 describe('args', () => {
-  it('should set command mode', () => {
+  it('should set command mode', async () => {
     for (const command of [
       Commands.GRAPH,
       Commands.ISSUES,
       Commands.LABELS,
     ]) {
-      const args = parseArgs([command, '--config', 'foo.yml']);
+      const args = await parseArgs([command, '--config', 'foo.yml']);
       expect(args).to.deep.include({
         dryrun: true,
         mode: command,

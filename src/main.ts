@@ -25,7 +25,7 @@ export const STATUS_FAILURE = 1;
 export const STATUS_SUCCESS = 0;
 
 export async function main(argv: Array<string>): Promise<number> {
-  const args = parseArgs(argv.slice(ARGS_START));
+  const args = await parseArgs(argv.slice(ARGS_START));
   const config = await initConfig(args.config);
   const logger = BunyanLogger.create(config.logger);
 
