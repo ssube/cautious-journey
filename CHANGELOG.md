@@ -2,6 +2,44 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.3.0](https://github.com/ssube/cautious-journey/compare/v0.2.0...v0.3.0) (2022-11-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* requires Node with stable ES modules. Consumers
+targeting versions of Node or browsers without module support will
+need to use a bundler to replace the imports.
+* **config:** this updates config loading to use the fs.promises
+API and does not resolve paths from HOME or __dirname. Using an
+absolute or relative path in the args option is still supported.
+
+### Features
+
+* **remote:** prepare gitlab remote for gitbeaker upgrade ([b26fb78](https://github.com/ssube/cautious-journey/commit/b26fb78ff72e02a02e7d91fef1cffe7918fe5639))
+* switch output to es module, use c8 for coverage ([24d96a5](https://github.com/ssube/cautious-journey/commit/24d96a56d48e233d07a987d0968788dc5b6e170f))
+* **config:** load and validate config directly, without js-config lib ([c32ac31](https://github.com/ssube/cautious-journey/commit/c32ac312df44b3e1488a7fecc90a0a0273d6ed60))
+
+
+### Bug Fixes
+
+* **config:** switch args to an async call, options map ([7311407](https://github.com/ssube/cautious-journey/commit/7311407d9ed1935ca645546db07da906b02a58cd))
+* add istanbul schema for c8 ([f51590e](https://github.com/ssube/cautious-journey/commit/f51590e71d013e83862d81fb72396901b605e4e5))
+* improve error handling for TS 4.5 ([6c93fa9](https://github.com/ssube/cautious-journey/commit/6c93fa9d617ef494bf508e78044268a375b7c3c5))
+* swap out deprecated helper ([f007787](https://github.com/ssube/cautious-journey/commit/f00778709c5812992ba16f0146098af129f292ca))
+* **build:** handle image build errors in script ([b23eb38](https://github.com/ssube/cautious-journey/commit/b23eb389bacffcdd30a4be771f4b084a854dfb40))
+* **build:** set image build root path ([2cd1e5a](https://github.com/ssube/cautious-journey/commit/2cd1e5a0fe0b51b335d8af3453202396587f8299))
+* **build:** update docker build vars ([12f63b5](https://github.com/ssube/cautious-journey/commit/12f63b538fcee2975407fa0a193d2a29da6a8725))
+* **build:** update package version ([c487efb](https://github.com/ssube/cautious-journey/commit/c487efb5ed7929491edbe729e3af9d3a03973903))
+* **build:** use sanitized git tag or ref for image tag ([6ebad3c](https://github.com/ssube/cautious-journey/commit/6ebad3c08afccf4ef108519198f6967c635d5836))
+* **image:** use correct package manager in stretch image ([190784b](https://github.com/ssube/cautious-journey/commit/190784bfd5075f3cb7e2128d0bee36307cda5814))
+* **module:** be selective about gitlab client options ([be153a8](https://github.com/ssube/cautious-journey/commit/be153a8149f49edc7a6f8367766295426594d416))
+* **remote:** remove fake typeguard around gitlab responses ([f2475c7](https://github.com/ssube/cautious-journey/commit/f2475c72f918208f37123a79b14ce5a30d94fc27))
+* **remote/github:** extract label name when listing issues ([d777147](https://github.com/ssube/cautious-journey/commit/d7771474a36c85acffe8162a9a9fcb6383cea278))
+* **sync:** better logging for existing/updated labels ([6c9916d](https://github.com/ssube/cautious-journey/commit/6c9916d96ff948ff3f9e59fd8a55e17b1a1f0076))
+* **sync:** log errors during issue and project sync ([#554](https://github.com/ssube/cautious-journey/issues/554)) ([4e6c007](https://github.com/ssube/cautious-journey/commit/4e6c0071ecb65c0a6272bd9d55d6e3e5e19bf8eb))
+* update prng typedef ([4342faf](https://github.com/ssube/cautious-journey/commit/4342faf467d8b975cd1fdd3d32101f323cc9ef3e))
+
 ## 0.2.0 (2021-07-10)
 
 

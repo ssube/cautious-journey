@@ -1,6 +1,6 @@
 {
   "name": "cautious-journey",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Github/Gitlab label & workflow manager",
   "type": "module",
   "main": "out/index.js",
