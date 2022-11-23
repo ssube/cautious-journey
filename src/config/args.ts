@@ -17,7 +17,7 @@ export interface ParsedArgs {
   project?: Array<string>;
 }
 
-export function parseArgs(args: Array<string>): ParsedArgs {
+export async function parseArgs(args: Array<string>): Promise<ParsedArgs> {
   let mode = Commands.UNKNOWN;
 
   const parser = yargs(args)
@@ -44,25 +44,27 @@ export function parseArgs(args: Array<string>): ParsedArgs {
         mode = Commands.LABELS;
       },
     })
-    .option('config', {
-      alias: ['c'],
-      demand: true,
-      desc: 'Config file path',
-      type: 'string',
-    })
-    .option('dryrun', {
-      alias: ['d'],
-      default: true,
-      demand: false,
-      desc: 'Run without updating remote labels',
-      type: 'boolean',
-    })
-    .option('project', {
-      alias: ['p'],
-      array: true,
-      demand: false,
-      desc: 'Project names to be run',
-      type: 'string',
+    .option({
+      config: {
+        alias: ['c'],
+        demand: true,
+        desc: 'Config file path',
+        type: 'string',
+      },
+      dryrun: {
+        alias: ['d'],
+        default: true,
+        demand: false,
+        desc: 'Run without updating remote labels',
+        type: 'boolean',
+      },
+      project: {
+        alias: ['p'],
+        array: true,
+        demand: false,
+        desc: 'Project names to be run',
+        type: 'string',
+      },
     })
     .completion()
     .help()
@@ -70,7 +72,7 @@ export function parseArgs(args: Array<string>): ParsedArgs {
     .version(VERSION_INFO.package.version)
     .alias('version', 'v');
 
-  const argsWithoutMode: Omit<ParsedArgs, 'mode'> = parser.argv;
+  const argsWithoutMode: Omit<ParsedArgs, 'mode'> = await parser.parse(args);
   return {
     ...argsWithoutMode,
     mode,
