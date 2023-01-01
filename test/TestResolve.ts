@@ -7,7 +7,7 @@ const TEST_LABELS = ['bar', 'foo'];
 
 describe('resolve labels', () => {
   describe('with empty rule set', () => {
-    it('should return the existing labels', () => {
+    it('should return the existing labels', async () => {
       const result = resolveProject({
         flags: [],
         initial: [],
@@ -18,7 +18,7 @@ describe('resolve labels', () => {
       expect(result.labels).to.deep.equal(TEST_LABELS);
     });
 
-    it('should not make any changes', () => {
+    it('should not make any changes', async () => {
       const result = resolveProject({
         flags: [],
         initial: [],
@@ -31,7 +31,7 @@ describe('resolve labels', () => {
   });
 
   describe('with empty labels', () => {
-    it('should return initial labels', () => {
+    it('should return initial labels', async () => {
       const initial = ['bar', 'foo'];
       const result = resolveProject({
         flags: [],
@@ -47,7 +47,7 @@ describe('resolve labels', () => {
   // procedural tests
   describe('resolver test cases', () => {
     for (const test of TEST_CASES) {
-      it(`should resolve ${test.name}`, () => {
+      it(`should resolve ${test.name}`, async () => {
         const actualResult = resolveProject(test.input);
         expect(actualResult).to.deep.include(test.result);
       });

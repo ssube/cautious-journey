@@ -4,7 +4,7 @@ import { resolveProject } from '../../src/resolve.js';
 
 describe('resolve labels', () => {
   describe('flags with unfulfilled requires rule', () => {
-    it('should be removed when required label is missing', () => {
+    it('should be removed when required label is missing', async () => {
       const result = resolveProject({
         flags: [{
           adds: [],
@@ -25,7 +25,7 @@ describe('resolve labels', () => {
   });
 
   describe('flags with fulfilled requires rule', () => {
-    it('should make no changes', () => {
+    it('should make no changes', async () => {
       const result = resolveProject({
         flags: [{
           adds: [],
@@ -46,7 +46,7 @@ describe('resolve labels', () => {
   });
 
   describe('flags with add rules', () => {
-    it('should add the labels', () => {
+    it('should add the labels', async () => {
       const result = resolveProject({
         flags: [{
           adds: [{
@@ -67,7 +67,7 @@ describe('resolve labels', () => {
   });
 
   describe('flags with remove rules', () => {
-    it('should remove labels', () => {
+    it('should remove labels', async () => {
       const result = resolveProject({
         flags: [{
           adds: [],

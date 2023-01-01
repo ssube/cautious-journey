@@ -5,11 +5,11 @@ import { random } from '../src/main.js';
 
 describe('label helpers', () => {
   describe('label name helper', () => {
-    it('should return an empty set', () => {
+    it('should return an empty set', async () => {
       expect(getLabelNames([], []).size).to.equal(0);
     });
 
-    it('should return all flags', () => {
+    it('should return all flags', async () => {
       const flags = [{
         adds: [],
         name: 'foo',
@@ -29,7 +29,7 @@ describe('label helpers', () => {
       expect(Array.from(labels)).to.deep.equal(names);
     });
 
-    it('should return all states', () => {
+    it('should return all states', async () => {
       const values = [{
         adds: [],
         becomes: [],
@@ -65,7 +65,7 @@ describe('label helpers', () => {
   });
 
   describe('prioritize labels helper', () => {
-    it('should sort by priority', () => {
+    it('should sort by priority', async () => {
       const HIGH_LABEL = {
         adds: [],
         name: 'high',
@@ -85,7 +85,7 @@ describe('label helpers', () => {
       expect(sorted[0]).to.deep.equal(HIGH_LABEL);
     });
 
-    it('should sort by name when priority is equal', () => {
+    it('should sort by name when priority is equal', async () => {
       const FIRST_LABEL = {
         adds: [],
         name: 'label-a',
@@ -107,7 +107,7 @@ describe('label helpers', () => {
   });
 
   describe('label color helper', () => {
-    it('should return the value color', () => {
+    it('should return the value color', async () => {
       expect(getLabelColor(['test'], random(), {
         adds: [],
         color: 'beans',
@@ -128,7 +128,7 @@ describe('label helpers', () => {
       })).to.equal('not');
     });
 
-    it('should return the state color when value color is unset', () => {
+    it('should return the state color when value color is unset', async () => {
       expect(getLabelColor(['test'], random(), {
         adds: [],
         color: 'beans',
@@ -149,7 +149,7 @@ describe('label helpers', () => {
       })).to.equal('beans');
     });
 
-    it('should return the flag color', () => {
+    it('should return the flag color', async () => {
       expect(getLabelColor(['test'], random(), {
         adds: [],
         color: 'not',
@@ -160,7 +160,7 @@ describe('label helpers', () => {
       })).to.equal('not');
     });
 
-    it('should return a random color when the flag color is unset', () => {
+    it('should return a random color when the flag color is unset', async () => {
       expect(getLabelColor(['test'], random(), {
         adds: [],
         name: '',

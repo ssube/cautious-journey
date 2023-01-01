@@ -18,7 +18,7 @@ import { ChangeVerb } from '../src/resolve.js';
 
 describe('graph tools', () => {
   describe('label edges', () => {
-    it('should include rule labels', () => {
+    it('should include rule labels', async () => {
       const edges: Array<Edge> = [];
 
       labelEdges({
@@ -59,7 +59,7 @@ describe('graph tools', () => {
   });
 
   describe('graph project', () => {
-    it('should create nodes for each label', () => {
+    it('should create nodes for each label', async () => {
       const graph = graphProject({
         flags: [{
           adds: [],
@@ -80,7 +80,7 @@ describe('graph tools', () => {
       });
     });
 
-    it('should create children for each state', () => {
+    it('should create children for each state', async () => {
       const graph = graphProject({
         flags: [],
         name: '',
@@ -112,20 +112,20 @@ describe('graph tools', () => {
   });
 
   describe('clean name', () => {
-    it('should remove special characters', () => {
+    it('should remove special characters', async () => {
       expect(cleanName('$foo')).to.equal('foo');
       expect(cleanName('foo$')).to.equal('foo');
       expect(cleanName('foo$bar')).to.equal('foo_bar');
     });
 
-    it('should remove duplicate escape characters', () => {
+    it('should remove duplicate escape characters', async () => {
       expect(cleanName('foo$$bar')).to.equal('foo_bar');
       expect(cleanName('foo__bar')).to.equal('foo_bar');
     });
   });
 
   describe('edge style', () => {
-    it('should color edges', () => {
+    it('should color edges', async () => {
       for (const verb of [
         ChangeVerb.BECAME,
         ChangeVerb.CONFLICTED,
@@ -149,7 +149,7 @@ describe('graph tools', () => {
   });
 
   describe('dot formatter', () => {
-    it('should print nodes', () => {
+    it('should print nodes', async () => {
       const graph = dotGraph({
         children: [],
         edges: [],
@@ -167,7 +167,7 @@ describe('graph tools', () => {
       expect(graph).to.include('bar [color=');
     });
 
-    it('should print edges', () => {
+    it('should print edges', async () => {
       const graph = dotGraph({
         children: [],
         edges: [{
@@ -183,7 +183,7 @@ describe('graph tools', () => {
       expect(graph).to.include('foo -> bar');
     });
 
-    it('should cluster children', () => {
+    it('should cluster children', async () => {
       const graph = dotGraph({
         children: [{
           children: [],
@@ -199,7 +199,7 @@ describe('graph tools', () => {
       expect(graph).to.include('subgraph cluster_foo');
     });
 
-    it('should label the root digraph', () => {
+    it('should label the root digraph', async () => {
       const graph = dotGraph({
         children: [],
         edges: [],
@@ -212,7 +212,7 @@ describe('graph tools', () => {
   });
 
   describe('merge edges helper', () => {
-    it('should merge opposing edges', () => {
+    it('should merge opposing edges', async () => {
       const edges = mergeEdges([{
         source: 'foo',
         target: 'bar',
@@ -233,7 +233,7 @@ describe('graph tools', () => {
       });
     });
 
-    it('should merge identical edges', () => {
+    it('should merge identical edges', async () => {
       const edges = mergeEdges([{
         source: 'foo',
         target: 'bar',
@@ -254,7 +254,7 @@ describe('graph tools', () => {
       });
     });
 
-    it('should prefer both type to forward', () => {
+    it('should prefer both type to forward', async () => {
       const edges = mergeEdges([{
         source: 'foo',
         target: 'bar',
@@ -275,7 +275,7 @@ describe('graph tools', () => {
       });
     });
 
-    it('should not merge different verbs', () => {
+    it('should not merge different verbs', async () => {
       const edges = mergeEdges([{
         source: 'foo',
         target: 'bar',
@@ -294,7 +294,7 @@ describe('graph tools', () => {
   });
 
   describe('graph change', () => {
-    it('should add state change node', () => {
+    it('should add state change node', async () => {
       const graph = {
         children: [],
         edges: [],
@@ -317,7 +317,7 @@ describe('graph tools', () => {
       });
     });
 
-    it('should add state change edge', () => {
+    it('should add state change edge', async () => {
       const graph = {
         children: [],
         edges: [],
@@ -343,7 +343,7 @@ describe('graph tools', () => {
       });
     });
 
-    it('should add normal edges', () => {
+    it('should add normal edges', async () => {
       const graph = {
         children: [],
         edges: [],
@@ -371,7 +371,7 @@ describe('graph tools', () => {
   });
 
   describe('graph state', () => {
-    it('should create a node for each value', () => {
+    it('should create a node for each value', async () => {
       const graph = graphState({
         adds: [],
         divider: '/',
@@ -400,7 +400,7 @@ describe('graph tools', () => {
       expect(graph.nodes).to.have.lengthOf(EXPECTED_NODES);
     });
 
-    it('should create exhaustive edges between values', () => {
+    it('should create exhaustive edges between values', async () => {
       const value = {
         adds: [],
         becomes: [],
@@ -434,7 +434,7 @@ describe('graph tools', () => {
       expect(graph.edges).to.have.lengthOf(EXPECTED_EDGES);
     });
 
-    it('should include potential state changes', () => {
+    it('should include potential state changes', async () => {
       const graph = graphState({
         adds: [],
         divider: '/',

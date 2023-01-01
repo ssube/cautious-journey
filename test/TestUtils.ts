@@ -7,7 +7,7 @@ const TEST_FALSE = 'bar';
 
 describe('utils', () => {
   describe('default to value helper', () => {
-    it('should return the first defined value', () => {
+    it('should return the first defined value', async () => {
       /* eslint-disable-next-line no-null/no-null */
       expect(defaultTo(null, TEST_TRUE)).to.equal(TEST_TRUE);
       expect(defaultTo(undefined, TEST_TRUE)).to.equal(TEST_TRUE);
@@ -16,7 +16,7 @@ describe('utils', () => {
   });
 
   describe('default until value helper', () => {
-    it('should return the first defined value', () => {
+    it('should return the first defined value', async () => {
       /* eslint-disable-next-line no-null/no-null */
       expect(defaultUntil(null, null, TEST_TRUE)).to.equal(TEST_TRUE);
       /* eslint-disable-next-line no-null/no-null */
@@ -28,7 +28,7 @@ describe('utils', () => {
 
   describe('compare items helper', () => {
     /* eslint-disable no-magic-numbers */
-    it('should compare items by reference', () => {
+    it('should compare items by reference', async () => {
       const dat = {};
       expect(compareItems([
         1, dat, 3,
@@ -49,7 +49,7 @@ describe('utils', () => {
       ])).to.equal(false);
     });
 
-    it('should sort arrays before comparison', () => {
+    it('should sort arrays before comparison', async () => {
       expect(compareItems([
         1, 2, 3,
       ], [
@@ -57,7 +57,7 @@ describe('utils', () => {
       ])).to.equal(true);
     });
 
-    it('should always reject arrays of different lengths', () => {
+    it('should always reject arrays of different lengths', async () => {
       expect(compareItems(
         new Array(5).fill(1),
         new Array(3).fill(1)
@@ -66,27 +66,27 @@ describe('utils', () => {
   });
 
   describe('kebab case helper', () => {
-    it('should replace non-alnum characters with dashes', () => {
+    it('should replace non-alnum characters with dashes', async () => {
       expect(kebabCase('1_2,3+4')).to.equal('1-2-3-4');
     });
 
-    it('should lowercase the value', () => {
+    it('should lowercase the value', async () => {
       expect(kebabCase('ABC')).to.equal('a-b-c');
       expect(kebabCase('A-B-C')).to.equal('a-b-c');
     });
 
-    it('should remove leading dashes', () => {
+    it('should remove leading dashes', async () => {
       expect(kebabCase('--1')).to.equal('1');
       expect(kebabCase('++1')).to.equal('1');
       expect(kebabCase('-g-g')).to.equal('g-g');
     });
 
-    it('should remove trailing dashes', () => {
+    it('should remove trailing dashes', async () => {
       expect(kebabCase('1--')).to.equal('1');
       expect(kebabCase('1++')).to.equal('1');
     });
 
-    it('should remove duplicate dashes', () => {
+    it('should remove duplicate dashes', async () => {
       expect(kebabCase('foo...bar')).to.equal('foo-bar');
       expect(kebabCase('foo-.-bar')).to.equal('foo-bar');
     });
