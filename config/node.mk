@@ -76,8 +76,7 @@ MOCHA_ARGS := --async-only \
 	--sort
 
 test: ## run tests
-test: node_modules out
-	yarn mocha $(MOCHA_ARGS) "out/**/Test*.js"
+test: cover
 
 yarn-global: ## install bundle as a global tool
 	yarn global add file:$(ROOT_PATH)
