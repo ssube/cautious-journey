@@ -4,6 +4,8 @@
 
 ## resolveProject() function
 
+TODO
+
 <b>Signature:</b>
 
 ```typescript

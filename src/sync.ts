@@ -7,6 +7,11 @@ import { LabelUpdate, Remote } from './remote/index.js';
 import { resolveProject } from './resolve.js';
 import { compareItems, defaultTo, defaultUntil, RandomGenerator } from './utils.js';
 
+/**
+ * TODO
+ *
+ * @public
+ */
 export interface SyncOptions {
   logger: Logger;
   project: ProjectConfig;
@@ -17,6 +22,8 @@ export interface SyncOptions {
 /**
  * goes through and resolves each issue in the project.
  * if there are changes and no errors, then updates the issue.
+ *
+ * @public
  */
 export async function syncIssueLabels(options: SyncOptions): Promise<unknown> {
   const { logger, project, remote } = options;
@@ -69,6 +76,11 @@ export async function syncIssueLabels(options: SyncOptions): Promise<unknown> {
   return undefined;
 }
 
+/**
+ * TODO
+ *
+ * @public
+ */
 /* eslint-disable-next-line sonarjs/cognitive-complexity */
 export async function syncProjectLabels(options: SyncOptions): Promise<unknown> {
   const { logger, project, remote } = options;

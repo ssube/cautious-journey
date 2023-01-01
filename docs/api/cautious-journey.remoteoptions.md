@@ -4,6 +4,8 @@
 
 ## RemoteOptions interface
 
+Options for a new remote instance.
+
 <b>Signature:</b>
 
 ```typescript

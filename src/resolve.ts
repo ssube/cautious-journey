@@ -42,6 +42,8 @@ export interface ErrorRecord {
 
 /**
  * Collected inputs for a resolver run.
+ *
+ * @public
  */
 export interface ResolveInput {
   flags: Array<FlagLabel>;
@@ -52,6 +54,8 @@ export interface ResolveInput {
 
 /**
  * Collected results from a resolver run.
+ *
+ * @public
  */
 export interface ResolveResult {
   changes: Array<ChangeRecord>;
@@ -183,6 +187,11 @@ function resolveState(state: StateLabel, anticipatedResult: ResolveResult, activ
   }
 }
 
+/**
+ * TODO
+ *
+ * @public
+ */
 export function resolveProject(options: ResolveInput): ResolveResult {
   const result: ResolveResult = {
     changes: [],

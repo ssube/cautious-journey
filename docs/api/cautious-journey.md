@@ -15,9 +15,9 @@
 
 |  Function | Description |
 |  --- | --- |
-|  [resolveProject(options)](./cautious-journey.resolveproject.md) |  |
+|  [resolveProject(options)](./cautious-journey.resolveproject.md) | TODO |
 |  [syncIssueLabels(options)](./cautious-journey.syncissuelabels.md) | goes through and resolves each issue in the project. if there are changes and no errors, then updates the issue. |
-|  [syncProjectLabels(options)](./cautious-journey.syncprojectlabels.md) |  |
+|  [syncProjectLabels(options)](./cautious-journey.syncprojectlabels.md) | TODO |
 
 ## Interfaces
 
@@ -25,12 +25,12 @@
 |  --- | --- |
 |  [ChangeSet](./cautious-journey.changeset.md) | A set of labels to add and/or remove. |
 |  [Remote](./cautious-journey.remote.md) | Basic functions which every remote API must provide. |
-|  [RemoteOptions](./cautious-journey.remoteoptions.md) |  |
+|  [RemoteOptions](./cautious-journey.remoteoptions.md) | Options for a new remote instance. |
 |  [ResolveInput](./cautious-journey.resolveinput.md) | Collected inputs for a resolver run. |
 |  [ResolveResult](./cautious-journey.resolveresult.md) | Collected results from a resolver run. |
 |  [StateLabel](./cautious-journey.statelabel.md) | Grouped labels: the equivalent of a radio group. |
 |  [StateValue](./cautious-journey.statevalue.md) | One of many values for a particular state. |
-|  [SyncOptions](./cautious-journey.syncoptions.md) |  |
+|  [SyncOptions](./cautious-journey.syncoptions.md) | TODO |
 
 ## Type Aliases
 

@@ -4,6 +4,8 @@
 
 ## SyncOptions interface
 
+TODO
+
 <b>Signature:</b>
 
 ```typescript

@@ -33,6 +33,11 @@ export interface LabelUpdate extends LabelQuery {
   desc: string;
 }
 
+/**
+ * Options for a new remote instance.
+ *
+ * @public
+ */
 export interface RemoteOptions extends BaseOptions {
   /**
    * Arbitrary key-value data for this remote, usually credentials and base URLs.
@@ -54,6 +59,8 @@ export interface RemoteOptions extends BaseOptions {
 
 /**
  * Basic functions which every remote API must provide.
+ *
+ * @public
  */
 export interface Remote {
   connect(): Promise<boolean>;

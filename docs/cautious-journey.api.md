@@ -106,7 +106,7 @@ export interface Remote {
     updateLabel(options: LabelUpdate): Promise<LabelUpdate>;
 }
 
-// @public (undocumented)
+// @public
 export interface RemoteOptions extends BaseOptions {
     data: Record<string, string>;
     dryrun: boolean;
@@ -127,7 +127,7 @@ export interface ResolveInput {
     states: Array<StateLabel>;
 }
 
-// @public (undocumented)
+// @public
 export function resolveProject(options: ResolveInput): ResolveResult;
 
 // @public
@@ -160,7 +160,7 @@ export interface StateValue extends BaseLabel {
 // @public
 export function syncIssueLabels(options: SyncOptions): Promise<unknown>;
 
-// @public (undocumented)
+// @public
 export interface SyncOptions {
     // (undocumented)
     logger: Logger;
@@ -176,7 +176,7 @@ export interface SyncOptions {
     remote: Remote;
 }
 
-// @public (undocumented)
+// @public
 export function syncProjectLabels(options: SyncOptions): Promise<unknown>;
 
 // (No @packageDocumentation comment for this package)

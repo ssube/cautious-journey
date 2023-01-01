@@ -7,6 +7,8 @@ import { BaseRemote } from './base.js';
 
 /**
  * Github/Octokit API implementation of the `Remote` contract.
+ *
+ * @public
  */
 export class GithubRemote extends BaseRemote<Octokit, RemoteOptions> implements Remote {
   constructor(options: RemoteOptions) {

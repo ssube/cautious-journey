@@ -42,7 +42,7 @@ export interface ProjectConfig {
   /**
    * Leave a comment along with any update, explaining the changes that were made.
    *
-   * @default `true`
+   * Defaults to true.
    */
   comment: boolean;
 
@@ -80,6 +80,7 @@ export interface ConfigData {
 export const CONFIG_SCHEMA_KEY = 'cautious-journey#/definitions/config';
 
 export function configSchemaPath(): URL {
+  // TODO: do something for bundled version, where import.meta.url is empty
   return new URL(join('.', 'schema.yml'), import.meta.url);
 }
 
