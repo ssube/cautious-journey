@@ -22,11 +22,11 @@ out: build
 build: ## build the app
 build: node_modules
 	yarn tsc
+	cp $(ROOT_PATH)/src/config/schema.yml $(TARGET_PATH)/src/config/schema.yml
 	cat $(TARGET_PATH)/src/version.js | envsubst > $(TARGET_PATH)/src/version-out.js
 	mv $(TARGET_PATH)/src/version-out.js $(TARGET_PATH)/src/version.js
 
 bundle: build
-	cp $(ROOT_PATH)/src/config/schema.yml $(TARGET_PATH)/src/config/schema.yml
 	node config/esbuild.mjs
 
 bundle-shebang: bundle
