@@ -4,6 +4,7 @@ import { promises } from 'fs';
 import { load } from 'js-yaml';
 import { LogLevel } from 'noicejs';
 import { join } from 'path';
+import { URL } from 'url';
 
 import { FlagLabel, StateLabel } from '../labels.js';
 import { RemoteOptions } from '../remote/index.js';
@@ -78,24 +79,29 @@ export interface ConfigData {
 
 export const CONFIG_SCHEMA_KEY = 'cautious-journey#/definitions/config';
 
+export function configSchemaPath(): URL {
+  return new URL(join('.', 'schema.yml'), import.meta.url);
+}
+
 /**
  * Load the config from files.
  */
 export async function initConfig(path: string): Promise<ConfigData> {
-  const schemaPath = join(import.meta.url, '..', 'schema.yml');
-  // eslint-disable-next-line no-console
-  console.log('init config, schema path', schemaPath);
+  const schemaPath = configSchemaPath();
+  const configSchema = await readFile(schemaPath, { encoding: 'utf8' });
 
-  const configSchema = await readFile(schemaPath);
+  const yamlSchema = createSchema({});
+  const schema = load(configSchema, {
+    schema: yamlSchema,
+  }) as object;
 
   const validator = new Ajv(AJV_OPTIONS);
-  validator.addSchema(configSchema, 'cautious-journey');
+  validator.addSchema(schema, 'cautious-journey');
 
   const data = await readFile(path, {
     encoding: 'utf8',
   });
 
-  const yamlSchema = createSchema({});
   const config = load(data, {
     schema: yamlSchema,
   });
