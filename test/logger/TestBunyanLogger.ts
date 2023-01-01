@@ -1,7 +1,7 @@
 import bunyan from 'bunyan';
 import { expect } from 'chai';
 
-import { BunyanLogger } from '../../src/logger/bunyan';
+import { BunyanLogger } from '../../src/logger/bunyan.js';
 
 describe('bunyan logger', async () => {
   it('should create a logger', async () => {

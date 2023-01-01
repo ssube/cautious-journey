@@ -4,11 +4,11 @@ import { expect } from 'chai';
 import { BaseOptions, Container, NullLogger } from 'noicejs';
 import sinon from 'sinon';
 
-import { RemoteOptions } from '../../src';
-import { RemoteModule } from '../../src/module/RemoteModule';
-import { GithubRemote } from '../../src/remote/github';
-import { ChangeVerb } from '../../src/resolve';
-import { createRemoteContainer } from './helpers';
+import { RemoteModule } from '../../src/module/RemoteModule.js';
+import { GithubRemote } from '../../src/remote/github.js';
+import { RemoteOptions } from '../../src/remote/index.js';
+import { ChangeVerb } from '../../src/resolve.js';
+import { createRemoteContainer } from './helpers.js';
 
 const { stub } = sinon;
 

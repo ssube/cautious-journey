@@ -3,10 +3,10 @@ import { expect } from 'chai';
 import { Container, NullLogger } from 'noicejs';
 import sinon from 'sinon';
 
-import { Commands, ParsedArgs } from '../src/config/args';
-import { GithubRemote, mainProject, Remote, RemoteOptions, STATUS_FAILURE, STATUS_SUCCESS } from '../src/main';
-import { RemoteModule } from '../src/module/RemoteModule';
-import { ProjectConfig } from '../src/config';
+import { Commands, ParsedArgs } from '../src/config/args.js';
+import { GithubRemote, mainProject, Remote, RemoteOptions, STATUS_FAILURE, STATUS_SUCCESS } from '../src/main.js';
+import { RemoteModule } from '../src/module/RemoteModule.js';
+import { ProjectConfig } from '../src/config/index.js';
 
 const { createStubInstance } = sinon;
 

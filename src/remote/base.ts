@@ -1,8 +1,8 @@
 import { doesExist, InvalidArgumentError } from '@apextoaster/js-utils';
 
 import { CommentUpdate, IssueUpdate, LabelQuery, LabelUpdate, ProjectQuery, Remote, RemoteOptions } from '.';
-import { ChangeVerb } from '../resolve';
-import { VERSION_INFO } from '../version';
+import { ChangeVerb } from '../resolve.js';
+import { VERSION_INFO } from '../version.js';
 
 export abstract class BaseRemote<TClient, TOptions extends RemoteOptions> implements Remote {
   protected client?: TClient;

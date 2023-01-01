@@ -3,10 +3,10 @@ import Ajv from 'ajv';
 import { promises } from 'fs';
 import { load } from 'js-yaml';
 import { LogLevel } from 'noicejs';
+import { join } from 'path';
 
-import { FlagLabel, StateLabel } from '../labels';
-import { RemoteOptions } from '../remote';
-import * as SCHEMA_DATA from './schema.yml';
+import { FlagLabel, StateLabel } from '../labels.js';
+import { RemoteOptions } from '../remote/index.js';
 
 let { readFile } = promises;
 
@@ -82,16 +82,22 @@ export const CONFIG_SCHEMA_KEY = 'cautious-journey#/definitions/config';
  * Load the config from files.
  */
 export async function initConfig(path: string): Promise<ConfigData> {
-  const schema = createSchema({});
+  const schemaPath = join(import.meta.url, '..', 'schema.yml');
+  // eslint-disable-next-line no-console
+  console.log('init config, schema path', schemaPath);
+
+  const configSchema = await readFile(schemaPath);
+
   const validator = new Ajv(AJV_OPTIONS);
-  validator.addSchema(SCHEMA_DATA, 'cautious-journey');
+  validator.addSchema(configSchema, 'cautious-journey');
 
   const data = await readFile(path, {
     encoding: 'utf8',
   });
 
+  const yamlSchema = createSchema({});
   const config = load(data, {
-    schema,
+    schema: yamlSchema,
   });
 
   if (validator.validate(CONFIG_SCHEMA_KEY, config) === true) {

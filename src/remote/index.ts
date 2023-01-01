@@ -1,6 +1,6 @@
 import { BaseOptions, Logger } from 'noicejs';
 
-import { ChangeRecord, ErrorRecord } from '../resolve';
+import { ChangeRecord, ErrorRecord } from '../resolve.js';
 
 export interface ProjectQuery {
   project: string;

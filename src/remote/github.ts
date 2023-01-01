@@ -3,7 +3,7 @@ import { createAppAuth } from '@octokit/auth-app';
 import { Octokit } from '@octokit/rest';
 
 import { CommentUpdate, IssueUpdate, LabelQuery, LabelUpdate, ProjectQuery, Remote, RemoteOptions } from '.';
-import { BaseRemote } from './base';
+import { BaseRemote } from './base.js';
 
 /**
  * Github/Octokit API implementation of the `Remote` contract.

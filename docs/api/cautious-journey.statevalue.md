@@ -15,7 +15,7 @@ export interface StateValue extends BaseLabel
 
 ## Properties
 
-|  Property | Type | Description |
-|  --- | --- | --- |
-|  [becomes](./cautious-journey.statevalue.becomes.md) | Array&lt;StateChange&gt; | State changes that could occur to this value. |
+|  Property | Modifiers | Type | Description |
+|  --- | --- | --- | --- |
+|  [becomes](./cautious-journey.statevalue.becomes.md) |  | Array&lt;StateChange&gt; | State changes that could occur to this value. |
 

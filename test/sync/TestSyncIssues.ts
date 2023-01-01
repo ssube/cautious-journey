@@ -1,11 +1,11 @@
 import { NotImplementedError } from '@apextoaster/js-utils';
 import { expect } from 'chai';
 import { Container, NullLogger } from 'noicejs';
-import { alea } from 'seedrandom';
 import sinon from 'sinon';
+import { random } from '../../src/main.js';
 
-import { GithubRemote } from '../../src/remote/github';
-import { syncIssueLabels } from '../../src/sync';
+import { GithubRemote } from '../../src/remote/github.js';
+import { syncIssueLabels } from '../../src/sync.js';
 
 const { stub } = sinon;
 
@@ -54,7 +54,7 @@ describe('issue sync', () => {
         remote: remoteData,
         states: [],
       },
-      random: alea(),
+      random: random(),
       remote,
     });
     expect(listStub).to.have.callCount(1);
@@ -104,7 +104,7 @@ describe('issue sync', () => {
         remote: remoteData,
         states: [],
       },
-      random: alea(),
+      random: random(),
       remote,
     });
 
@@ -144,7 +144,7 @@ describe('issue sync', () => {
         remote: remoteData,
         states: [],
       },
-      random: alea(),
+      random: random(),
       remote,
     });
 

@@ -1,6 +1,6 @@
 import yargs from 'yargs';
 
-import { VERSION_INFO } from '../version';
+import { VERSION_INFO } from '../version.js';
 
 export enum Commands {
   UNKNOWN = 'unknown',

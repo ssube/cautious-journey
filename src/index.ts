@@ -1,11 +1,11 @@
-import { main } from './main';
+import { main } from './main.js';
 
-export { ChangeSet, FlagLabel, StateLabel, StateValue } from './labels';
-export { Remote, RemoteOptions } from './remote';
-export { GithubRemote } from './remote/github';
-export { GitlabRemote } from './remote/gitlab';
-export { ResolveInput, ResolveResult, resolveProject } from './resolve';
-export { syncIssueLabels, SyncOptions, syncProjectLabels } from './sync';
+export { ChangeSet, FlagLabel, StateLabel, StateValue } from './labels.js';
+export { Remote, RemoteOptions } from './remote/index.js';
+export { GithubRemote } from './remote/github.js';
+export { GitlabRemote } from './remote/gitlab.js';
+export { ResolveInput, ResolveResult, resolveProject } from './resolve.js';
+export { syncIssueLabels, SyncOptions, syncProjectLabels } from './sync.js';
 
 const STATUS_ERROR = 1;
 

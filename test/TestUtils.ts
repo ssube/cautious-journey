@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import { compareItems, defaultTo, defaultUntil, kebabCase } from '../src/utils';
+import { compareItems, defaultTo, defaultUntil, kebabCase } from '../src/utils.js';
 
 const TEST_TRUE = 'foo';
 const TEST_FALSE = 'bar';

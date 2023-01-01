@@ -1,8 +1,8 @@
 import { mustExist } from '@apextoaster/js-utils';
 
-import { BaseLabel, FlagLabel, getValueName, StateChange, StateLabel } from './labels';
-import { ChangeVerb } from './resolve';
-import { defaultTo, defaultUntil } from './utils';
+import { BaseLabel, FlagLabel, getValueName, StateChange, StateLabel } from './labels.js';
+import { ChangeVerb } from './resolve.js';
+import { defaultTo, defaultUntil } from './utils.js';
 
 export const COLOR_CHANGE = 'aaaaaa';
 export const COLOR_LABEL = 'cccccc';

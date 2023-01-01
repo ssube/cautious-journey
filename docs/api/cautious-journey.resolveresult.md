@@ -14,9 +14,9 @@ export interface ResolveResult
 
 ## Properties
 
-|  Property | Type | Description |
-|  --- | --- | --- |
-|  [changes](./cautious-journey.resolveresult.changes.md) | Array&lt;ChangeRecord&gt; |  |
-|  [errors](./cautious-journey.resolveresult.errors.md) | Array&lt;ErrorRecord&gt; |  |
-|  [labels](./cautious-journey.resolveresult.labels.md) | Array&lt;string&gt; |  |
+|  Property | Modifiers | Type | Description |
+|  --- | --- | --- | --- |
+|  [changes](./cautious-journey.resolveresult.changes.md) |  | Array&lt;ChangeRecord&gt; |  |
+|  [errors](./cautious-journey.resolveresult.errors.md) |  | Array&lt;ErrorRecord&gt; |  |
+|  [labels](./cautious-journey.resolveresult.labels.md) |  | Array&lt;string&gt; |  |
 

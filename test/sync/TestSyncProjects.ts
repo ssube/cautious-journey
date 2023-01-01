@@ -1,13 +1,13 @@
 import { InvalidArgumentError, NotImplementedError } from '@apextoaster/js-utils';
 import { expect } from 'chai';
 import { Container, NullLogger } from 'noicejs';
-import { alea } from 'seedrandom';
 import sinon from 'sinon';
 
-import { BunyanLogger } from '../../src/logger/bunyan';
-import { GithubRemote } from '../../src/remote/github';
-import { syncProjectLabels, updateLabel } from '../../src/sync';
-import { FlagLabel, StateLabel } from '../../src';
+import { FlagLabel, StateLabel } from '../../src/labels.js';
+import { BunyanLogger } from '../../src/logger/bunyan.js';
+import { random } from '../../src/main.js';
+import { GithubRemote } from '../../src/remote/github.js';
+import { syncProjectLabels, updateLabel } from '../../src/sync.js';
 
 const { createStubInstance, match, spy, stub } = sinon;
 
@@ -73,7 +73,7 @@ describe('project sync', () => {
           remote: remoteConfig,
           states: [],
         },
-        random: alea(),
+        random: random(),
         remote,
       }, {
         color: '',
@@ -120,7 +120,7 @@ describe('project sync', () => {
           remote: remoteConfig,
           states: [],
         },
-        random: alea(),
+        random: random(),
         remote,
       });
 
@@ -157,7 +157,7 @@ describe('project sync', () => {
           remote: remoteConfig,
           states: [TEST_STATE],
         },
-        random: alea(),
+        random: random(),
         remote,
       });
 
@@ -201,7 +201,7 @@ describe('project sync', () => {
           remote: remoteConfig,
           states: [],
         },
-        random: alea(),
+        random: random(),
         remote,
       });
 
@@ -237,7 +237,7 @@ describe('project sync', () => {
           remote: remoteConfig,
           states: [],
         },
-        random: alea(),
+        random: random(),
         remote,
       });
 
@@ -282,7 +282,7 @@ describe('project sync', () => {
           },
           states: [TEST_STATE],
         },
-        random: alea(),
+        random: random(),
         remote,
       }, {
         color: '',
@@ -314,7 +314,7 @@ describe('project sync', () => {
           },
           states: [],
         },
-        random: alea(),
+        random: random(),
         remote: createStubInstance(GithubRemote),
       }, {
         color: '',

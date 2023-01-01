@@ -13,8 +13,8 @@ import {
   graphState,
   labelEdges,
   mergeEdges,
-} from '../src/graph';
-import { ChangeVerb } from '../src/resolve';
+} from '../src/graph.js';
+import { ChangeVerb } from '../src/resolve.js';
 
 describe('graph tools', () => {
   describe('label edges', () => {

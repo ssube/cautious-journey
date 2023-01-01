@@ -1,7 +1,7 @@
 import { expect } from 'chai';
-import { alea } from 'seedrandom';
 
-import { getLabelColor, getLabelNames, prioritySort, StateLabel } from '../src/labels';
+import { getLabelColor, getLabelNames, prioritySort, StateLabel } from '../src/labels.js';
+import { random } from '../src/main.js';
 
 describe('label helpers', () => {
   describe('label name helper', () => {
@@ -108,7 +108,7 @@ describe('label helpers', () => {
 
   describe('label color helper', () => {
     it('should return the value color', () => {
-      expect(getLabelColor(['test'], alea(), {
+      expect(getLabelColor(['test'], random(), {
         adds: [],
         color: 'beans',
         divider: '/',
@@ -129,7 +129,7 @@ describe('label helpers', () => {
     });
 
     it('should return the state color when value color is unset', () => {
-      expect(getLabelColor(['test'], alea(), {
+      expect(getLabelColor(['test'], random(), {
         adds: [],
         color: 'beans',
         divider: '/',
@@ -150,7 +150,7 @@ describe('label helpers', () => {
     });
 
     it('should return the flag color', () => {
-      expect(getLabelColor(['test'], alea(), {
+      expect(getLabelColor(['test'], random(), {
         adds: [],
         color: 'not',
         name: '',
@@ -161,7 +161,7 @@ describe('label helpers', () => {
     });
 
     it('should return a random color when the flag color is unset', () => {
-      expect(getLabelColor(['test'], alea(), {
+      expect(getLabelColor(['test'], random(), {
         adds: [],
         name: '',
         priority: 1,

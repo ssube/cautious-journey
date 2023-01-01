@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import { Commands, parseArgs } from '../../src/config/args';
+import { Commands, parseArgs } from '../../src/config/args.js';
 
 describe('args', () => {
   it('should set command mode', async () => {

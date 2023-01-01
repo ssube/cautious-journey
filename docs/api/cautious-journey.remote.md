@@ -22,6 +22,6 @@ export interface Remote
 |  [deleteLabel(options)](./cautious-journey.remote.deletelabel.md) | Delete an existing label. |
 |  [listIssues(options)](./cautious-journey.remote.listissues.md) | List all issues. |
 |  [listLabels(options)](./cautious-journey.remote.listlabels.md) | List all labels. |
-|  [updateIssue(options)](./cautious-journey.remote.updateissue.md) | Update an issue.<!-- -->Only labels will be modified. |
+|  [updateIssue(options)](./cautious-journey.remote.updateissue.md) | <p>Update an issue.</p><p>Only labels will be modified.</p> |
 |  [updateLabel(options)](./cautious-journey.remote.updatelabel.md) | Update a label. |
 

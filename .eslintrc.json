@@ -17,16 +17,6 @@
         "eslint-plugin-sonarjs",
         "@typescript-eslint"
     ],
-    "overrides": [
-        {
-            "files": [
-                "Test*"
-            ],
-            "rules": {
-                "@typescript-eslint/unbound-method": "off"
-            }
-        }
-    ],
     "rules": {
         "@typescript-eslint/adjacent-overload-signatures": "error",
         "@typescript-eslint/array-type": [
@@ -241,13 +231,9 @@
         ],
         "no-return-await": "error",
         "no-sequences": "error",
-        "no-shadow": "off",
-        "@typescript-eslint/no-redeclare": [
-            "error"
-        ],
-        "@typescript-eslint/no-shadow": [
-            "error"
-        ],
+	"no-shadow": "off",
+	"@typescript-eslint/no-redeclare": ["error"],
+	"@typescript-eslint/no-shadow": ["error"],
         "no-sparse-arrays": "error",
         "no-template-curly-in-string": "error",
         "no-throw-literal": "error",

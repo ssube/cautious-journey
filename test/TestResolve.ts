@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 
-import { resolveProject } from '../src/resolve';
-import { TEST_CASES } from './resolve/cases';
+import { resolveProject } from '../src/resolve.js';
+import { TEST_CASES } from './resolve/cases.js';
 
 const TEST_LABELS = ['bar', 'foo'];
 

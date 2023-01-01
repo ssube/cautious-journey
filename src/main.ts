@@ -1,23 +1,27 @@
 import { doesExist, InvalidArgumentError } from '@apextoaster/js-utils';
 import { Container, Logger } from 'noicejs';
-import { alea } from 'seedrandom';
+import seedrandom from 'seedrandom';
 
-import { initConfig, ProjectConfig } from './config';
-import { Commands, parseArgs, ParsedArgs } from './config/args';
-import { dotGraph, graphProject } from './graph';
-import { BunyanLogger } from './logger/bunyan';
-import { RemoteModule } from './module/RemoteModule';
-import { Remote, RemoteOptions } from './remote';
-import { syncIssueLabels, SyncOptions, syncProjectLabels } from './sync';
-import { defaultUntil } from './utils';
-import { VERSION_INFO } from './version';
+import { initConfig, ProjectConfig } from './config/index.js';
+import { Commands, parseArgs, ParsedArgs } from './config/args.js';
+import { dotGraph, graphProject } from './graph.js';
+import { BunyanLogger } from './logger/bunyan.js';
+import { RemoteModule } from './module/RemoteModule.js';
+import { Remote, RemoteOptions } from './remote/index.js';
+import { syncIssueLabels, SyncOptions, syncProjectLabels } from './sync.js';
+import { defaultUntil } from './utils.js';
+import { VERSION_INFO } from './version.js';
 
-export { FlagLabel, StateLabel } from './labels';
-export { Remote, RemoteOptions } from './remote';
-export { GithubRemote } from './remote/github';
-export { GitlabRemote } from './remote/gitlab';
-export { resolveProject } from './resolve';
-export { syncIssueLabels, syncProjectLabels } from './sync';
+// eslint-disable-next-line @typescript-eslint/unbound-method
+const { alea } = seedrandom;
+
+export { alea as random };
+export { FlagLabel, StateLabel } from './labels.js';
+export { Remote, RemoteOptions } from './remote/index.js';
+export { GithubRemote } from './remote/github.js';
+export { GitlabRemote } from './remote/gitlab.js';
+export { resolveProject } from './resolve.js';
+export { syncIssueLabels, syncProjectLabels } from './sync.js';
 
 const ARGS_START = 2;
 

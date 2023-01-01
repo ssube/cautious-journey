@@ -15,8 +15,8 @@ export interface StateLabel extends BaseLabel
 
 ## Properties
 
-|  Property | Type | Description |
-|  --- | --- | --- |
-|  [divider](./cautious-journey.statelabel.divider.md) | string |  |
-|  [values](./cautious-journey.statelabel.values.md) | Array&lt;[StateValue](./cautious-journey.statevalue.md)<!-- -->&gt; | Values for this state. |
+|  Property | Modifiers | Type | Description |
+|  --- | --- | --- | --- |
+|  [divider](./cautious-journey.statelabel.divider.md) |  | string |  |
+|  [values](./cautious-journey.statelabel.values.md) |  | Array&lt;[StateValue](./cautious-journey.statevalue.md)<!-- -->&gt; | Values for this state. |
 

@@ -1,5 +1,5 @@
-import { ResolveInput, ResolveResult } from '../../src/resolve';
-import { StateLabel, FlagLabel } from '../../src';
+import { FlagLabel, StateLabel } from '../../src/labels.js';
+import { ResolveInput, ResolveResult } from '../../src/resolve.js';
 
 export interface ResolveTestCase {
   input: ResolveInput;

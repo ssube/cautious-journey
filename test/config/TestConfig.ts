@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { vol } from 'memfs';
 
-import { Filesystem, initConfig, setFs } from '../../src/config';
+import { Filesystem, initConfig, setFs } from '../../src/config/index.js';
 
 describe('config', () => {
   describe('init config', () => {

@@ -1,6 +1,6 @@
 import { doesExist } from '@apextoaster/js-utils';
 
-import { RandomGenerator, randomItem } from './utils';
+import { RandomGenerator, randomItem } from './utils.js';
 
 /**
  * A reference to another label.

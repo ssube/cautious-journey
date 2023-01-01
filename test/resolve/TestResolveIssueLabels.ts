@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import { resolveProject } from '../../src/resolve';
+import { resolveProject } from '../../src/resolve.js';
 
 describe('resolve labels', () => {
   describe('flags with unfulfilled requires rule', () => {

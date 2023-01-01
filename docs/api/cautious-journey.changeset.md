@@ -14,8 +14,8 @@ export interface ChangeSet
 
 ## Properties
 
-|  Property | Type | Description |
-|  --- | --- | --- |
-|  [adds](./cautious-journey.changeset.adds.md) | Array&lt;LabelRef&gt; |  |
-|  [removes](./cautious-journey.changeset.removes.md) | Array&lt;LabelRef&gt; |  |
+|  Property | Modifiers | Type | Description |
+|  --- | --- | --- | --- |
+|  [adds](./cautious-journey.changeset.adds.md) |  | Array&lt;LabelRef&gt; |  |
+|  [removes](./cautious-journey.changeset.removes.md) |  | Array&lt;LabelRef&gt; |  |
 

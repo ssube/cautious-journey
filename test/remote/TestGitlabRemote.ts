@@ -3,9 +3,9 @@ import { expect } from 'chai';
 import { NullLogger } from 'noicejs';
 import sinon from 'sinon';
 
-import { RemoteOptions } from '../../src';
-import { GitlabRemote, INJECT_GITLAB } from '../../src/remote/gitlab';
-import { createRemoteContainer } from './helpers';
+import { GitlabRemote, INJECT_GITLAB } from '../../src/remote/gitlab.js';
+import { RemoteOptions } from '../../src/remote/index.js';
+import { createRemoteContainer } from './helpers.js';
 
 const { stub } = sinon;
 

@@ -13,10 +13,10 @@ export interface RemoteOptions extends BaseOptions
 
 ## Properties
 
-|  Property | Type | Description |
-|  --- | --- | --- |
-|  [data](./cautious-journey.remoteoptions.data.md) | Record&lt;string, string&gt; | Arbitrary key-value data for this remote, usually credentials and base URLs. |
-|  [dryrun](./cautious-journey.remoteoptions.dryrun.md) | boolean | If set, do not make any real changes. |
-|  [logger](./cautious-journey.remoteoptions.logger.md) | Logger |  |
-|  [type](./cautious-journey.remoteoptions.type.md) | string | Remote class/type name. |
+|  Property | Modifiers | Type | Description |
+|  --- | --- | --- | --- |
+|  [data](./cautious-journey.remoteoptions.data.md) |  | Record&lt;string, string&gt; | Arbitrary key-value data for this remote, usually credentials and base URLs. |
+|  [dryrun](./cautious-journey.remoteoptions.dryrun.md) |  | boolean | If set, do not make any real changes. |
+|  [logger](./cautious-journey.remoteoptions.logger.md) |  | Logger |  |
+|  [type](./cautious-journey.remoteoptions.type.md) |  | string | Remote class/type name. |
 

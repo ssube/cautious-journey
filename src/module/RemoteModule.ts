@@ -1,10 +1,10 @@
 import { Gitlab } from '@gitbeaker/node';
 import { Module, ModuleOptions, Provides } from 'noicejs';
 
-import { Remote, RemoteOptions } from '../remote';
-import { GithubRemote } from '../remote/github';
-import { GitlabOptions, GitlabRemote, INJECT_GITLAB } from '../remote/gitlab';
-import { kebabCase } from '../utils';
+import { Remote, RemoteOptions } from '../remote/index.js';
+import { GithubRemote } from '../remote/github.js';
+import { GitlabOptions, GitlabRemote, INJECT_GITLAB } from '../remote/gitlab.js';
+import { kebabCase } from '../utils.js';
 
 export class RemoteModule extends Module {
   public async configure(options: ModuleOptions) {

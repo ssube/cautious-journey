@@ -1,7 +1,7 @@
 import { doesExist } from '@apextoaster/js-utils';
 
-import { BaseLabel, FlagLabel, getValueName, prioritySort, StateLabel, StateValue } from './labels';
-import { defaultUntil } from './utils';
+import { BaseLabel, FlagLabel, getValueName, prioritySort, StateLabel, StateValue } from './labels.js';
+import { defaultUntil } from './utils.js';
 
 /**
  * How a label changed.

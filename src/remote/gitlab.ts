@@ -3,7 +3,7 @@ import { Gitlab as GitlabType } from '@gitbeaker/core';
 import { BaseOptions } from 'noicejs';
 
 import { CommentUpdate, IssueUpdate, LabelUpdate, ProjectQuery, Remote, RemoteOptions } from '.';
-import { BaseRemote } from './base';
+import { BaseRemote } from './base.js';
 
 export const INJECT_GITLAB = Symbol('inject-gitlab');
 
