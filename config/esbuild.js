@@ -8,15 +8,9 @@ build({
     entryPoints: [
         join(root, 'out/src/index.js'),
     ],
-    format: 'cjs',
+    format: 'esm',
     keepNames: true,
-    loader: {
-        '.yml': 'text',
-    },
     outdir: 'out/bundle/',
-    outExtension: {
-        '.js': '.cjs',
-    },
     platform: 'node',
 }).catch((err) => {
     console.error(err);

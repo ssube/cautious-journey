@@ -27,11 +27,11 @@ build: node_modules
 	mv $(TARGET_PATH)/src/version-out.js $(TARGET_PATH)/src/version.js
 
 bundle: build
-	node config/esbuild.mjs
+	node config/esbuild.js
 
 bundle-shebang: bundle
-	sed -i '1s;^;#! /usr/bin/env node\n\n;' $(TARGET_PATH)/bundle/index.cjs
-	chmod ug+x $(TARGET_PATH)/bundle/index.cjs
+	sed -i '1s;^;#! /usr/bin/env node\n\n;' $(TARGET_PATH)/bundle/index.js
+	chmod ug+x $(TARGET_PATH)/bundle/index.js
 
 ci: clean-target lint build bundle bundle-shebang cover docs
 
