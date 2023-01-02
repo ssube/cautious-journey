@@ -13,12 +13,11 @@ COPY docs/config.yml /root/.cautious-journey.yml
 
 # copy package first, to invalidate other layers when version changes
 COPY package.json /cautious-journey/package.json
+COPY yarn.lock /cautious-journey/yarn.lock
 RUN yarn
 
 # copy chunks, largest to smallest (entrypoint)
-COPY out/vendor.js /cautious-journey/out/vendor.js
-COPY out/main.js /cautious-journey/out/main.js
-COPY out/index.js /cautious-journey/out/index.js
+COPY out/src/ /cautious-journey/out/src/
 
 # set up as global cli tool
 RUN yarn global add file:$(pwd)
