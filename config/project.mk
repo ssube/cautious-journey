@@ -1,5 +1,3 @@
-ci: build test
-
 RUN_CONFIG ?= $(HOME)/.cautious-journey.yml
 
 run-help:
