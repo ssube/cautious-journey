@@ -3,8 +3,8 @@
   "version": "0.3.0",
   "description": "Github/Gitlab label & workflow manager",
   "type": "module",
-  "main": "out/index.js",
-  "browser": "out/browser.js",
+  "main": "out/src/index.js",
+  "browser": "out/bundle/index.cjs",
   "directories": {
     "doc": "docs",
     "test": "test"
