@@ -54,7 +54,7 @@
     "@gitbeaker/browser": "35.8.0",
     "@gitbeaker/core": "35.8.0",
     "@gitbeaker/node": "35.8.0",
-    "@octokit/auth-app": "4.0.7",
+    "@octokit/auth-app": "4.0.9",
     "@octokit/rest": "19.0.7",
     "bunyan": "1.8.15",
     "js-yaml": "4.1.0",
