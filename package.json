@@ -51,9 +51,9 @@
   "dependencies": {
     "@apextoaster/js-utils": "0.5.0",
     "@apextoaster/js-yaml-schema": "0.5.0",
-    "@gitbeaker/browser": "35.8.0",
-    "@gitbeaker/core": "35.8.0",
-    "@gitbeaker/node": "35.8.0",
+    "@gitbeaker/browser": "35.8.1",
+    "@gitbeaker/core": "35.8.1",
+    "@gitbeaker/node": "35.8.1",
     "@octokit/auth-app": "4.0.9",
     "@octokit/rest": "19.0.7",
     "bunyan": "1.8.15",
