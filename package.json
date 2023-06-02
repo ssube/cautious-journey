@@ -61,7 +61,7 @@
     "node-fetch": "^3.0.0",
     "noicejs": "4.0.0",
     "seedrandom": "3.0.5",
-    "tslib": "2.5.2",
+    "tslib": "2.5.3",
     "yargs": "17.7.2"
   },
   "publishConfig": {
