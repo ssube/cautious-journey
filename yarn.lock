@@ -378,30 +378,30 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@octokit/auth-app@4.0.13":
-  version "4.0.13"
-  resolved "https://artifacts.apextoaster.com/repository/group-npm/@octokit/auth-app/-/auth-app-4.0.13.tgz#53323bee6bfefbb73ea544dd8e6a0144550e13e3"
-  integrity sha512-NBQkmR/Zsc+8fWcVIFrwDgNXS7f4XDrkd9LHdi9DPQw1NdGHLviLzRO2ZBwTtepnwHXW5VTrVU9eFGijMUqllg==
+"@octokit/auth-app@5.0.4":
+  version "5.0.4"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/@octokit/auth-app/-/auth-app-5.0.4.tgz#47f3d17c890f7f59b6dbb05cc23cf1d4457ecce0"
+  integrity sha512-LL1jmLVYaPmWsWUISegOfI3ZM6luQ3D0FggYcLEdqBhJ4q+GIi+Wfx8mQjV3qgERG1COXWWDNj91kyiq4eH20g==
   dependencies:
-    "@octokit/auth-oauth-app" "^5.0.0"
-    "@octokit/auth-oauth-user" "^2.0.0"
+    "@octokit/auth-oauth-app" "^6.0.0"
+    "@octokit/auth-oauth-user" "^3.0.0"
     "@octokit/request" "^6.0.0"
-    "@octokit/request-error" "^3.0.0"
+    "@octokit/request-error" "^4.0.0"
     "@octokit/types" "^9.0.0"
     deprecation "^2.3.1"
-    lru-cache "^9.0.0"
+    lru-cache "^10.0.0"
     universal-github-app-jwt "^1.1.1"
     universal-user-agent "^6.0.0"
 
-"@octokit/auth-oauth-app@^5.0.0":
-  version "5.0.4"
-  resolved "https://artifacts.apextoaster.com/repository/group-npm/@octokit/auth-oauth-app/-/auth-oauth-app-5.0.4.tgz#ebd9a38f75381093d1a5e08e05b70b94f0918277"
-  integrity sha512-zlWuii5hAN50vsV6SJC+uIJ7SMhyWjQMEmKJQxkmNDlieE9LjnkZnbOjqRsfcG7VO7WTl4K8ccpo/3A7Kdpmrw==
+"@octokit/auth-oauth-app@^6.0.0":
+  version "6.0.0"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/@octokit/auth-oauth-app/-/auth-oauth-app-6.0.0.tgz#efd8d4d721fd5e13a62d0122e3ec9a9afcae0f02"
+  integrity sha512-ihIanzc2dX/FQJwTDeKR2xT2K+5IFV33yjkn4zhJ7HL7FPJjw0ynNcGkEJMzrFEsgIn7Qfjd+MA4jTay0rrbLQ==
   dependencies:
     "@octokit/auth-oauth-device" "^4.0.0"
     "@octokit/auth-oauth-user" "^2.0.0"
     "@octokit/request" "^6.0.0"
-    "@octokit/types" "^8.0.0"
+    "@octokit/types" "^9.0.0"
     "@types/btoa-lite" "^1.0.0"
     btoa-lite "^1.0.0"
     universal-user-agent "^6.0.0"
@@ -425,6 +425,18 @@
     "@octokit/oauth-methods" "^2.0.0"
     "@octokit/request" "^6.0.0"
     "@octokit/types" "^8.0.0"
+    btoa-lite "^1.0.0"
+    universal-user-agent "^6.0.0"
+
+"@octokit/auth-oauth-user@^3.0.0":
+  version "3.0.0"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/@octokit/auth-oauth-user/-/auth-oauth-user-3.0.0.tgz#37e1863472a70e4c1f3d33e94da310257ab9af8d"
+  integrity sha512-qEyN6j4m72MFyTuOZZUqhJyNye1FKBJlu1JtkkiCG6dWN/iHB21uSsUM0qRQ6XpsS+dgG74JyncRHY3W9Nwz0Q==
+  dependencies:
+    "@octokit/auth-oauth-device" "^4.0.0"
+    "@octokit/oauth-methods" "^2.0.0"
+    "@octokit/request" "^6.0.0"
+    "@octokit/types" "^9.0.0"
     btoa-lite "^1.0.0"
     universal-user-agent "^6.0.0"
 
@@ -497,6 +509,11 @@
   resolved "https://artifacts.apextoaster.com/repository/group-npm/@octokit/openapi-types/-/openapi-types-17.2.0.tgz#f1800b5f9652b8e1b85cc6dfb1e0dc888810bdb5"
   integrity sha512-MazrFNx4plbLsGl+LFesMo96eIXkFgEtaKbnNpdh4aQ0VM10aoylFsTYP1AEjkeoRNZiiPe3T6Gl2Hr8dJWdlQ==
 
+"@octokit/openapi-types@^18.0.0":
+  version "18.0.0"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/@octokit/openapi-types/-/openapi-types-18.0.0.tgz#f43d765b3c7533fd6fb88f3f25df079c24fccf69"
+  integrity sha512-V8GImKs3TeQRxRtXFpG2wl19V7444NIOTDF24AWuIbmNaNYOQMWRbjcGDXV5B+0n887fgDcuMNOmlul+k+oJtw==
+
 "@octokit/plugin-paginate-rest@^6.1.2":
   version "6.1.2"
   resolved "https://artifacts.apextoaster.com/repository/group-npm/@octokit/plugin-paginate-rest/-/plugin-paginate-rest-6.1.2.tgz#f86456a7a1fe9e58fec6385a85cf1b34072341f8"
@@ -527,6 +544,15 @@
     deprecation "^2.0.0"
     once "^1.4.0"
 
+"@octokit/request-error@^4.0.0":
+  version "4.0.2"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/@octokit/request-error/-/request-error-4.0.2.tgz#0e16802f3e688e1dd6807e81c7810f419b2c530d"
+  integrity sha512-uqwUEmZw3x4I9DGYq9fODVAAvcLsPQv97NRycP6syEFu5916M189VnNBW2zANNwqg3OiligNcAey7P0SET843w==
+  dependencies:
+    "@octokit/types" "^10.0.0"
+    deprecation "^2.0.0"
+    once "^1.4.0"
+
 "@octokit/request@^6.0.0":
   version "6.2.2"
   resolved "https://artifacts.apextoaster.com/repository/group-npm/@octokit/request/-/request-6.2.2.tgz#a2ba5ac22bddd5dcb3f539b618faa05115c5a255"
@@ -553,6 +579,13 @@
   version "1.0.2"
   resolved "https://artifacts.apextoaster.com/repository/group-npm/@octokit/tsconfig/-/tsconfig-1.0.2.tgz#59b024d6f3c0ed82f00d08ead5b3750469125af7"
   integrity sha512-I0vDR0rdtP8p2lGMzvsJzbhdOWy405HcGovrspJ8RRibHnyRgggUSNO5AIox5LmqiwmatHKYsvj6VGFHkqS7lA==
+
+"@octokit/types@^10.0.0":
+  version "10.0.0"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/@octokit/types/-/types-10.0.0.tgz#7ee19c464ea4ada306c43f1a45d444000f419a4a"
+  integrity sha512-Vm8IddVmhCgU1fxC1eyinpwqzXPEYu0NrYzD3YZjlGjyftdLBTeqNblRC0jmJmgxbJIsQlyogVeGnrNaaMVzIg==
+  dependencies:
+    "@octokit/openapi-types" "^18.0.0"
 
 "@octokit/types@^8.0.0":
   version "8.0.0"
@@ -3269,17 +3302,17 @@ lowercase-keys@^2.0.0:
   resolved "https://artifacts.apextoaster.com/repository/group-npm/lowercase-keys/-/lowercase-keys-2.0.0.tgz#2603e78b7b4b0006cbca2fbcc8a3202558ac9479"
   integrity sha512-tqNXrS78oMOE73NMxK4EMLQsQowWf8jKooH9g7xPavRT706R6bkQJ6DY2Te7QukaZsulxa30wQ7bk0pm4XiHmA==
 
+lru-cache@^10.0.0:
+  version "10.0.0"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/lru-cache/-/lru-cache-10.0.0.tgz#b9e2a6a72a129d81ab317202d93c7691df727e61"
+  integrity sha512-svTf/fzsKHffP42sujkO/Rjs37BCIsQVRCeNYIm9WN8rgT7ffoUnRtZCqU+6BqcSBdv8gwJeTz8knJpgACeQMw==
+
 lru-cache@^6.0.0:
   version "6.0.0"
   resolved "https://artifacts.apextoaster.com/repository/group-npm/lru-cache/-/lru-cache-6.0.0.tgz#6d6fe6570ebd96aaf90fcad1dafa3b2566db3a94"
   integrity sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==
   dependencies:
     yallist "^4.0.0"
-
-lru-cache@^9.0.0:
-  version "9.1.2"
-  resolved "https://artifacts.apextoaster.com/repository/group-npm/lru-cache/-/lru-cache-9.1.2.tgz#255fdbc14b75589d6d0e73644ca167a8db506835"
-  integrity sha512-ERJq3FOzJTxBbFjZ7iDs+NiK4VI9Wz+RdrrAB8dio1oV+YvdPzUEE4QNiT2VD51DkIbCYRUUzCRkssXCHqSnKQ==
 
 make-dir@^3.0.0:
   version "3.1.0"
