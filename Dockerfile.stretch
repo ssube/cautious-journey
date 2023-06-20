@@ -1,4 +1,4 @@
-FROM docker.artifacts.apextoaster.com/library/node:19
+FROM docker.artifacts.apextoaster.com/library/node:20
 
 # dependencies: log filtering
 RUN apt-get update -y \
