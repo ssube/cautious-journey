@@ -52,7 +52,7 @@
     "@apextoaster/js-utils": "0.5.0",
     "@apextoaster/js-yaml-schema": "0.5.0",
     "@gitbeaker/browser": "35.8.1",
-    "@gitbeaker/core": "35.8.1",
+    "@gitbeaker/core": "39.21.2",
     "@gitbeaker/node": "35.8.1",
     "@octokit/auth-app": "4.0.13",
     "@octokit/rest": "19.0.11",

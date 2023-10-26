@@ -190,7 +190,16 @@
     delay "^5.0.0"
     ky "0.28.7"
 
-"@gitbeaker/core@35.8.1", "@gitbeaker/core@^35.8.1":
+"@gitbeaker/core@39.21.2":
+  version "39.21.2"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/@gitbeaker/core/-/core-39.21.2.tgz#c3f5936b1288384513d0358995032916ed0c5488"
+  integrity sha512-HPFQVhbTKu+IaKw5+8TnRPTqAp6SPFzaCbwAEJ7nWLAsI2IRP+iWyASmMDG99RY8TcqnCBrxx3tAClV+QBhflg==
+  dependencies:
+    "@gitbeaker/requester-utils" "^39.21.2"
+    qs "^6.11.2"
+    xcase "^2.0.1"
+
+"@gitbeaker/core@^35.8.1":
   version "35.8.1"
   resolved "https://artifacts.apextoaster.com/repository/group-npm/@gitbeaker/core/-/core-35.8.1.tgz#b4ce2d08d344ff50e76c38ff81b800bec6dfe851"
   integrity sha512-KBrDykVKSmU9Q9Gly8KeHOgdc0lZSa435srECxuO0FGqqBcUQ82hPqUc13YFkkdOI9T1JRA3qSFajg8ds0mZKA==
@@ -220,6 +229,16 @@
   dependencies:
     form-data "^4.0.0"
     qs "^6.10.1"
+    xcase "^2.0.1"
+
+"@gitbeaker/requester-utils@^39.21.2":
+  version "39.21.2"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/@gitbeaker/requester-utils/-/requester-utils-39.21.2.tgz#5bebb825e91bf9ad2327411bf899336c4387486f"
+  integrity sha512-RlYJDzfqSEI/q2vY1xn4bQ6/j0kyuoySRUnA8huEdA48IfowNLAigaXxB9cQxBecmnt32JQZitUbxsHpelkQYw==
+  dependencies:
+    async-sema "^3.1.1"
+    micromatch "^4.0.5"
+    qs "^6.11.2"
     xcase "^2.0.1"
 
 "@humanwhocodes/config-array@^0.11.10":
@@ -1074,6 +1093,11 @@ assertion-error@^1.1.0:
   resolved "https://artifacts.apextoaster.com/repository/group-npm/assertion-error/-/assertion-error-1.1.0.tgz#e60b6b0e8f301bd97e5375215bda406c85118c0b"
   integrity sha512-jgsaNduz+ndvGyFt3uSuWqvy4lCnIJiovtouQN5JZHOKCS2QuhEdbcQHFhVksz2N2U9hXJo8odG7ETyWlEeuDw==
 
+async-sema@^3.1.1:
+  version "3.1.1"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/async-sema/-/async-sema-3.1.1.tgz#e527c08758a0f8f6f9f15f799a173ff3c40ea808"
+  integrity sha512-tLRNUXati5MFePdAk8dw7Qt7DpxPB60ofAgn8WRhW6a2rcimZnYBP9oxHiv0OHy+Wz7kPMG+t4LGdt31+4EmGg==
+
 asynckit@^0.4.0:
   version "0.4.0"
   resolved "https://artifacts.apextoaster.com/repository/group-npm/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
@@ -1114,7 +1138,7 @@ brace-expansion@^2.0.1:
   dependencies:
     balanced-match "^1.0.0"
 
-braces@^3.0.1, braces@~3.0.2:
+braces@^3.0.1, braces@^3.0.2, braces@~3.0.2:
   version "3.0.2"
   resolved "https://artifacts.apextoaster.com/repository/group-npm/braces/-/braces-3.0.2.tgz#3454e1a462ee8d599e236df336cd9ea4f8afe107"
   integrity sha512-b8um+L1RzM3WDSzvhm6gIz1yfTbBt6YTlcEKAvsmqCZZFw46z626lVj9j1yEPW33H5H+lBQpZMP1k8l+78Ha0A==
@@ -3368,6 +3392,14 @@ micromatch@^4.0.4:
     braces "^3.0.1"
     picomatch "^2.2.3"
 
+micromatch@^4.0.5:
+  version "4.0.5"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/micromatch/-/micromatch-4.0.5.tgz#bc8999a7cbbf77cdc89f132f6e467051b49090c6"
+  integrity sha512-DMy+ERcEW2q8Z2Po+WNXuw3c5YaUSFjAO5GsJqfEl7UjvtIuFKO6ZrKvcItdy98dwFI2N1tg3zNIdKaQT+aNdA==
+  dependencies:
+    braces "^3.0.2"
+    picomatch "^2.3.1"
+
 mime-db@1.44.0:
   version "1.44.0"
   resolved "https://artifacts.apextoaster.com/repository/group-npm/mime-db/-/mime-db-1.44.0.tgz#fa11c5eb0aca1334b4233cb4d52f10c5a6272f92"
@@ -3844,7 +3876,7 @@ picomatch@^2.0.4, picomatch@^2.2.1:
   resolved "https://artifacts.apextoaster.com/repository/group-npm/picomatch/-/picomatch-2.2.2.tgz#21f333e9b6b8eaff02468f5146ea406d345f4dad"
   integrity sha512-q0M/9eZHzmr0AulXyPwNfZjtwZ/RBZlbN3K3CErVrk50T2ASYI7Bye0EvekFY3IP1Nt2DHu0re+V2ZHIpMkuWg==
 
-picomatch@^2.2.3:
+picomatch@^2.2.3, picomatch@^2.3.1:
   version "2.3.1"
   resolved "https://artifacts.apextoaster.com/repository/group-npm/picomatch/-/picomatch-2.3.1.tgz#3ba3833733646d9d3e4995946c1365a67fb07a42"
   integrity sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==
@@ -3903,6 +3935,13 @@ qs@^6.10.1:
   version "6.10.1"
   resolved "https://artifacts.apextoaster.com/repository/group-npm/qs/-/qs-6.10.1.tgz#4931482fa8d647a5aab799c5271d2133b981fb6a"
   integrity sha512-M528Hph6wsSVOBiYUnGf+K/7w0hNshs/duGsNXPUCLH5XAqjEtiPGwNONLV0tBH8NoGb0mvD5JubnUTrujKDTg==
+  dependencies:
+    side-channel "^1.0.4"
+
+qs@^6.11.2:
+  version "6.11.2"
+  resolved "https://artifacts.apextoaster.com/repository/group-npm/qs/-/qs-6.11.2.tgz#64bea51f12c1f5da1bc01496f48ffcff7c69d7d9"
+  integrity sha512-tDNIz22aBzCDxLtVH++VnTfzxlfeK5CbqohpSqpJgj1Wg/cQbStNAz3NuqCs5vV+pjBsK4x4pN9HlVh7rcYRiA==
   dependencies:
     side-channel "^1.0.4"
 
