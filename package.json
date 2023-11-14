@@ -55,7 +55,7 @@
     "@gitbeaker/core": "35.8.1",
     "@gitbeaker/node": "35.8.1",
     "@octokit/auth-app": "4.0.13",
-    "@octokit/rest": "19.0.11",
+    "@octokit/rest": "19.0.13",
     "bunyan": "1.8.15",
     "js-yaml": "4.1.0",
     "node-fetch": "^3.0.0",
